@@ -18,18 +18,41 @@
   align-items: center;
   justify-content: space-between;
 }
-.navigation {
-  ul {
-    display: flex;
-    list-style: none;
-
-    li + li {
-      margin-left: 30px;
-    }
-  }
+.menuButton {
+  height: 42px;
+  width: 77px;
+  padding: 5px;
+  border: 1px solid rgb(199, 198, 198);
+  border-radius: 20px;
+  background-color: white;
 }
+.menuButton:hover {
+  box-shadow: 2px 2px 2px rgb(199, 198, 198);
+}
+.menu {
+  position: absolute;
+  width: 150px;
+  height: 160px;
+  top: 70px;
+  right: 40px;
+  padding: 40px;
+  background-color: white;
+  border: 1px solid rgb(199, 198, 198);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgb(219, 218, 218);
+}
+// .navigation {
+//   ul {
+//     display: flex;
+//     list-style: none;
+
+//     li + li {
+//       margin-left: 30px;
+//     }
+//   }
+// }
 .logo {
   display: block;
-  width: 70px;
+  width: 75px;
   object-fit: scale-down;
 }

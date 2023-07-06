@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import logo from '../../assets/images/logo.svg';
+import logoImg from '../../assets/images/logo.svg';
+import listImg from '../../assets/images/list.svg';
 // import stylesMobileDefault from './MobileDefault.module.scss';
-
-export interface ProbsMockComponent {
-  message: string;
-  highlight: boolean;
-}
 
 const HeaderComponent = ({}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -18,16 +14,31 @@ const HeaderComponent = ({}) => {
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const navigate = useNavigate();
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.contents}>
-        <img className={styles.logo} src={logo} onClick={() => navigate('/')} />
-        <nav className={styles.navigation}>
-          <ul>
-            <li>메뉴1</li>
-            <li>메뉴2</li>
+        <img
+          className={styles.logo}
+          src={logoImg}
+          onClick={() => navigate('/')}
+        />
+        <button className={styles.menuButton} onClick={toggleMenu}>
+          <img src={listImg} />
+          임시
+        </button>
+        {isMenuOpen && (
+          <ul className={styles.menu}>
+            <li>회원가입</li>
+            <li>로그인</li>
+            <li>기타</li>
           </ul>
-        </nav>
+        )}
       </div>
     </div>
   );
