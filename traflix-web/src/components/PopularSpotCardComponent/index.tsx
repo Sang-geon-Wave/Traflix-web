@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Card } from 'react-bootstrap';
@@ -27,12 +27,15 @@ const PopularSpotCardComponent: React.FunctionComponent<
     <div className={styles.flip_container} style={containerStyles}>
       <div className={styles.flipper} style={containerStyles}>
         <div className={styles.front} style={containerStyles}>
-          <Card style={containerStyles}>
+          <Card style={containerStyles} className="border-0">
             <Card.Img variant="top" src={imgUrl} />
           </Card>
         </div>
         <div className={styles.back} style={containerStyles}>
-          <Card style={containerStyles}>Test</Card>
+          <Card style={containerStyles} className="border-0">
+            TODO: 별도로 JSX.Element 를 넣을 수 있게 둘 것인지, 아니면 figma에
+            나온 틀 그대로?
+          </Card>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import Carousel from 'react-bootstrap/Carousel';
 import PopularSpotCardComponent from '../../components/PopularSpotCardComponent';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
@@ -15,8 +16,14 @@ const TestPopularSpotCardPage = () => {
 
   return (
     <>
-      <PopularSpotCardComponent imgUrl={svg_test1} />
-      <PopularSpotCardComponent imgUrl={svg_test2} />
+      <Carousel fade className={styles.carousel}>
+        <Carousel.Item>
+          <PopularSpotCardComponent imgUrl={svg_test1} />
+        </Carousel.Item>
+        <Carousel.Item>
+          <PopularSpotCardComponent imgUrl={svg_test2} />
+        </Carousel.Item>
+      </Carousel>
     </>
   );
 };
