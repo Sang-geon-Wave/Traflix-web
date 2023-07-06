@@ -18,7 +18,7 @@ const BannerComponent = () => {
   const intervalValue = 3000;
   return (
     <div className={styles.banner}>
-      <Carousel fade indicators controls={false}>
+      <Carousel fade indicators={false} controls={false}>
         <Carousel.Item interval={intervalValue}>
           <img className="d-block w-100" src={img1} />
         </Carousel.Item>
