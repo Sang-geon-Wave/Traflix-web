@@ -4,6 +4,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import logo from '../../assets/images/logo.svg';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import FooterComponent from '../../components/FooterComponent';
 
 const LandingPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -25,6 +26,62 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Container>
+      <Container>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      </Container>
+      <FooterComponent></FooterComponent>
     </div>
   );
 };
