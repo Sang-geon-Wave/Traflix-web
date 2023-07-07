@@ -26,7 +26,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const year = date.getFullYear();
   const month = ('0' + (1 + date.getMonth())).slice(-2);
   const day = ('0' + date.getDate()).slice(-2);
-  const today = year + '-' + month + '-' + day;
+  const today = year + '-' + month + '-' + day + `T00:00:00`;
 
   const searchPath = () => {
     if (startDate === '') alert('날짜를 골라주세요');
@@ -75,7 +75,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
           </FloatingLabel>
         </div>
         <Form.Control
-          type="date"
+          type="datetime-local"
           min={today}
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
