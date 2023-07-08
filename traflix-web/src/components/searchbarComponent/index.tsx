@@ -28,7 +28,8 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const day = ('0' + date.getDate()).slice(-2);
   const today = year + '-' + month + '-' + day + `T00:00:00`;
 
-  const searchPath = () => {
+  const searchPath = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (startDate === '') alert('날짜를 골라주세요');
     else if (start === destination)
       alert('출발지와 도착지를 다르게 설정해주세요');
@@ -39,7 +40,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.main}>
-      <Form onSubmit={searchPath} className={styles.search}>
+      <Form onSubmit={(e) => searchPath(e)} className={styles.search}>
         <div className={styles.selectStations}>
           <FloatingLabel
             controlId="labelStart"
@@ -53,7 +54,9 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
               className={styles.selectButton}
             >
               {stationList.map((station) => (
-                <option value={station}>{station}</option>
+                <option key={`start_${station}`} value={station}>
+                  {station}
+                </option>
               ))}
             </Form.Select>
           </FloatingLabel>
@@ -69,18 +72,26 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
               className={styles.selectButton}
             >
               {stationList.map((station) => (
-                <option value={station}>{station}</option>
+                <option key={`destination_${station}`} value={station}>
+                  {station}
+                </option>
               ))}
             </Form.Select>
           </FloatingLabel>
         </div>
-        <Form.Control
-          type="datetime-local"
-          min={today}
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          className={styles.calender}
-        />
+        <FloatingLabel
+          controlId="labelDate"
+          label="출발일"
+          className={styles.calenderLabel}
+        >
+          <Form.Control
+            type="datetime-local"
+            min={today}
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className={styles.calender}
+          />
+        </FloatingLabel>
         <Button
           type="submit"
           variant="outline-success"
