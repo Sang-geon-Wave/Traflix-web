@@ -4,7 +4,6 @@
 /* entire container, keeps perspective */
 .flip_container {
   perspective: 1000px;
-  border: none;
 }
 /* flip the pane when hovered */
 .flip_container:hover .flipper,

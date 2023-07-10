@@ -1,4 +1,5 @@
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import PopularSpotCardComponent from '../../components/PopularSpotCardComponent';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
@@ -14,15 +15,39 @@ const TestPopularSpotCardPage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
   return (
     <>
-      <Carousel fade className={styles.carousel}>
-        <Carousel.Item>
+      <Carousel
+        responsive={responsive}
+        itemClass={styles.carousel_item}
+        showDots={true}
+      >
+        <div>
           <PopularSpotCardComponent imgUrl={svg_test1} />
-        </Carousel.Item>
-        <Carousel.Item>
+        </div>
+        <div>
           <PopularSpotCardComponent imgUrl={svg_test2} />
-        </Carousel.Item>
+        </div>
+        <div>
+          <PopularSpotCardComponent imgUrl={svg_test1} />
+        </div>
+        <div>
+          <PopularSpotCardComponent imgUrl={svg_test2} />
+        </div>
       </Carousel>
     </>
   );

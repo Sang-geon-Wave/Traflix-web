@@ -7,11 +7,12 @@ export interface PropsPopularSpotCardComponent {
   imgUrl: string;
   width?: number;
   height?: number;
+  handleClick?: () => any;
 }
 
 const PopularSpotCardComponent: React.FunctionComponent<
   PropsPopularSpotCardComponent
-> = ({ imgUrl, width = 579, height = 384 }) => {
+> = ({ imgUrl, width = 579, height = 384, handleClick }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -24,7 +25,11 @@ const PopularSpotCardComponent: React.FunctionComponent<
   };
 
   return (
-    <div className={styles.flip_container} style={containerStyles}>
+    <div
+      className={styles.flip_container}
+      style={containerStyles}
+      onClick={handleClick}
+    >
       <div className={styles.flipper} style={containerStyles}>
         <div className={styles.front} style={containerStyles}>
           <Card style={containerStyles} className="border-0">
@@ -33,8 +38,7 @@ const PopularSpotCardComponent: React.FunctionComponent<
         </div>
         <div className={styles.back} style={containerStyles}>
           <Card style={containerStyles} className="border-0">
-            TODO: 별도로 JSX.Element 를 넣을 수 있게 둘 것인지, 아니면 figma에
-            나온 틀 그대로?
+            {/*TODO: You can customize this section.*/}
           </Card>
         </div>
       </div>
