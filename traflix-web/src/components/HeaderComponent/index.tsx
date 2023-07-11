@@ -33,11 +33,11 @@ const HeaderComponent = ({}) => {
           임시
         </button>
         {isMenuOpen && (
-          <ul className={styles.menu}>
-            <li>회원가입</li>
-            <li>로그인</li>
-            <li>기타</li>
-          </ul>
+          <div className={styles.menu}>
+            <div>회원가입</div>
+            <div>로그인</div>
+            <div>기타</div>
+          </div>
         )}
       </div>
     </div>
