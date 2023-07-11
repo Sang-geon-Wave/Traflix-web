@@ -2,41 +2,39 @@
 @import '../../assets/scsses/config';
 
 /* entire container, keeps perspective */
-.flip_container {
-  perspective: 1000px;
-}
-/* flip the pane when hovered */
-.flip_container:hover .flipper,
-.flip_container.hover .flipper {
-  transform: rotateY(180deg);
-}
 
-/* flip speed goes here */
-.flipper {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-
-  position: relative;
+.card {
+  width: 350px;
+  height: 250px;
+  overflow: hidden;
+  padding-bottom: 30px;
+  border-radius: 30px;
 }
 
-/* hide back of pane during swap */
-.front,
-.back {
-  backface-visibility: hidden;
-
-  position: absolute;
-  top: 0;
-  left: 0;
+.card img {
+  width: 350px;
+  height: 250px;
 }
 
-/* front pane, placed above back */
-.front {
-  z-index: 2;
-  /* for firefox 31 */
-  transform: rotateY(0deg);
+.card .caption {
+  top: 250px;
+  width: 350px;
+  height: 250px;
+  background: rgba($color: gray, $alpha: 0.7);
+  transition: all 0.6s ease-in-out;
+  z-index: 10;
 }
-
-/* back, initially hidden pane */
-.back {
-  transform: rotateY(180deg);
+.card li:hover .caption {
+  transform: translateY(-250px);
+}
+.card .caption h2 {
+  padding-top: 50px;
+  padding-left: 20px;
+  color: black;
+  text-align: left;
+}
+.card .caption p {
+  padding-left: 20px;
+  color: black;
+  text-align: left;
 }
