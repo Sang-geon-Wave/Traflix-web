@@ -1,17 +1,14 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import { CardDataType } from '../../types/CardCarouselDataType';
 
-export interface PropsPopularSpotCardComponent {
-  imgUrl: string;
-  place: string;
-  addr: string;
-  info: string;
-}
-
-const PopularSpotCardComponent: React.FunctionComponent<
-  PropsPopularSpotCardComponent
-> = ({ imgUrl, place, addr, info }) => {
+const PopularSpotCardComponent: React.FunctionComponent<CardDataType> = ({
+  imgUrl,
+  place,
+  addr,
+  info,
+}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -24,7 +21,7 @@ const PopularSpotCardComponent: React.FunctionComponent<
       <li>
         <img src={imgUrl} />
         <div className={styles.caption}>
-          <h2>{place}</h2>
+          <h3>{place}</h3>
           <p>{addr}</p>
           <p>{info}</p>
         </div>
