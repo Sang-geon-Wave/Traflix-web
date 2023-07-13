@@ -1,0 +1,63 @@
+@import '../../assets/scsses/config';
+
+.select {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 700px;
+  height: 400px;
+  background-color: white;
+
+  z-index: 999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.close {
+  position: absolute;
+  border: 0px;
+  background-color: white;
+  right: 10px;
+  top: 10px;
+}
+.modalBackground {
+  display: flex;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.title {
+  width: 400px;
+  height: 40px;
+  text-align: center;
+  font-size: 25px;
+
+  margin-left: 50%;
+  transform: translate(-50%);
+  margin-top: 30px;
+}
+.subTitle {
+  width: 200px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+.cardBox {
+  height: 200px;
+  margin-top: 20px;
+}
+.buttonBox {
+  width: 600px;
+  height: 30px;
+  margin-left: 50%;
+  transform: translate(-50%);
+  margin-top: 20px;
+}
+.nextButton {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
