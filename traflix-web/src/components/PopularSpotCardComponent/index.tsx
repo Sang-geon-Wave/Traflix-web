@@ -1,6 +1,7 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import stylesMobileDefault from './MobileDefault.module.scss';
 import { CardDataType } from '../../types/CardCarouselDataType';
 
 const PopularSpotCardComponent: React.FunctionComponent<CardDataType> = ({
@@ -14,18 +15,16 @@ const PopularSpotCardComponent: React.FunctionComponent<CardDataType> = ({
   }));
   const isDesktop = screenClass === 'xl';
 
-  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   return (
     <div className={styles.card}>
-      <li>
-        <img src={imgUrl} />
-        <div className={styles.caption}>
-          <h3>{place}</h3>
-          <p>{addr}</p>
-          <p>{info}</p>
-        </div>
-      </li>
+      <img src={imgUrl} />
+      <div className={styles.caption}>
+        <h3>{place}</h3>
+        <p>{addr}</p>
+        <p>{info}</p>
+      </div>
     </div>
   );
 };

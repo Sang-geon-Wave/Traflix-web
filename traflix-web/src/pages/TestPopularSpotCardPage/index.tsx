@@ -14,7 +14,11 @@ const TestPopularSpotCardPage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  return <CardCarouselComponent />;
+  return (
+    <div className={styles.test}>
+      <CardCarouselComponent />
+    </div>
+  );
 };
 
 export default TestPopularSpotCardPage;
