@@ -3,9 +3,9 @@ import useRootData from '../../hooks/useRootData';
 import MockComponent from '../../components/MockComponent';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
-import HeaderComponent from '../../components/HeaderComponent';
+import SelectComponent from '../../components/SelectComponent';
 
-const TestHeaderPage = () => {
+const TestSelectPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -13,7 +13,7 @@ const TestHeaderPage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  return <HeaderComponent />;
+  return <SelectComponent />;
 };
 
-export default TestHeaderPage;
+export default TestSelectPage;

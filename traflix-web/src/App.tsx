@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
-import TestHeaderPage from './pages/MockPage copy';
+import TestSelectPage from './pages/MockPage copy';
 
 const App = () => (
   <Router>
@@ -10,7 +10,7 @@ const App = () => (
       <Route path="/mock" element={<MockPage />} />
       <Route path="/" element={<LandingPage />} />
 
-      <Route path="/TestHeaderPage" element={<TestHeaderPage />} />
+      <Route path="/TestSelectPage" element={<TestSelectPage />} />
     </Routes>
   </Router>
 );
