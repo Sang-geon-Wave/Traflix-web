@@ -22,6 +22,7 @@ const createStore = () => {
     changeAlertModalVisibility(data: any) {
       appStore.alertModalVisibility.set(data);
     },
+
     changeAlertModalContent(data: any) {
       appStore.alertModalContent.set(data);
       appStore.alertModalVisibility.set(!!data);
