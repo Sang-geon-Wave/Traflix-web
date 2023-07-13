@@ -3,10 +3,11 @@
 .card {
   height: 30vw;
   width: 40vw;
-  min-width: 330px;
   overflow: hidden;
   border-radius: 30px;
   margin: 0 1vw 0 1vw;
+  display: flex;
+  justify-content: center;
 }
 
 .card img {
@@ -17,7 +18,7 @@
   position: absolute;
   top: 18vw;
   padding-left: 3vw;
-  width: auto;
+  width: 40vw;
   height: auto;
 }
 .card .caption h3 {

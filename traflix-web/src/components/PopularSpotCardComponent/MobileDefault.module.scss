@@ -1,11 +1,13 @@
 @import '../../assets/scsses/config';
 
 .card {
-  width: auto;
-  height: auto;
+  height: 60vw;
+  width: 90vw;
   overflow: hidden;
   border-radius: 30px;
   margin: 0 1vw 0 1vw;
+  display: flex;
+  justify-content: center;
 }
 
 .card img {
@@ -14,9 +16,9 @@
 
 .card .caption {
   position: absolute;
-  top: 18vw;
+  top: 40vw;
   padding-left: 3vw;
-  width: auto;
+  width: 90vw;
   height: auto;
 }
 .card .caption h3 {

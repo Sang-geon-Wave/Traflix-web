@@ -3,7 +3,6 @@
 .container {
   height: 30vw;
   width: 300vw;
-  padding-left: 4vw;
 }
 
 .carousel {
@@ -11,6 +10,7 @@
   transition: all 1s;
   display: flex;
   flex-direction: row;
+  padding: 0 0 0 8vw;
 }
 .container button {
   position: absolute;

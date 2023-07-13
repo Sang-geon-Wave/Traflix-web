@@ -57,7 +57,10 @@ const CardCarouselComponent = () => {
         carouselRef.current.style.transform = `translateX(-${
           currIndex * 42
         }vw)`;
-      else carouselRef.current.style.transform = `translateX(-${currIndex}00%)`;
+      else
+        carouselRef.current.style.transform = `translateX(-${
+          currIndex * 92
+        }vw)`;
     }
   }, [currIndex]);
 
@@ -73,7 +76,8 @@ const CardCarouselComponent = () => {
     const newIndex = currIndex - 1;
 
     if (newIndex === -1) {
-      moveToNthSlide(cardData.length - 2);
+      if (isDesktop) moveToNthSlide(cardData.length - 2);
+      if (!isDesktop) moveToNthSlide(cardData.length - 1);
     }
 
     setCurrIndex((prev) => prev - 1);
@@ -84,9 +88,8 @@ const CardCarouselComponent = () => {
   const nextButtonClicked = () => {
     const newIndex = currIndex + 1;
 
-    if (newIndex === cardData.length - 1) {
-      moveToNthSlide(0);
-    }
+    if (isDesktop && newIndex === cardData.length - 1) moveToNthSlide(0);
+    if (!isDesktop && newIndex === cardData.length) moveToNthSlide(0);
 
     setCurrIndex((prev) => prev + 1);
     if (carouselRef.current !== null) {
@@ -101,9 +104,14 @@ const CardCarouselComponent = () => {
     const currTouchX = e.nativeEvent.changedTouches[0].clientX;
 
     if (carouselRef.current !== null) {
-      carouselRef.current.style.transform = `translateX(calc(-${
-        currIndex * 42
-      }vw - ${(touchStartX - currTouchX) * 2 || 0}px)))`;
+      // if (isDesktop)
+      //   carouselRef.current.style.transform = `translateX(calc(-${
+      //     currIndex * 42
+      //   }vw`; // - ${touchStartX - currTouchX || 0}px)))`;
+      // if (!isDesktop)
+      //   carouselRef.current.style.transform = `translateX(calc(-${
+      //     currIndex * 92
+      //   }vw`; // - ${touchStartX - currTouchX || 0}px)))`;
     }
   };
 
@@ -123,6 +131,7 @@ const CardCarouselComponent = () => {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      // onScroll={}
     >
       <button className={styles.prev} onClick={() => prevButtonClicked()}>
         &lang;
