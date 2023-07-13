@@ -3,12 +3,12 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-export interface ProbsMockComponent {
+export interface PropsMockComponent {
   message: string;
   highlight: boolean;
 }
 
-const MockComponent: React.FunctionComponent<ProbsMockComponent> = ({
+const MockComponent: React.FunctionComponent<PropsMockComponent> = ({
   message,
   highlight,
 }) => {

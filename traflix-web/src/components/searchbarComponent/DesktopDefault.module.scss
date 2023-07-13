@@ -1,0 +1,41 @@
+@import '../../assets/scsses/config';
+
+.main {
+  width: 100%;
+  padding: 10px 10%;
+}
+.search {
+  border: 1px solid black transparent;
+  border-radius: 50px;
+  box-shadow: 2px 3px 5px 0px gray;
+  padding: 10px;
+}
+.selectStations {
+  width: 50%;
+}
+.selectLabel {
+  float: left;
+  margin-right: 1%;
+  width: 49%;
+  height: 58px;
+}
+.selectButton {
+  border: none !important;
+  border-radius: 50px !important;
+}
+.calenderLabel {
+  float: left;
+  margin-right: 1%;
+  width: 34% !important;
+  height: 58px !important;
+}
+.calender {
+  border: none !important;
+  border-radius: 50px !important;
+  user-select: none !important;
+}
+.button {
+  width: 15%;
+  height: 58px;
+  border-radius: 50px !important;
+}
