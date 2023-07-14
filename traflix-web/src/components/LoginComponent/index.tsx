@@ -28,8 +28,8 @@ const LoginComponent = () => {
     setLoginErr(false);
     setUsrPW(event.currentTarget.value);
   };
-  const [showPW, setShowPW] = useState(false);
 
+  const [showPW, setShowPW] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
 
   const tryLogin = (event: React.FormEvent<HTMLFormElement>) => {
