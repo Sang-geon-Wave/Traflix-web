@@ -1,0 +1,32 @@
+.main {
+  width: 100%;
+  border: 1px solid black transparent;
+  border-radius: 50px;
+  box-shadow: 2px 3px 5px 0px gray;
+  padding: 3% 10%;
+  text-align: center;
+}
+.form {
+  text-align: left !important;
+}
+.formButton {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.errMessage {
+  --bs-text-opacity: 1;
+  color: red !important;
+}
+.kakaoButton {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: yellow !important;
+}
+.kakaoButton:hover {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: rgb(223, 223, 30) !important;
+}
+.signUpLink {
+  color: black;
+}
