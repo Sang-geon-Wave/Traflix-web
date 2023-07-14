@@ -3,6 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { Link } from 'react-router-dom';
 import eyeFill from '../../assets/images/eye-fill.svg';
 import eyeSlashFill from '../../assets/images/eye-slash-fill.svg';
@@ -12,7 +13,7 @@ const LoginComponent = () => {
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
-  // eye-fill eye-slash-fill
+
   const [loginErrType, setLoginErrType] = useState('');
   const [loginErr, setLoginErr] = useState(false);
 
@@ -62,21 +63,22 @@ const LoginComponent = () => {
             onChange={(e) => inputID(e)}
           />
         </Form.Group>
-        <div>
-          <Form.Group className="mb-3" controlId="formPW">
-            <Form.Label>비밀번호</Form.Label>
+        <Form.Group className="mb-3" controlId="formPW">
+          <Form.Label>비밀번호</Form.Label>
+          <InputGroup className={styles.groupInput}>
             <Form.Control
               type={showPW ? 'text' : 'password'}
               placeholder="비밀번호"
               value={usrPW}
               onChange={(e) => inputPW(e)}
+              className={styles.nonBorder}
             />
             <img
               src={showPW ? eyeFill : eyeSlashFill}
               onClick={() => setShowPW(!showPW)}
-            ></img>
-          </Form.Group>
-        </div>
+            />
+          </InputGroup>
+        </Form.Group>
         <Form.Group className="mb-3" controlId="formAuto">
           <Form.Check
             onChange={() => setAutoLogin(!autoLogin)}

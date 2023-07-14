@@ -1,3 +1,6 @@
+// @import url('../../assets/images/eye-slash-fill.svg');
+$eyeFill: url('../../assets/images/eye-slash-fill.svg');
+
 .main {
   width: 100%;
   border: 1px solid black transparent;
@@ -16,6 +19,21 @@
 .errMessage {
   --bs-text-opacity: 1;
   color: red !important;
+}
+.groupInput {
+  display: block;
+  width: 100%;
+  padding-right: 0.75rem;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #dee2e6;
+  appearance: none;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.nonBorder {
+  border: none !important;
 }
 .kakaoButton {
   width: 100%;
