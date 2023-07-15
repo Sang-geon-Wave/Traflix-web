@@ -16,7 +16,7 @@ const LoginModalPage = () => {
     }));
   const isDesktop = screenClass === 'xl';
 
-  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
+  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return (
     <>
@@ -24,13 +24,13 @@ const LoginModalPage = () => {
         Launch demo modal
       </Button>
 
-      <Modal show={loginShow} onHide={handleLoginClose} className={styles.main}>
-        <Modal.Header closeButton>
-          <Modal.Title></Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <LoginComponent />
-        </Modal.Body>
+      <Modal show={loginShow} onHide={handleLoginClose} size="lg">
+        <Modal.Header closeButton />
+        <div className={styles.modal}>
+          <Modal.Body>
+            <LoginComponent />
+          </Modal.Body>
+        </div>
       </Modal>
     </>
   );

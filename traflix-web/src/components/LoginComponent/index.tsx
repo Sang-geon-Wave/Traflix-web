@@ -7,6 +7,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { Link } from 'react-router-dom';
 import eyeFill from '../../assets/images/eye-fill.svg';
 import eyeSlashFill from '../../assets/images/eye-slash-fill.svg';
+import traflixLogo from '../../assets/images/logo_traflix_tmp_color.svg';
+import kakaoSymbol from '../../assets/images/kakao_symbol.svg';
 import kakao from '../../assets/images/kakao_login_large_wide.png';
 
 const LoginComponent = () => {
@@ -55,7 +57,7 @@ const LoginComponent = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.main}>
-      <h1>TRAFLIX</h1>
+      <img src={traflixLogo} className={styles.logo} />
       <h2>로그인</h2>
       <Form onSubmit={(e) => tryLogin(e)} className={styles.form}>
         <div className={styles.title}></div>
@@ -99,12 +101,10 @@ const LoginComponent = () => {
           로그인
         </Button>
       </Form>
-      <input
-        type="image"
-        src={kakao}
-        className={styles.kakaoButton}
-        onClick={kakaoLogin}
-      />
+      <Button className={styles.kakaoButton} onClick={kakaoLogin}>
+        <img src={kakaoSymbol} className={styles.kakaoSymbol} />
+        Login with Kakao
+      </Button>
       <div>
         계정이 없으신가요?
         <Link to="/mock" title="회원가입" className={styles.signUpLink}>
