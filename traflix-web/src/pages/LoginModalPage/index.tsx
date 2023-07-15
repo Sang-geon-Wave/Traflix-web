@@ -7,25 +7,24 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 const LoginModalPage = () => {
-  const { screenClass, show, handleShow, handleClose } = useRootData(
-    ({ appStore, loginModal }) => ({
+  const { screenClass, loginShow, handleLoginShow, handleLoginClose } =
+    useRootData(({ appStore, loginModal }) => ({
       screenClass: appStore.screenClass.get(),
-      show: loginModal.show.get(),
-      handleShow: loginModal.handleShow,
-      handleClose: loginModal.handleClose,
-    }),
-  );
+      loginShow: loginModal.loginShow.get(),
+      handleLoginShow: loginModal.handleLoginShow,
+      handleLoginClose: loginModal.handleLoginClose,
+    }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleLoginShow}>
         Launch demo modal
       </Button>
 
-      <Modal show={show} onHide={handleClose} className={styles.main}>
+      <Modal show={loginShow} onHide={handleLoginClose} className={styles.main}>
         <Modal.Header closeButton>
           <Modal.Title></Modal.Title>
         </Modal.Header>

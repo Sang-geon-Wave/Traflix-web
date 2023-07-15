@@ -7,6 +7,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { Link } from 'react-router-dom';
 import eyeFill from '../../assets/images/eye-fill.svg';
 import eyeSlashFill from '../../assets/images/eye-slash-fill.svg';
+import kakao from '../../assets/images/kakao_login_large_wide.png';
 
 const LoginComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -45,6 +46,10 @@ const LoginComponent = () => {
       }`,
     );
     setAutoLogin(false);
+  };
+
+  const kakaoLogin = async () => {
+    alert('kakao');
   };
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -94,9 +99,12 @@ const LoginComponent = () => {
           로그인
         </Button>
       </Form>
-      <Button variant="warning" className={styles.kakaoButton}>
-        Login with kakao
-      </Button>
+      <input
+        type="image"
+        src={kakao}
+        className={styles.kakaoButton}
+        onClick={kakaoLogin}
+      />
       <div>
         계정이 없으신가요?
         <Link to="/mock" title="회원가입" className={styles.signUpLink}>

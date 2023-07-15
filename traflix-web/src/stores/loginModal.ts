@@ -2,13 +2,13 @@ import { observable } from 'mobx';
 
 const createStore = () => {
   const loginModal = {
-    show: observable.box(false),
+    loginShow: observable.box(false),
 
-    handleShow() {
-      loginModal.show.set(true);
+    handleLoginShow() {
+      loginModal.loginShow.set(true);
     },
-    handleClose() {
-      loginModal.show.set(false);
+    handleLoginClose() {
+      loginModal.loginShow.set(false);
     },
   };
 
