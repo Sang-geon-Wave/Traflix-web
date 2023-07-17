@@ -4,9 +4,9 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Carousel from 'react-bootstrap/Carousel';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-import img1 from '../../../public/castle.png';
-import img2 from '../../../public/dongdaemun.png';
-import img3 from '../../../public/jeju.png';
+import img1 from '../../assets/images/castle.png';
+import img2 from '../../assets/images/dongdaemun.png';
+import img3 from '../../assets/images/jeju.png';
 
 const BannerComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
