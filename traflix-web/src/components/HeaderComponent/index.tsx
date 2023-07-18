@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import logoImg from '../../assets/images/logo.svg';
+import logoImg from '../../assets/images/logo_traflix_tmp_white.svg';
 import listImg from '../../assets/images/list.svg';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
