@@ -58,7 +58,6 @@ module.exports = {
       filename: 'index.html',
       favicon: './public/favicon.ico',
       manifest: './public/manifest.json',
-      kakao_map_api: `dapi.kakao.com/v2/maps/sdk.js?appkey=${config.kakao_map_api}&libraries=services,clusterer`,
     }),
     new ESLintPlugin(),
     new webpack.DefinePlugin({
