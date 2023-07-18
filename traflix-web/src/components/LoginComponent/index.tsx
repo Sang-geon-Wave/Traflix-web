@@ -4,17 +4,23 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import eyeFill from '../../assets/images/eye-fill.svg';
 import eyeSlashFill from '../../assets/images/eye-slash-fill.svg';
 import traflixLogo from '../../assets/images/logo_traflix_tmp_color.svg';
 import kakaoSymbol from '../../assets/images/kakao_symbol.svg';
-import kakao from '../../assets/images/kakao_login_large_wide.png';
 
 const LoginComponent = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, kakaoIsLogin, kakaoLogin, kakaoRefresh } = useRootData(
+    ({ appStore, kakaoStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      kakaoIsLogin: kakaoStore.kakaoIsLogin.get(),
+      kakaoLogin: kakaoStore.kakaoLogin,
+      kakaoRefresh: kakaoStore.kakaoRefresh,
+    }),
+  );
+
+  const navigate = useNavigate();
   const isDesktop = screenClass === 'xl';
 
   const [loginErrType, setLoginErrType] = useState('');
@@ -26,6 +32,7 @@ const LoginComponent = () => {
     setUsrID(event.currentTarget.value);
   };
 
+  // f8ae006a1b9a4181f97ab6017c8bd095
   const [usrPW, setUsrPW] = useState('');
   const inputPW = (event: any) => {
     setLoginErr(false);
@@ -50,8 +57,13 @@ const LoginComponent = () => {
     setAutoLogin(false);
   };
 
-  const kakaoLogin = async () => {
-    alert('kakao');
+  const tryKakaoLogin = async () => {
+    const REST_API_KEY = process.env.REST_API_KEY;
+    const REDIRECT_URI = process.env.REDIRECT_URI;
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    window.location.href = kakaoURL;
+    const code = new URL(document.location.toString()).searchParams.get('code');
   };
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -101,7 +113,7 @@ const LoginComponent = () => {
           로그인
         </Button>
       </Form>
-      <Button className={styles.kakaoButton} onClick={kakaoLogin}>
+      <Button className={styles.kakaoButton} onClick={tryKakaoLogin}>
         <img src={kakaoSymbol} className={styles.kakaoSymbol} />
         Login with Kakao
       </Button>
