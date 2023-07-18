@@ -1,0 +1,32 @@
+@import '../../assets/scsses/config';
+
+.card {
+  height: 30vw;
+  width: 40vw;
+  overflow: hidden;
+  border-radius: 15px;
+  margin: 0 1vw 0 1vw;
+  display: flex;
+  justify-content: center;
+}
+
+.card img {
+  height: 100%;
+}
+
+.card .caption {
+  position: absolute;
+  top: 18vw;
+  padding-left: 3vw;
+  width: 40vw;
+  height: auto;
+}
+.card .caption h3 {
+  color: white;
+  text-align: left;
+}
+.card .caption p {
+  margin: 0;
+  color: white;
+  text-align: left;
+}
