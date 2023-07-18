@@ -1,0 +1,67 @@
+@import '../../assets/scsses/config';
+
+.main {
+  width: 100%;
+  text-align: center;
+}
+.main span {
+  color: red !important;
+}
+.logo {
+  width: 40%;
+  margin-bottom: 20px;
+}
+.form {
+  margin-top: 20px;
+  text-align: left !important;
+}
+.formButton {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.errMessage {
+  --bs-text-opacity: 1;
+  color: red !important;
+}
+.groupInput {
+  display: block;
+  width: 100%;
+  padding-right: 0.75rem;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #dee2e6;
+  appearance: none;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.nonBorder {
+  border: none !important;
+}
+.messageBlock {
+  color: red !important;
+}
+.kakao {
+  width: 100% !important;
+  background-color: #fee500 !important;
+  border-radius: 12px !important;
+  border-color: #fee500 !important;
+  margin-bottom: 10px !important;
+  padding: 0.75rem 0.375rem;
+  text-align: center !important;
+  vertical-align: middle;
+}
+.kakaoSymbol {
+  width: 1rem;
+  margin-right: 2%;
+}
+.kakaoButton {
+  width: 100% !important;
+  background-color: #fee500 !important;
+  border-color: #fee500 !important;
+  margin-bottom: 25px !important;
+  color: black !important;
+}
+.signUpLink {
+  color: black;
+}

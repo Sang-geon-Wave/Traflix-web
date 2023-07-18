@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
 import useRootData from './hooks/useRootData';
+import SignupTestPage from './pages/SignupTestPage';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -26,6 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/mock" element={<MockPage />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/signupTest" element={<SignupTestPage />} />
       </Routes>
     </Router>
   );
