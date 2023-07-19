@@ -15,6 +15,7 @@ import svg_test1 from '../../assets/images/popular_spot_1.svg';
 import svg_test2 from '../../assets/images/popular_spot_2.svg';
 import png_test1 from '../../assets/images/castle.png';
 import png_test2 from '../../assets/images/dongdaemun.png';
+import introPhone from '../../assets/images/introPhone.png';
 
 const LandingPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -74,7 +75,11 @@ const LandingPage = () => {
             <br />
             최적의 경로로 이동해요
           </h3>
-          <div className={styles.introImgBox}></div>
+          <div className={styles.introImgBox}>
+            <img src={introPhone} className={styles.introPhone1} />
+            <img src={introPhone} className={styles.introPhone2} />
+            <img src={introPhone} className={styles.introPhone3} />
+          </div>
         </div>
       </Row>
       <FooterComponent />

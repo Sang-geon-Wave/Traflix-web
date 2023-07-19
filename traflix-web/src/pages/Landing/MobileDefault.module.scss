@@ -30,7 +30,20 @@
   padding-bottom: 3vw;
 }
 .introImgBox {
-  height: 60vw;
-  width: 70vw;
-  background-color: white;
+  position: relative;
+  height: 40vw;
+  width: 40vw;
+  margin: 0 10vw;
+}
+.introImgBox img {
+  position: absolute;
+  height: 30vw;
+}
+.introImgBox .introPhone2 {
+  top: 8vw;
+  left: 7vw;
+}
+.introImgBox .introPhone3 {
+  top: 1vw;
+  left: 16vw;
 }
