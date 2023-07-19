@@ -2,32 +2,31 @@ import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
-import logo from '../../assets/images/logo.svg';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { CardDataType } from '../../types/CardCarouselDataType';
 
-const LandingPage = () => {
+const PopularSpotCardComponent: React.FunctionComponent<CardDataType> = ({
+  imgUrl,
+  place,
+  addr,
+  info,
+}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
-
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   return (
-    <div className={styles.app}>
-      <Container>
-        <Row>
-          <Col>
-            <h1>랜딩페이지</h1>
-          </Col>
-          <Col>
-            <Button variant="primary">테스트</Button>
-          </Col>
-        </Row>
-      </Container>
+    <div className={styles.card}>
+      <img src={imgUrl} />
+      <div className={styles.caption}>
+        <h3>{place}</h3>
+        <p>{addr}</p>
+        <p>{info}</p>
+      </div>
     </div>
   );
 };
 
-export default LandingPage;
+export default PopularSpotCardComponent;
