@@ -24,7 +24,7 @@ const DirectionPage = () => {
     <div className={styles.app}>
       <Row className="gx-0">
         <Col className="bg-light" lg={3}>
-          <Row>
+          <Row className="gx-0 w-100">
             <Col className="bg-success py-2">
               <img src={logoWhite} className="p-2"></img>
             </Col>
