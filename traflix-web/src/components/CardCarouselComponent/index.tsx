@@ -48,7 +48,7 @@ const CardCarouselComponent: React.FunctionComponent<
 
     if (touchStartX > touchEndX) {
       nextButtonClicked();
-    } else if (touchStartX > touchEndX) {
+    } else if (touchStartX < touchEndX) {
       prevButtonClicked();
     }
   };
@@ -75,6 +75,7 @@ const CardCarouselComponent: React.FunctionComponent<
       >
         {cardData.map((cardData) => (
           <PopularSpotCardComponent
+            key={cardData.place}
             imgUrl={cardData.imgUrl}
             place={cardData.place}
             addr={cardData.addr}
