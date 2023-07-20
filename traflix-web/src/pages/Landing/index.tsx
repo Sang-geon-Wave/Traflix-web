@@ -16,6 +16,7 @@ import svg_test2 from '../../assets/images/popular_spot_2.svg';
 import png_test1 from '../../assets/images/castle.png';
 import png_test2 from '../../assets/images/dongdaemun.png';
 import introPhone from '../../assets/images/introPhone.png';
+import bannerstring from '../../assets/images/bannerstring.png';
 
 const LandingPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -59,6 +60,7 @@ const LandingPage = () => {
       <Row>
         <BannerComponent />
         <div className={styles.searchBarArea}>
+          <img src={bannerstring} />
           <SearchbarComponent stationList={stationList} />
         </div>
       </Row>
