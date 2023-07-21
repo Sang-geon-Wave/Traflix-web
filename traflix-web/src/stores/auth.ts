@@ -30,6 +30,17 @@ const createStore = () => {
         return false;
       }
     },
+    async kakaoLogin(code: string) {
+      try {
+        const { data } = await api.post('/kakao/login', { code: code });
+        const { access_token: accessToken } = data;
+        authStore.changeAccessToken(accessToken);
+        return true;
+      } catch (err) {
+        authStore.changeAccessToken(null);
+        return false;
+      }
+    },
     async refresh() {
       try {
         const { data } = await api.post('/auth/refresh');

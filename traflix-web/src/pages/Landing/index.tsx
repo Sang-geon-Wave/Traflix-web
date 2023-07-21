@@ -6,9 +6,12 @@ import logo from '../../assets/images/logo.svg';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 
 const LandingPage = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, handleLoginShow } = useRootData(
+    ({ appStore, loginModal }) => ({
+      screenClass: appStore.screenClass.get(),
+      handleLoginShow: loginModal.handleLoginShow,
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
@@ -21,7 +24,9 @@ const LandingPage = () => {
             <h1>랜딩페이지</h1>
           </Col>
           <Col>
-            <Button variant="primary">테스트</Button>
+            <Button variant="primary" onClick={handleLoginShow}>
+              테스트
+            </Button>
           </Col>
         </Row>
       </Container>

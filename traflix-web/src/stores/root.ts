@@ -1,17 +1,17 @@
 import appStore from './app';
 import loginModal from './loginModal';
-import kakaoStore from './kakao';
+import authStore from './auth';
 
 export interface TypeRootStore {
   appStore: typeof appStore;
   loginModal: typeof loginModal;
-  kakaoStore: typeof kakaoStore;
+  authStore: typeof authStore;
 }
 
 const createRootStore = () => ({
   appStore,
   loginModal,
-  kakaoStore,
+  authStore,
 });
 
 export default createRootStore;
