@@ -3,8 +3,8 @@ import useRootData from '../../hooks/useRootData';
 import { useNavigate } from 'react-router-dom';
 
 const Redirection = () => {
-  const { kakaoLogin } = useRootData(({ authStore }) => ({
-    kakaoLogin: authStore.kakaoLogin,
+  const { login } = useRootData(({ authStore }) => ({
+    login: authStore.login,
   }));
 
   const code = new URL(window.location.href).searchParams.get('code');
@@ -12,7 +12,7 @@ const Redirection = () => {
 
   useEffect(() => {
     if (code) {
-      kakaoLogin(code);
+      login(code);
       navigate('/login');
     } else alert('error');
   }, []);

@@ -25,10 +25,6 @@ const LoginComponent = () => {
   }, []);
 
   useEffect(() => {
-    kakaoRefresh();
-  }, []);
-
-  useEffect(() => {
     if (isLogin) {
       navigate('/');
     }
@@ -66,7 +62,7 @@ const LoginComponent = () => {
       return;
     } else setLoginErr(false);
 
-    if (await login(usrID, usrPW, autoLogin)) {
+    if (await login(null, usrID, usrPW, autoLogin)) {
       alert(`환엽합니다 ${usrID}님`);
       navigate('/');
     } else {
@@ -79,7 +75,6 @@ const LoginComponent = () => {
   const REDIRECT_URI = config.redirectUrl;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const tryKakaoLogin = async () => {
-    console.log(REST_API_KEY);
     window.location.href = kakaoURL;
   };
 

@@ -15,24 +15,19 @@ const createStore = () => {
       authStore.isLogin.set(data);
     },
 
-    async login(userId: string, userPw: string, autologin: boolean = false) {
+    async login(
+      code: string | null,
+      userId: string = '',
+      userPw: string = '',
+      autologin: boolean = false,
+    ) {
       try {
         const { data } = await api.post('/auth/login', {
+          code: code,
           user_id: userId,
           user_pw: userPw,
           autologin: autologin,
         });
-        const { access_token: accessToken } = data;
-        authStore.changeAccessToken(accessToken);
-        return true;
-      } catch (err) {
-        authStore.changeAccessToken(null);
-        return false;
-      }
-    },
-    async kakaoLogin(code: string) {
-      try {
-        const { data } = await api.post('/kakao/login', { code: code });
         const { access_token: accessToken } = data;
         authStore.changeAccessToken(accessToken);
         return true;
