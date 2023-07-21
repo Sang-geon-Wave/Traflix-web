@@ -7,12 +7,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 const signupTestPage = () => {
-  const { screenClass, signupShow, handleLoginShow, handleLoginClose } =
+  const { screenClass, signupShow, handleSignupShow, handleSignupClose } =
     useRootData(({ appStore, signupModal }) => ({
       screenClass: appStore.screenClass.get(),
       signupShow: signupModal.signupShow.get(),
-      handleLoginShow: signupModal.handleLoginShow,
-      handleLoginClose: signupModal.handleLoginClose,
+      handleSignupShow: signupModal.handleSignupShow,
+      handleSignupClose: signupModal.handleSignupClose,
     }));
   const isDesktop = screenClass === 'xl';
 
@@ -20,11 +20,11 @@ const signupTestPage = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleLoginShow}>
+      <Button variant="primary" onClick={handleSignupShow}>
         Launch demo modal
       </Button>
 
-      <Modal show={signupShow} onHide={handleLoginClose} size="lg">
+      <Modal show={signupShow} onHide={handleSignupClose} size="lg">
         <Modal.Header closeButton />
         <div className={styles.modal}>
           <Modal.Body>

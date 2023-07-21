@@ -4,10 +4,10 @@ const createStore = () => {
   const signupModal = {
     signupShow: observable.box(false),
 
-    handleLoginShow() {
+    handleSignupShow() {
       signupModal.signupShow.set(true);
     },
-    handleLoginClose() {
+    handleSignupClose() {
       signupModal.signupShow.set(false);
     },
   };

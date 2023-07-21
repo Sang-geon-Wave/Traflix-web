@@ -5,14 +5,12 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { Link } from 'react-router-dom';
 import { UserSignupType } from '../../types/UserType';
+import HttpStatus from 'http-status-codes';
 
 import eyeFill from '../../assets/images/eye-fill.svg';
 import eyeSlashFill from '../../assets/images/eye-slash-fill.svg';
 import traflixLogo from '../../assets/images/logo_traflix_tmp_color.svg';
-import kakaoSymbol from '../../assets/images/kakao_symbol.svg';
-import kakao from '../../assets/images/kakao_login_large_wide.png';
 
 const enum SignupErrorMessages {
   IllegalID = '아이디는 5~16자의 영문 소문자와 숫자로 이루어져야 합니다',
@@ -27,9 +25,13 @@ const enum SignupErrorMessages {
 }
 
 const SignupComponent = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, signup, handleSignupClose } = useRootData(
+    ({ appStore, authStore, signupModal }) => ({
+      screenClass: appStore.screenClass.get(),
+      signup: authStore.signup,
+      handleSignupClose: signupModal.handleSignupClose,
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -49,6 +51,10 @@ const SignupComponent = () => {
       ...user,
       [key]: value,
     });
+  };
+  const changeToLogin = () => {
+    handleSignupClose();
+    // handleLoginOpen();
   };
   const submitInfo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -89,7 +95,14 @@ const SignupComponent = () => {
       return;
     }
 
-    // 회원가입 기능
+    const res = await signup(user.id, user.pw, user.nickname, user.email);
+    console.log(res);
+    if (res === HttpStatus.OK) {
+      alert(`회원가입 완료하였습니다 ${user.id}님`);
+      changeToLogin();
+    } else if (res === HttpStatus.CONFLICT) {
+      setSignupErrType(SignupErrorMessages.ExistID);
+    }
   };
 
   return (
@@ -189,14 +202,12 @@ const SignupComponent = () => {
         <Form.Text className={styles.messageBlock}>{signupErrType}</Form.Text>
 
         <Button variant="success" type="submit" className={styles.formButton}>
-          가입
+          회원가입
         </Button>
       </Form>
-      <div>
+      <div className={styles.signInLink}>
         계정이 있으신가요?
-        <Link to="/mock" title="회원가입" className={styles.signUpLink}>
-          로그인
-        </Link>
+        <span onClick={changeToLogin}>로그인</span>
       </div>
     </div>
   );
