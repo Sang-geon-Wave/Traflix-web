@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import aeyoungImg from '../../assets/images/aeyung.jpg';
+import closeImg from '../../assets/images/x.svg';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface ProbsSelectComponent {
@@ -19,13 +20,14 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const navigate = useNavigate();
-  const [isOpen, setOpen] = useState(true);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const [isOpen, setIsOpen] = useState(true);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleShowModal = () => {
-    setOpen(!isOpen);
+    setIsOpen(!isOpen);
   };
-  const handleOptionToggle = (option) => {
+  const handleOptionToggle = (option: string) => {
     if (selectedOptions.includes(option)) {
       setSelectedOptions(selectedOptions.filter((item) => item !== option));
     } else {
@@ -37,8 +39,7 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
   };
   const handleNextButton = () => {
     options = selectedOptions;
-    console.log(options);
-    setOpen(!isOpen);
+    setIsOpen(!isOpen);
     setSelectedOptions([]);
   };
 
@@ -55,7 +56,7 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
                 handleModalClose();
               }}
             >
-              x
+              <img src={closeImg}></img>
             </button>
             <div className={styles.title}>선호하는 여행 취향을 골라주세요!</div>
             <div className={styles.subTitle}>
