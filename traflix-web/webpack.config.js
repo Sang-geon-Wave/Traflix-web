@@ -2,6 +2,11 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+const env_dir = `./src/env/.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: path.join(__dirname, env_dir) });
 
 module.exports = {
   context: __dirname,
@@ -55,8 +60,12 @@ module.exports = {
       manifest: './public/manifest.json',
     }),
     new ESLintPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    fallback: { fs: false, path: false, os: false },
   },
 };
