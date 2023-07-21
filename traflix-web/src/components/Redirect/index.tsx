@@ -13,7 +13,7 @@ const Redirection = () => {
   useEffect(() => {
     if (code) {
       kakaoLogin(code);
-      navigate('/');
+      navigate('/login');
     } else alert('error');
   }, []);
 

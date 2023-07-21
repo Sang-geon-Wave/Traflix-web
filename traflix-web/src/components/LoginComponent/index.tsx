@@ -1,20 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import config from '../../config';
 import eyeFill from '../../assets/images/eye-fill.svg';
 import eyeSlashFill from '../../assets/images/eye-slash-fill.svg';
 import traflixLogo from '../../assets/images/logo_traflix_tmp_color.svg';
 import kakaoSymbol from '../../assets/images/kakao_symbol.svg';
 
 const LoginComponent = () => {
-  const { screenClass, kakaoLogin } = useRootData(
+  const { screenClass, isLogin, refresh, login, kakaoRefresh } = useRootData(
     ({ appStore, authStore }) => ({
       screenClass: appStore.screenClass.get(),
-      kakaoLogin: authStore.kakaoLogin,
+      isLogin: authStore.isLogin.get(),
+      login: authStore.login,
+      refresh: authStore.refresh,
+      kakaoRefresh: authStore.kakaoRefresh,
     }),
   );
+
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  useEffect(() => {
+    kakaoRefresh();
+  }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/');
+    }
+  }, [isLogin]);
 
   const navigate = useNavigate();
   const isDesktop = screenClass === 'xl';
@@ -37,26 +55,31 @@ const LoginComponent = () => {
   const [showPW, setShowPW] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
 
-  const tryLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const tryLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isLogin) return;
+
     if (!usrID || !usrPW) {
       setLoginErrType(`${!usrID ? '아이디' : '비밀번호'}를 입력해주세요`);
       setLoginErr(true);
       return;
+    } else setLoginErr(false);
+
+    if (await login(usrID, usrPW, autoLogin)) {
+      alert(`환엽합니다 ${usrID}님`);
+      navigate('/');
+    } else {
+      setLoginErr(true);
+      setLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
     }
-    alert(
-      `아이디: ${usrID} 비번: ${usrPW} 자동로그인: ${
-        autoLogin ? '켜짐' : '꺼짐'
-      }`,
-    );
-    setAutoLogin(false);
   };
 
-  const REST_API_KEY = process.env.REST_API_KEY;
-  const REDIRECT_URI = process.env.VUE_APP_REDIRECT_URI;
+  const REST_API_KEY = config.kakaoRestApi;
+  const REDIRECT_URI = config.redirectUrl;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
   const tryKakaoLogin = async () => {
+    console.log(REST_API_KEY);
     window.location.href = kakaoURL;
   };
 

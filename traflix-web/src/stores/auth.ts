@@ -52,6 +52,17 @@ const createStore = () => {
         return null;
       }
     },
+    async kakaoRefresh() {
+      try {
+        const { data } = await api.post('/kakao/refresh');
+        const { access_token: accessToken } = data;
+        authStore.changeAccessToken(accessToken);
+        return accessToken;
+      } catch (err) {
+        authStore.changeAccessToken(null);
+        return null;
+      }
+    },
     async logout() {
       try {
         const { data } = await api.post('/auth/logout');
