@@ -10,13 +10,12 @@ import traflixLogo from '../../assets/images/logo_traflix_tmp_color.svg';
 import kakaoSymbol from '../../assets/images/kakao_symbol.svg';
 
 const LoginComponent = () => {
-  const { screenClass, isLogin, refresh, login, kakaoRefresh } = useRootData(
+  const { screenClass, isLogin, refresh, login } = useRootData(
     ({ appStore, authStore }) => ({
       screenClass: appStore.screenClass.get(),
       isLogin: authStore.isLogin.get(),
       login: authStore.login,
       refresh: authStore.refresh,
-      kakaoRefresh: authStore.kakaoRefresh,
     }),
   );
 
