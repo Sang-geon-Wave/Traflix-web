@@ -2,8 +2,8 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { CardDataType } from '../../types/CardCarouselDataType';
 import stationList from '../../assets/string/seachbarComponent/testData';
+import cardData from '../../assets/string/cardCarouselComponent/cardData';
 
 import BannerComponent from '../../components/BannerComponent';
 import FooterComponent from '../../components/FooterComponent';
@@ -11,10 +11,6 @@ import SearchbarComponent from '../../components/searchbarComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import CardCarouselComponent from '../../components/CardCarouselComponent';
 
-import svg_test1 from '../../assets/images/popular_spot_1.svg';
-import svg_test2 from '../../assets/images/popular_spot_2.svg';
-import png_test1 from '../../assets/images/castle.png';
-import png_test2 from '../../assets/images/dongdaemun.png';
 import introPhone from '../../assets/images/introPhone.png';
 import bannerstring from '../../assets/images/bannerstring.png';
 
@@ -26,33 +22,6 @@ const LandingPage = () => {
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
-
-  const cardData: CardDataType[] = [
-    {
-      imgUrl: png_test1,
-      place: '1',
-      addr: '1',
-      info: '1',
-    },
-    {
-      imgUrl: png_test2,
-      place: '2',
-      addr: '2',
-      info: '2',
-    },
-    {
-      imgUrl: svg_test1,
-      place: '3',
-      addr: '3',
-      info: '3',
-    },
-    {
-      imgUrl: svg_test2,
-      place: '4',
-      addr: '4',
-      info: '4',
-    },
-  ];
 
   return (
     <div className={styles.container}>
