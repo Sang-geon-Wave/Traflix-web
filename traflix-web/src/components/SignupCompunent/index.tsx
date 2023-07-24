@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
+import { Form, Button, InputGroup } from 'react-bootstrap';
 import { UserSignupType } from '../../types/UserType';
 import HttpStatus from 'http-status-codes';
 
@@ -22,7 +20,12 @@ const enum SignupErrorMessages {
   IllegalPWRe = '비밀번호 확인이 일치하지 않습니다',
   IllegalNickname = '닉네임은 최대 30자 이하여야 합니다',
   IllegalEmail = '올바른 이메일 주소가 아닙니다',
+  NoErrorDetection = '',
 }
+const idReg = /^[a-z\d]{5,16}$/;
+const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$]{8,16}$/;
+const nicknameReg = /^.{1,30}$/;
+const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 const SignupComponent = () => {
   const { screenClass, signup, handleSignupClose } = useRootData(
@@ -60,11 +63,6 @@ const SignupComponent = () => {
     event.preventDefault();
     setSignupErrType('');
 
-    const idReg = /^[a-z\d]{5,16}$/;
-    const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$]{8,16}$/;
-    const nicknameReg = /^.{1,30}$/;
-    const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
     if (!user.id || !idReg.test(user.id)) {
       setSignupErrType(SignupErrorMessages.IllegalID);
       return;
@@ -93,6 +91,8 @@ const SignupComponent = () => {
     } else if (user.pw !== user.pwRe) {
       setSignupErrType(SignupErrorMessages.IllegalPWRe);
       return;
+    } else {
+      setSignupErrType(SignupErrorMessages.NoErrorDetection);
     }
 
     const res = await signup(user.id, user.pw, user.nickname, user.email);
