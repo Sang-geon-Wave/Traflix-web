@@ -96,7 +96,6 @@ const SignupComponent = () => {
     }
 
     const res = await signup(user.id, user.pw, user.nickname, user.email);
-    console.log(res);
     if (res === HttpStatus.OK) {
       alert(`회원가입 완료하였습니다 ${user.id}님`);
       changeToLogin();
