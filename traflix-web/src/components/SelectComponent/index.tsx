@@ -43,6 +43,8 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
     setSelectedOptions([]);
   };
 
+  const selectType = ['액티비티', '카페', '산', '축제', '문화 | 역사'];
+
   return (
     <div>
       <button onClick={handleShowModal}>test</button>
@@ -63,71 +65,22 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
               총 <span>{selectedOptions.length}</span>/5개 선택됨
             </div>
             <div className={styles.cardBox}>
-              <button
-                className={
-                  selectedOptions.includes('액티비티')
-                    ? styles.cardActive
-                    : styles.card
-                }
-                onClick={() => handleOptionToggle('액티비티')}
-              >
-                <div>
-                  <img className={styles.cardImg} src={aeyoungImg}></img>
-                </div>
-                <div className={styles.cardText}>액티비티</div>
-              </button>
-              <button
-                className={
-                  selectedOptions.includes('카페')
-                    ? styles.cardActive
-                    : styles.card
-                }
-                onClick={() => handleOptionToggle('카페')}
-              >
-                <div>
-                  <img className={styles.cardImg} src={aeyoungImg}></img>
-                </div>
-                <div className={styles.cardText}>카페</div>
-              </button>
-              <button
-                className={
-                  selectedOptions.includes('산')
-                    ? styles.cardActive
-                    : styles.card
-                }
-                onClick={() => handleOptionToggle('산')}
-              >
-                <div>
-                  <img className={styles.cardImg} src={aeyoungImg}></img>
-                </div>
-                <div className={styles.cardText}>산</div>
-              </button>
-              <button
-                className={
-                  selectedOptions.includes('축제')
-                    ? styles.cardActive
-                    : styles.card
-                }
-                onClick={() => handleOptionToggle('축제')}
-              >
-                <div>
-                  <img className={styles.cardImg} src={aeyoungImg}></img>
-                </div>
-                <div className={styles.cardText}>축제</div>
-              </button>
-              <button
-                className={
-                  selectedOptions.includes('문화 | 역사')
-                    ? styles.cardActive
-                    : styles.card
-                }
-                onClick={() => handleOptionToggle('문화 | 역사')}
-              >
-                <div>
-                  <img className={styles.cardImg} src={aeyoungImg}></img>
-                </div>
-                <div className={styles.cardText}>문화 | 역사</div>
-              </button>
+              {selectType.map((type: string) => (
+                <button
+                  key={type}
+                  className={
+                    selectedOptions.includes(type)
+                      ? styles.cardActive
+                      : styles.card
+                  }
+                  onClick={() => handleOptionToggle(type)}
+                >
+                  <div>
+                    <img className={styles.cardImg} src={aeyoungImg}></img>
+                  </div>
+                  <div className={styles.cardText}>{type}</div>
+                </button>
+              ))}
             </div>
             <div className={styles.buttonBox} onClick={handleNextButton}>
               <button className={styles.nextButton}>다음</button>
