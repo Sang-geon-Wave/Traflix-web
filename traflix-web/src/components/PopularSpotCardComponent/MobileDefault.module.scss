@@ -12,6 +12,10 @@
 
 .card img {
   height: 100%;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
 }
 
 .card .caption {
@@ -21,7 +25,8 @@
   width: 90vw;
   height: auto;
 }
-.card .caption h3 {
+.card .caption span {
+  font-size: 25px;
   color: white;
   text-align: left;
 }

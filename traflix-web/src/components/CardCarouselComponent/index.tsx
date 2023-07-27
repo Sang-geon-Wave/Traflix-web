@@ -3,7 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import { CardDataType } from '../../types/CardCarouselDataType';
-import { TouchEventHandler, useState } from 'react';
+import React, { TouchEventHandler, useEffect, useState } from 'react';
 
 export interface PropsCardCarouselComponent {
   cardData: CardDataType[];
@@ -20,12 +20,14 @@ const CardCarouselComponent: React.FunctionComponent<
 
   let touchStartX: number;
   let touchEndX: number;
+  let clickStartX: number;
+  let clickEndX: number;
 
   const [currIndex, setCurrIndex] = useState(0);
 
   const prevButtonClicked = () => {
     setCurrIndex(() => {
-      if (currIndex === 0) {
+      if (currIndex <= 0) {
         if (isDesktop) return cardData.length - 2;
         if (!isDesktop) return cardData.length - 1;
       }
@@ -34,21 +36,32 @@ const CardCarouselComponent: React.FunctionComponent<
   };
   const nextButtonClicked = () => {
     setCurrIndex(() => {
-      if (isDesktop && currIndex == cardData.length - 2) return 0;
-      if (!isDesktop && currIndex === cardData.length - 1) return 0;
+      if (isDesktop && currIndex >= cardData.length - 2) return 0;
+      if (!isDesktop && currIndex >= cardData.length - 1) return 0;
       return currIndex + 1;
     });
   };
   const handleTouchStart: TouchEventHandler<HTMLDivElement> = (e) => {
     touchStartX = e.nativeEvent.touches[0].clientX;
   };
-
   const handleTouchEnd: TouchEventHandler<HTMLDivElement> = (e) => {
     touchEndX = e.nativeEvent.changedTouches[0].clientX;
 
     if (touchStartX > touchEndX) {
       nextButtonClicked();
-    } else if (touchStartX > touchEndX) {
+    } else if (touchStartX < touchEndX) {
+      prevButtonClicked();
+    }
+  };
+  const handleClickStart: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    clickStartX = e.nativeEvent.clientX;
+  };
+  const handleClickEnd: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    clickEndX = e.nativeEvent.clientX;
+
+    if (clickStartX > clickEndX) {
+      nextButtonClicked();
+    } else if (clickStartX < clickEndX) {
       prevButtonClicked();
     }
   };
@@ -56,6 +69,8 @@ const CardCarouselComponent: React.FunctionComponent<
   return (
     <div
       className={styles.container}
+      onMouseDown={handleClickStart}
+      onMouseUp={handleClickEnd}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -75,6 +90,7 @@ const CardCarouselComponent: React.FunctionComponent<
       >
         {cardData.map((cardData) => (
           <PopularSpotCardComponent
+            key={cardData.place}
             imgUrl={cardData.imgUrl}
             place={cardData.place}
             addr={cardData.addr}
