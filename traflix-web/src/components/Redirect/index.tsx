@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import useRootData from '../../hooks/useRootData';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,8 @@ const Redirection = () => {
   useEffect(() => {
     if (code) {
       login(code);
-      navigate('/login');
+      navigate('/');
+      alert(`환영합니다`);
     } else alert('error');
   }, []);
 

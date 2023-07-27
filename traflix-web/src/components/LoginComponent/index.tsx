@@ -59,10 +59,11 @@ const LoginComponent = () => {
       setLoginErrType(`${!usrID ? '아이디' : '비밀번호'}를 입력해주세요`);
       setLoginErr(true);
       return;
-    } else setLoginErr(false);
+    }
+    setLoginErr(false);
 
     if (await login(null, usrID, usrPW, autoLogin)) {
-      alert(`환엽합니다 ${usrID}님`);
+      alert(`환영합니다 ${usrID}님`);
       navigate('/');
     } else {
       setLoginErr(true);
@@ -85,10 +86,10 @@ const LoginComponent = () => {
       <Form onSubmit={(e) => tryLogin(e)} className={styles.form}>
         <div className={styles.title}></div>
         <Form.Group className="mb-3" controlId="formID">
-          <Form.Label>ID</Form.Label>
+          <Form.Label>아이디</Form.Label>
           <Form.Control
             type="text"
-            placeholder="ID"
+            placeholder="아이디"
             value={usrID}
             onChange={(e) => inputID(e)}
           />

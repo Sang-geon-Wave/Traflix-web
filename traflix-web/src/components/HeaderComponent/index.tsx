@@ -4,12 +4,18 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import logoImg from '../../assets/images/logo_traflix_tmp_white.svg';
 import listImg from '../../assets/images/list.svg';
+import LoginModalPage from '../../pages/LoginModalPage';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 const HeaderComponent = ({}) => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, isLogin, handleLoginShow, logout } = useRootData(
+    ({ appStore, loginModal, authStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      isLogin: authStore.isLogin.get(),
+      logout: authStore.logout,
+      handleLoginShow: loginModal.handleLoginShow,
+    }),
+  );
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
@@ -22,6 +28,7 @@ const HeaderComponent = ({}) => {
 
   return (
     <div className={styles.header}>
+      <LoginModalPage />
       <div className={styles.contents}>
         <img
           className={styles.logo}
@@ -34,8 +41,9 @@ const HeaderComponent = ({}) => {
         </button>
         {isMenuOpen && (
           <div className={styles.menu}>
-            <div>회원가입</div>
-            <div>로그인</div>
+            {!isLogin && <div>회원가입</div>}
+            {!isLogin && <div onClick={handleLoginShow}>로그인</div>}
+            {isLogin && <div onClick={logout}>로그아웃</div>}
             <div>기타</div>
           </div>
         )}
