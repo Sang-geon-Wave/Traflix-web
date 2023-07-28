@@ -9,14 +9,14 @@ import SignupModalPage from '../../pages/SignupPage';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 const HeaderComponent = ({}) => {
-  const { screenClass, isLogin, handleLoginShow, logout } = useRootData(
-    ({ appStore, loginModal, authStore }) => ({
+  const { screenClass, isLogin, handleLoginShow, logout, handleSignupShow } =
+    useRootData(({ appStore, loginModal, authStore, signupModal }) => ({
       screenClass: appStore.screenClass.get(),
       isLogin: authStore.isLogin.get(),
       logout: authStore.logout,
       handleLoginShow: loginModal.handleLoginShow,
-    }),
-  );
+      handleSignupShow: signupModal.handleSignupShow,
+    }));
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
@@ -43,7 +43,7 @@ const HeaderComponent = ({}) => {
         </button>
         {isMenuOpen && (
           <div className={styles.menu}>
-            {!isLogin && <div>회원가입</div>}
+            {!isLogin && <div onClick={handleSignupShow}>회원가입</div>}
             {!isLogin && <div onClick={handleLoginShow}>로그인</div>}
             {isLogin && <div onClick={logout}>로그아웃</div>}
             <div>기타</div>
