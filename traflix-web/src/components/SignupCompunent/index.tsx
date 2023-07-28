@@ -20,7 +20,7 @@ const enum SignupErrorMessages {
   IllegalPWRe = '비밀번호 확인이 일치하지 않습니다',
   IllegalNickname = '닉네임은 최대 30자 이하여야 합니다',
   IllegalEmail = '올바른 이메일 주소가 아닙니다',
-  NoErrorDetection = '',
+  UnknownError = '알수없는 오류 발생',
 }
 const idReg = /^[a-z\d]{5,16}$/;
 const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$]{8,16}$/;
@@ -91,8 +91,6 @@ const SignupComponent = () => {
     } else if (user.pw !== user.pwRe) {
       setSignupErrType(SignupErrorMessages.IllegalPWRe);
       return;
-    } else {
-      setSignupErrType(SignupErrorMessages.NoErrorDetection);
     }
 
     const res = await signup(user.id, user.pw, user.nickname, user.email);
@@ -101,6 +99,8 @@ const SignupComponent = () => {
       changeToLogin();
     } else if (res === HttpStatus.CONFLICT) {
       setSignupErrType(SignupErrorMessages.ExistID);
+    } else {
+      setSignupErrType(SignupErrorMessages.UnknownError);
     }
   };
 
