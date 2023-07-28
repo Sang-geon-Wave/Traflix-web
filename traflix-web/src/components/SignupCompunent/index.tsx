@@ -28,13 +28,13 @@ const nicknameReg = /^.{1,30}$/;
 const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 const SignupComponent = () => {
-  const { screenClass, signup, handleSignupClose } = useRootData(
-    ({ appStore, authStore, signupModal }) => ({
+  const { screenClass, signup, handleSignupClose, handleLoginShow } =
+    useRootData(({ appStore, authStore, signupModal, loginModal }) => ({
       screenClass: appStore.screenClass.get(),
       signup: authStore.signup,
       handleSignupClose: signupModal.handleSignupClose,
-    }),
-  );
+      handleLoginShow: loginModal.handleLoginShow,
+    }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -57,7 +57,7 @@ const SignupComponent = () => {
   };
   const changeToLogin = () => {
     handleSignupClose();
-    // handleLoginOpen();
+    handleLoginShow();
   };
   const submitInfo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

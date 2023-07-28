@@ -10,14 +10,21 @@ import traflixLogo from '../../assets/images/logo_traflix_tmp_color.svg';
 import kakaoSymbol from '../../assets/images/kakao_symbol.svg';
 
 const LoginComponent = () => {
-  const { screenClass, isLogin, refresh, login } = useRootData(
-    ({ appStore, authStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      isLogin: authStore.isLogin.get(),
-      login: authStore.login,
-      refresh: authStore.refresh,
-    }),
-  );
+  const {
+    screenClass,
+    isLogin,
+    refresh,
+    login,
+    handleSignupShow,
+    handleLoginClose,
+  } = useRootData(({ appStore, authStore, signupModal, loginModal }) => ({
+    screenClass: appStore.screenClass.get(),
+    isLogin: authStore.isLogin.get(),
+    login: authStore.login,
+    refresh: authStore.refresh,
+    handleSignupShow: signupModal.handleSignupShow,
+    handleLoginClose: loginModal.handleLoginClose,
+  }));
 
   useEffect(() => {
     refresh();
@@ -49,7 +56,10 @@ const LoginComponent = () => {
   const [showPW, setShowPW] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
 
-  const goToSignup = () => alert('not found sign up page');
+  const goToSignup = () => {
+    handleLoginClose();
+    handleSignupShow();
+  };
 
   const tryLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -5,6 +5,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import logoImg from '../../assets/images/logo_traflix_tmp_white.svg';
 import listImg from '../../assets/images/list.svg';
 import LoginModalPage from '../../pages/LoginModalPage';
+import SignupModalPage from '../../pages/SignupPage';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 const HeaderComponent = ({}) => {
@@ -29,6 +30,7 @@ const HeaderComponent = ({}) => {
   return (
     <div className={styles.header}>
       <LoginModalPage />
+      <SignupModalPage />
       <div className={styles.contents}>
         <img
           className={styles.logo}
