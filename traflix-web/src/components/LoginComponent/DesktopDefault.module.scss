@@ -55,5 +55,9 @@
   color: black !important;
 }
 .signUpLink {
-  color: black;
+  color: black !important;
+}
+.signUpLink span {
+  text-decoration: underline;
+  cursor: pointer;
 }

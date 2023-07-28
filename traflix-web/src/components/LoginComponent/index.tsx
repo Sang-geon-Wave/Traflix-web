@@ -136,11 +136,9 @@ const LoginComponent = () => {
         <img src={kakaoSymbol} className={styles.kakaoSymbol} />
         Login with Kakao
       </Button>
-      <div>
+      <div className={styles.signUpLink}>
         계정이 없으신가요?
-        <a onClick={goToSignup} className={styles.signUpLink}>
-          회원가입
-        </a>
+        <span onClick={goToSignup}>회원가입</span>
       </div>
     </div>
   );
