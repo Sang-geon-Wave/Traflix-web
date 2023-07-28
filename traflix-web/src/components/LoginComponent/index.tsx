@@ -32,23 +32,24 @@ const LoginComponent = () => {
   const navigate = useNavigate();
   const isDesktop = screenClass === 'xl';
 
-  const [loginErrType, setLoginErrType] = useState('');
-  const [loginErr, setLoginErr] = useState(false);
+  const [loginErr, setLoginErr] = useState([false, '']);
 
   const [usrID, setUsrID] = useState('');
   const inputID = (event: any) => {
-    setLoginErr(false);
+    setLoginErr([false, '']);
     setUsrID(event.currentTarget.value);
   };
 
   const [usrPW, setUsrPW] = useState('');
   const inputPW = (event: any) => {
-    setLoginErr(false);
+    setLoginErr([false, '']);
     setUsrPW(event.currentTarget.value);
   };
 
   const [showPW, setShowPW] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
+
+  const goToSignup = () => alert('not found sign up page');
 
   const tryLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,19 +57,15 @@ const LoginComponent = () => {
     if (isLogin) return;
 
     if (!usrID || !usrPW) {
-      setLoginErrType(`${!usrID ? '아이디' : '비밀번호'}를 입력해주세요`);
-      setLoginErr(true);
+      setLoginErr([true, `${!usrID ? '아이디' : '비밀번호'}를 입력해주세요`]);
       return;
     }
-    setLoginErr(false);
+    setLoginErr([false, '']);
 
     if (await login(null, usrID, usrPW, autoLogin)) {
       alert(`환영합니다 ${usrID}님`);
       navigate('/');
-    } else {
-      setLoginErr(true);
-      setLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
-    }
+    } else setLoginErr([true, '올바르지 않은 아이디 혹은 비밀번호']);
   };
 
   const REST_API_KEY = config.kakaoRestApi;
@@ -117,8 +114,8 @@ const LoginComponent = () => {
             label="자동 로그인"
             checked={autoLogin}
           />
-          {loginErr && (
-            <Form.Text className={styles.errMessage}>{loginErrType}</Form.Text>
+          {loginErr[0] && (
+            <Form.Text className={styles.errMessage}>{loginErr[1]}</Form.Text>
           )}
         </Form.Group>
         <Button variant="success" type="submit" className={styles.formButton}>
@@ -131,9 +128,9 @@ const LoginComponent = () => {
       </Button>
       <div>
         계정이 없으신가요?
-        <Link to="/mock" title="회원가입" className={styles.signUpLink}>
+        <a onClick={goToSignup} className={styles.signUpLink}>
           회원가입
-        </Link>
+        </a>
       </div>
     </div>
   );
