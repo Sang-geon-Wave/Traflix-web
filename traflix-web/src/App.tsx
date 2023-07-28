@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useScreenClass } from 'react-grid-system';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
-import LoginModalPage from './pages/LoginModalPage';
 import Redirection from './components/Redirect';
 import DirectionPage from './pages/DirectionPage';
 import useRootData from './hooks/useRootData';
