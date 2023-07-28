@@ -30,7 +30,6 @@ const App = () => {
         <Route path="/mock" element={<MockPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/directions" element={<DirectionPage />} />
-        <Route path="/login" element={<LoginModalPage />} />
         <Route path="/oauth/kakao/callback" element={<Redirection />} />
       </Routes>
     </Router>
