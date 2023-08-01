@@ -6,13 +6,7 @@ import aeyoungImg from '../../assets/images/aeyung.jpg';
 import closeImg from '../../assets/images/x.svg';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-export interface ProbsSelectComponent {
-  options: [];
-}
-
-const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
-  options,
-}) => {
+const SelectComponent = ({ isOpen, handleShowModal }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -21,12 +15,8 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
 
   const navigate = useNavigate();
 
-  const [isOpen, setIsOpen] = useState(true);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  const handleShowModal = () => {
-    setIsOpen(!isOpen);
-  };
   const handleOptionToggle = (option: string) => {
     if (selectedOptions.includes(option)) {
       setSelectedOptions(selectedOptions.filter((item) => item !== option));
@@ -38,8 +28,7 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
     setSelectedOptions([]);
   };
   const handleNextButton = () => {
-    options = selectedOptions;
-    setIsOpen(!isOpen);
+    // options = selectedOptions;
     setSelectedOptions([]);
   };
 
@@ -47,7 +36,6 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
 
   return (
     <div>
-      <button onClick={handleShowModal}>test</button>
       {isOpen && (
         <div className={styles.modalBackground}>
           <div className={styles.select}>
@@ -82,7 +70,13 @@ const SelectComponent: React.FunctionComponent<ProbsSelectComponent> = ({
                 </button>
               ))}
             </div>
-            <div className={styles.buttonBox} onClick={handleNextButton}>
+            <div
+              className={styles.buttonBox}
+              onClick={() => {
+                handleNextButton();
+                handleShowModal();
+              }}
+            >
               <button className={styles.nextButton}>다음</button>
             </div>
           </div>
