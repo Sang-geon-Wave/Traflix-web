@@ -7,7 +7,6 @@ import { set } from 'mobx';
 
 const OPTION = {
   isOpen: false,
-  // selectedOptions: [] as string[],
 };
 
 const UseSelectComponent = ({}) => {
@@ -24,7 +23,6 @@ const UseSelectComponent = ({}) => {
       setModalOption((prev) => ({
         ...prev,
         isOpen,
-        // selectedOptions,
       }));
     },
     [modalOption],
