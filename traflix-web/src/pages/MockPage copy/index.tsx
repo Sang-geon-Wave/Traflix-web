@@ -17,11 +17,7 @@ const TestSelectPage = () => {
 
   const handleShowModal = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
-  // const onClick = useCallback(() => {
-  //   showModal(true);
-  // }, [modalOption]);
 
   return (
     <div>
