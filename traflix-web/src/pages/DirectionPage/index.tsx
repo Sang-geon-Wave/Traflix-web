@@ -13,6 +13,7 @@ import testPath1 from '../../assets/strings/MapComponent/mockData';
 import scheduleTestData from '../../assets/string/scheduleComponent/testData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
+import scheduleTestData from '../../assets/string/scheduleComponent/testData';
 
 const DirectionPage = ({}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -36,6 +37,9 @@ const DirectionPage = ({}) => {
           <Col className="px-2">
             <TravelScheduleComponent travelSchedule={testData} />
           </Col>
+          <Row>
+            <ScheduleComponent scheduleTestData={scheduleTestData} />
+          </Row>
         </Col>
         <Col className={styles.mapContainer}>
           <MapComponent pathCoordinates={testPath}></MapComponent>
