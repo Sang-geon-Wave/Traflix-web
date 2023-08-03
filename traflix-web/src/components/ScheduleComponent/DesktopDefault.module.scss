@@ -1,0 +1,11 @@
+@import '../../assets/scsses/config';
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+.main img {
+  margin: 5px 0 5px 10px;
+  height: 25px;
+  width: 25px;
+}
