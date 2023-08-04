@@ -3,6 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import { TravelCardDataType } from '../../types/TravelCardType';
+import { Card } from 'react-bootstrap';
 
 const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   img,
@@ -19,23 +20,21 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return (
-    <div className={styles.main}>
-      <img src={img} className={styles.img} />
-      <div className={styles.content}>
-        <div>
-          <h1>{title}</h1>
-          <span>{subtitle}</span>
-        </div>
+    <Card className={styles.main}>
+      <Card.Img variant="top" src={img} className={styles.img} />
+      <Card.Body className={styles.content}>
+        <Card.Title className={styles.title}>{title}</Card.Title>
+        <Card.Subtitle>{subtitle}</Card.Subtitle>
         <div className={styles.linkBox}>
-          <a href={load} className={styles.links}>
+          <Card.Link href={load} className={styles.links}>
             길찾기
-          </a>
-          <a href={moreInfo} className={styles.links}>
+          </Card.Link>
+          <Card.Link href={moreInfo} className={styles.links}>
             자세히보기
-          </a>
+          </Card.Link>
         </div>
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
 

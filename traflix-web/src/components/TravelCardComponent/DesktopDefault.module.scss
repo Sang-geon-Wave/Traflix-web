@@ -1,25 +1,29 @@
 @import '../../assets/scsses/config';
 
 .main {
+  flex-direction: row !important;
   display: inline-block;
   width: 100%;
-  height: 160px;
+  height: 160px !important;
+  min-height: 160px !important;
   background-color: white;
   border-radius: 10px;
   border: 1px solid white;
 }
 .img {
-  height: 100%;
-  width: 35%;
-  float: left;
-  margin-right: 10px;
+  width: 35% !important;
+  min-width: 35% !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: calc(0.25rem - 1px) !important;
 }
 .content {
-  width: 100%;
-  height: 100%;
-  padding: 10px;
+  width: 100% !important;
+  height: 100% !important;
   position: relative;
-  white-space: pre-line;
+}
+.title {
+  font-weight: bold !important;
+  white-space: pre;
 }
 .linkBox {
   position: absolute;
