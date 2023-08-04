@@ -6,6 +6,10 @@ import MockPage from './pages/MockPage';
 import DirectionPage from './pages/DirectionPage';
 import useRootData from './hooks/useRootData';
 
+import testData from './assets/string/travelCardComponent';
+import TravelCardComponent from './components/TravelCardComponent';
+import TravelScheduleComponent from './components/TravelScheduleCompoent';
+
 const App = () => {
   const componentRef = useRef(null);
   const currentScreenClass = useScreenClass(componentRef);
@@ -28,6 +32,10 @@ const App = () => {
         <Route path="/mock" element={<MockPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/directions" element={<DirectionPage />} />
+        <Route
+          path="test"
+          element={<TravelScheduleComponent travelSchedule={testData} />}
+        />
       </Routes>
     </Router>
   );
