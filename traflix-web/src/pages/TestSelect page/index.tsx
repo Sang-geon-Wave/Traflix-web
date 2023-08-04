@@ -4,7 +4,7 @@ import MockComponent from '../../components/MockComponent';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import SelectComponent from '../../components/SelectComponent';
-import UseSelectComponent from '../../components/UseSelectComponent';
+import dumy from '../../assets/string/SelectComponent/testData';
 
 const TestSelectPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -22,7 +22,11 @@ const TestSelectPage = () => {
   return (
     <div>
       <button onClick={handleShowModal}>test</button>
-      <SelectComponent isOpen={isOpen} handleShowModal={handleShowModal} />
+      <SelectComponent
+        isOpen={isOpen}
+        handleShowModal={handleShowModal}
+        selectCardData={dumy}
+      />
     </div>
   );
 };

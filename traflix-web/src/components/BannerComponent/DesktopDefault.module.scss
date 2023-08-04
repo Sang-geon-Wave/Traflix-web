@@ -1,0 +1,17 @@
+@import '../../assets/scsses/config';
+
+.banner {
+  height: 50vw;
+  overflow: hidden;
+}
+.imgBox {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.imageFitWidth {
+  width: 100%;
+}
+.imageFitHeight {
+  height: 50vw;
+}

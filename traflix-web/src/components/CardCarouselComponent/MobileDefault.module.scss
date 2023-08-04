@@ -1,0 +1,31 @@
+@import '../../assets/scsses/config';
+
+.container {
+  height: 60vw;
+  width: 900vw;
+}
+
+.carousel {
+  height: 60vw;
+  transition: all 1s;
+  display: flex;
+  flex-direction: row;
+  padding: 0 0 0 4vw;
+}
+.container button {
+  position: absolute;
+  display: block;
+  height: 60vw;
+  border: none;
+  background-color: transparent;
+  color: transparent;
+  z-index: 1;
+}
+.container .prev {
+  left: 0;
+  padding-right: 100px;
+}
+.container .next {
+  right: 0;
+  padding-left: 100px;
+}

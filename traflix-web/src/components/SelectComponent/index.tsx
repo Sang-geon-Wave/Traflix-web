@@ -4,9 +4,18 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import aeyoungImg from '../../assets/images/aeyung.jpg';
 import closeImg from '../../assets/images/x.svg';
+import { SelectCardDataType } from '../../types/SelectCardDataType';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-const SelectComponent = ({ isOpen, handleShowModal }) => {
+export interface PropsSelectComponent {
+  selectCardData: SelectCardDataType[];
+}
+
+const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
+  isOpen,
+  handleShowModal,
+  selectCardData,
+}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -53,20 +62,23 @@ const SelectComponent = ({ isOpen, handleShowModal }) => {
               총 <span>{selectedOptions.length}</span>/5개 선택됨
             </div>
             <div className={styles.cardBox}>
-              {selectType.map((type: string) => (
+              {selectCardData.map((selectCardData) => (
                 <button
-                  key={type}
+                  key={selectCardData.tag}
                   className={
-                    selectedOptions.includes(type)
+                    selectedOptions.includes(selectCardData.tag)
                       ? styles.cardActive
                       : styles.card
                   }
-                  onClick={() => handleOptionToggle(type)}
+                  onClick={() => handleOptionToggle(selectCardData.tag)}
                 >
                   <div>
-                    <img className={styles.cardImg} src={aeyoungImg}></img>
+                    <img
+                      className={styles.cardImg}
+                      src={selectCardData.img}
+                    ></img>
                   </div>
-                  <div className={styles.cardText}>{type}</div>
+                  <div className={styles.cardText}>{selectCardData.tag}</div>
                 </button>
               ))}
             </div>
