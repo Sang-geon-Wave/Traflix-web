@@ -1,1 +1,47 @@
 @import '../../assets/scsses/config';
+
+.mainBlock {
+  display: flex;
+  flex-direction: column;
+  background-color: #336657;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 180px;
+}
+.title {
+  display: flex;
+  color: white;
+  font-size: 25px;
+  justify-content: center;
+}
+.summaryBlock {
+  display: flex;
+  color: white;
+  justify-content: center;
+}
+.summaryCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 120px;
+  height: 70px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.middle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.arrow {
+  padding: 5px;
+}
+.test1 {
+  text-align: right;
+  padding-right: 26px;
+}
+.test2 {
+  text-align: right;
+}

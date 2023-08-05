@@ -16,7 +16,7 @@ const SummaryTestPage = () => {
 
   return (
     <div>
-      <SummaryComponent summaryData={SummaryTestData} />
+      <SummaryComponent date={'7월 23일'} summaryData={SummaryTestData} />
     </div>
   );
 };
