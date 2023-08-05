@@ -8,10 +8,10 @@ import { TrainCardDataType } from '../../types/TrainCardType';
 import TrainCardComponent from '../TrainCardComponent';
 
 export interface PropsScheduleComponent {
-  scheduleTestData: TrainCardDataType[];
+  trainSchedule: TrainCardDataType[];
 }
 const ScheduleComponent: React.FunctionComponent<PropsScheduleComponent> = ({
-  scheduleTestData,
+  trainSchedule,
 }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -25,12 +25,11 @@ const ScheduleComponent: React.FunctionComponent<PropsScheduleComponent> = ({
       <img src={trainImg} />
       <div className={styles.schedule}>
         <TrainCardComponent
-          trainType={scheduleTestData[0].trainType}
-          // trainId={scheduleTestData[0].trainId}
-          departure={scheduleTestData[0].departure}
-          arrival={scheduleTestData[0].arrival}
-          departureTime={scheduleTestData[0].departureTime}
-          arrivalTime={scheduleTestData[0].arrivalTime}
+          trainType={trainSchedule[0].trainType}
+          departure={trainSchedule[0].departure}
+          arrival={trainSchedule[0].arrival}
+          departureTime={trainSchedule[0].departureTime}
+          arrivalTime={trainSchedule[0].arrivalTime}
         />
       </div>
     </div>

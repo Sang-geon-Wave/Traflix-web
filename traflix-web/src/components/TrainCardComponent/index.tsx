@@ -7,7 +7,6 @@ import { TrainCardDataType } from '../../types/TrainCardType';
 
 const TrainCardComponent: React.FunctionComponent<TrainCardDataType> = ({
   trainType,
-  // trainId,
   departure,
   arrival,
   departureTime,
@@ -31,7 +30,6 @@ const TrainCardComponent: React.FunctionComponent<TrainCardDataType> = ({
     estimatedMinute += 60;
     estimatedHour--;
   }
-  console.log(estimatedMinute);
   return (
     <div className={styles.main}>
       <div className={styles.schedule}>
