@@ -3,8 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import { SummaryDataType } from '../../types/SummaryDataType';
-import rightArrow from '../../assets/images/arrow-right-short.svg';
-import rightArrow2 from '../../assets/images/right-arrow.png';
+import rightArrow from '../../assets/images/untitled.svg';
 
 export interface PropsSummaryComponent {
   summaryData: SummaryDataType[];
