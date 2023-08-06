@@ -36,11 +36,13 @@ const SummaryComponent: React.FunctionComponent<PropsSummaryComponent> = ({
                 <img src={rightArrow} alt="Arrow" className={styles.arrow} />
               )}
             </div>
-            {index < summaryData.length - 1 ? (
-              <div className={styles.test1}>hi</div>
-            ) : (
-              <div className={styles.test2}>hi</div>
-            )}
+            <div
+              className={
+                index < summaryData.length - 1 ? styles.tag1 : styles.tag2
+              }
+            >
+              {data.tag}
+            </div>
           </div>
         ))}
       </div>
