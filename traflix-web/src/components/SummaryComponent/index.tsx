@@ -32,7 +32,7 @@ const SummaryComponent: React.FunctionComponent<PropsSummaryComponent> = ({
                 <div>{data.time}</div>
               </div>
               {index < summaryData.length - 1 && (
-                <img src={rightArrow} alt="Arrow" className={styles.arrow} />
+                <img src={rightArrow} className={styles.arrow} />
               )}
             </div>
             <div
