@@ -9,6 +9,8 @@ import { SelectCardDataType } from '../../types/SelectCardDataType';
 
 export interface PropsSelectComponent {
   selectCardData: SelectCardDataType[];
+  isOpen: boolean;
+  handleShowModal: () => {};
 }
 
 const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
