@@ -39,17 +39,17 @@ const LoginComponent = () => {
   const navigate = useNavigate();
   const isDesktop = screenClass === 'xl';
 
-  const [loginErr, setLoginErr] = useState([false, '']);
+  const [loginErr, setLoginErr] = useState({ handle: false, text: '' });
 
   const [usrID, setUsrID] = useState('');
   const inputID = (event: any) => {
-    setLoginErr([false, '']);
+    setLoginErr({ handle: false, text: '' });
     setUsrID(event.currentTarget.value);
   };
 
   const [usrPW, setUsrPW] = useState('');
   const inputPW = (event: any) => {
-    setLoginErr([false, '']);
+    setLoginErr({ handle: false, text: '' });
     setUsrPW(event.currentTarget.value);
   };
 
@@ -67,15 +67,20 @@ const LoginComponent = () => {
     if (isLogin) return;
 
     if (!usrID || !usrPW) {
-      setLoginErr([true, `${!usrID ? '아이디' : '비밀번호'}를 입력해주세요`]);
+      setLoginErr({
+        handle: true,
+        text: `${!usrID ? '아이디' : '비밀번호'}를 입력해주세요`,
+      });
       return;
     }
-    setLoginErr([false, '']);
+
+    setLoginErr({ handle: false, text: '' });
 
     if (await login(null, usrID, usrPW, autoLogin)) {
       alert(`환영합니다 ${usrID}님`);
       navigate('/');
-    } else setLoginErr([true, '올바르지 않은 아이디 혹은 비밀번호']);
+    } else
+      setLoginErr({ handle: true, text: '올바르지 않은 아이디 혹은 비밀번호' });
   };
 
   const REST_API_KEY = config.kakaoRestApi;
@@ -124,8 +129,8 @@ const LoginComponent = () => {
             label="자동 로그인"
             checked={autoLogin}
           />
-          {loginErr[0] && (
-            <Form.Text className={styles.errMessage}>{loginErr[1]}</Form.Text>
+          {loginErr.handle && (
+            <Form.Text className={styles.errMessage}>{loginErr.text}</Form.Text>
           )}
         </Form.Group>
         <Button variant="success" type="submit" className={styles.formButton}>
