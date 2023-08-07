@@ -4,6 +4,11 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import { TravelCardDataType } from '../../types/TravelCardType';
 import TravelCardComponent from '../TravelCardComponent';
+import cafe from '../../assets/images/cafe.png';
+import festival from '../../assets/images/festival.png';
+import mountain from '../../assets/images/cafe.png';
+import culture from '../../assets/images/cafe.png';
+import activite from '../../assets/images/cafe.png';
 
 export interface PropsTravelScheduleComponent {
   travelSchedule: TravelCardDataType[];
@@ -19,12 +24,29 @@ const TravelScheduleComponent: React.FunctionComponent<
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
+  const travelTypes = [
+    ['cafe', cafe],
+    ['festival', festival],
+    ['culture', culture],
+    ['activite', activite],
+    ['mountain', mountain],
+  ];
+
   return (
     <div>
       {travelSchedule.map((element: TravelCardDataType, index) => (
-        <div>
+        <div className={styles.main} key={index}>
+          {travelTypes.map(
+            (travelType: any, idx) =>
+              travelType[0] === element.travelType && (
+                <img
+                  className={styles.icon}
+                  src={travelType[1]}
+                  key={`${travelType[0]}${idx}`}
+                />
+              ),
+          )}
           <TravelCardComponent
-            key={index}
             title={element.title}
             subtitle={element.subtitle}
             img={element.img}
