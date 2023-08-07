@@ -6,7 +6,17 @@ import aeyoungImg from '../../assets/images/aeyung.jpg';
 import closeImg from '../../assets/images/x.svg';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-const SelectComponent = ({ isOpen, handleShowModal }) => {
+export interface PropsSelectComponent {
+  selectCardData: SelectCardDataType[];
+  isOpen: boolean;
+  handleShowModal: () => {};
+}
+
+const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
+  isOpen,
+  handleShowModal,
+  selectCardData,
+}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
