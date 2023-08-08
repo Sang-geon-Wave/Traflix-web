@@ -23,8 +23,10 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
     <Card className={styles.main}>
       <Card.Img variant="top" src={img} className={styles.img} />
       <Card.Body className={styles.content}>
-        <Card.Title className={styles.title}>{title}</Card.Title>
-        <Card.Subtitle>{subtitle}</Card.Subtitle>
+        <div>
+          <Card.Title className={styles.title}>{title}</Card.Title>
+          <Card.Subtitle className={styles.subtitle}>{subtitle}</Card.Subtitle>
+        </div>
         <div className={styles.linkBox}>
           <Card.Link href={load} className={styles.links}>
             길찾기
