@@ -6,9 +6,9 @@ import { TravelCardDataType } from '../../types/TravelCardType';
 import TravelCardComponent from '../TravelCardComponent';
 import cafe from '../../assets/images/cafe.png';
 import festival from '../../assets/images/festival.png';
-import mountain from '../../assets/images/cafe.png';
-import culture from '../../assets/images/cafe.png';
-import activite from '../../assets/images/cafe.png';
+import mountain from '../../assets/images/mountain.png';
+import culture from '../../assets/images/culture.png';
+import activite from '../../assets/images/activite.png';
 
 export interface PropsTravelScheduleComponent {
   travelSchedule: TravelCardDataType[];
