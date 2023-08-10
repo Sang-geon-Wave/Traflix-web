@@ -3,7 +3,6 @@ import { useScreenClass } from 'react-grid-system';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
-import TestSelectPage from './pages/TestSelect page';
 import DirectionPage from './pages/DirectionPage';
 import useRootData from './hooks/useRootData';
 
@@ -29,8 +28,6 @@ const App = () => {
         <Route path="/mock" element={<MockPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/directions" element={<DirectionPage />} />
-
-        <Route path="/TestSelectPage" element={<TestSelectPage />} />
       </Routes>
     </Router>
   );

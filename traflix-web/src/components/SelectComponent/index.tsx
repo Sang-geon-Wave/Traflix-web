@@ -43,8 +43,6 @@ const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
     setSelectedOptions([]);
   };
 
-  const selectType = ['액티비티', '카페', '산', '축제', '문화 | 역사'];
-
   return (
     <div>
       {isOpen && (
