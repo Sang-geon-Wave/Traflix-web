@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
@@ -14,7 +14,6 @@ const PopularSpotCardComponent: React.FunctionComponent<CardDataType> = ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
-
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   return (
