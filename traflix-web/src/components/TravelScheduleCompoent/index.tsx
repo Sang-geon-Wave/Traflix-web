@@ -33,7 +33,7 @@ const TravelScheduleComponent: React.FunctionComponent<
   ];
 
   return (
-    <div>
+    <div className={styles.container}>
       {travelSchedule.map((element: TravelCardDataType, index) => (
         <div className={styles.main} key={index}>
           {travelTypes.map(

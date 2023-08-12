@@ -23,22 +23,20 @@ const DirectionPage = () => {
   const testPath: MapCoordinateDataType[] = testPath1;
 
   return (
-    <div className={styles.app}>
-      <Row className="gx-0">
-        <Col className="bg-light" lg={3}>
-          <Row className="gx-0 w-100">
-            <Col className="bg-success py-2">
-              <img src={logoWhite} className="p-2"></img>
-            </Col>
-          </Row>
-          <Col className="px-2">
-            <TravelScheduleComponent travelSchedule={testData} />
-          </Col>
-        </Col>
-        <Col className={styles.mapContainer}>
-          <MapComponent pathCoordinates={testPath}></MapComponent>
-        </Col>
-      </Row>
+    <div className={styles.pageContainer}>
+      <div className={`bg-light ${styles.sidebarContainer}`}>
+        <div className="w-100">
+          <div className="bg-success py-2">
+            <img src={logoWhite} className="p-2"></img>
+          </div>
+        </div>
+        <div className={`px-2 ${styles.cardItemsContainer}`}>
+          <TravelScheduleComponent travelSchedule={testData} />
+        </div>
+      </div>
+      <div className={styles.mapContainer}>
+        <MapComponent pathCoordinates={testPath}></MapComponent>
+      </div>
     </div>
   );
 };
