@@ -18,6 +18,7 @@
   margin-right: 1%;
   width: 49%;
   height: 58px;
+  float: left;
 }
 .selectButton {
   border: none !important;
@@ -39,6 +40,9 @@
   height: 58px;
   border-radius: 50px !important;
 }
-datalist option {
-  background-color: white !important;
+option {
+  background-color: white;
+  padding: 100px;
+  white-space: inherit;
+  max-height: 100px;
 }

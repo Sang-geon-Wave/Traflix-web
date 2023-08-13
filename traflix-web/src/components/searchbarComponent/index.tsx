@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { Form, Button, FloatingLabel } from 'react-bootstrap';
+import { Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface PropsSearchbarComponent {
@@ -39,6 +39,26 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
       alert(`start: ${start}, destination: ${destination} date: ${startDate}`);
   };
 
+  // function myFunction() {
+  //   document.getElementById('myDropdown').classList.toggle('show');
+  // }
+
+  // function filterFunction() {
+  //   var input, filter, ul, li, a, i;
+  //   input = document.getElementById('myInput');
+  //   filter = input.value.toUpperCase();
+  //   div = document.getElementById('myDropdown');
+  //   a = div.getElementsByTagName('a');
+  //   for (i = 0; i < a.length; i++) {
+  //     txtValue = a[i].textContent || a[i].innerText;
+  //     if (txtValue.toUpperCase().indexOf(filter) > -1) {
+  //       a[i].style.display = '';
+  //     } else {
+  //       a[i].style.display = 'none';
+  //     }
+  //   }
+  // }
+
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.main}>
@@ -55,21 +75,14 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
           >
             <Form.Control
               type="text"
-              list="startList"
               className={styles.selectButton}
               aria-label="stationSelect"
               value={start}
-              onChange={(e) => setStart(e.target.value)}
-              placeholder=""
+              readOnly={true}
+              placeholder=" "
             />
-            <datalist id="startList">
-              {stationList.map((station) => (
-                <option key={`start_${station}`} value={station}>
-                  {station}
-                </option>
-              ))}
-            </datalist>
           </FloatingLabel>
+
           <FloatingLabel
             controlId="labelDestination"
             label="도착역"
@@ -77,24 +90,12 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
           >
             <Form.Control
               type="text"
-              list="destinationList"
-              aria-label="destinationSelect"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
               className={styles.selectButton}
-              placeholder=""
+              aria-label="stationSelect"
+              value={destination}
+              readOnly={true}
+              placeholder=" "
             />
-            <datalist id="destinationList">
-              {stationList.map((station) => (
-                <option
-                  key={`destination_${station}`}
-                  value={station}
-                  className={styles.option}
-                >
-                  {station}
-                </option>
-              ))}
-            </datalist>
           </FloatingLabel>
         </div>
         <FloatingLabel
@@ -123,3 +124,102 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
 };
 
 export default SearchbarComponent;
+{
+  /* <Dropdown>
+            <Dropdown.Toggle variant="success" />
+            <Dropdown.Menu>
+              <Form.Control type="text" />
+              {stationList.map((station) => (
+                <Dropdown.Item
+                  key={`destination_${station}`}
+                  value={station}
+                  onClick={() => setStart(station)}
+                >
+                  {station}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown> */
+}
+{
+  /* <Dropdown>
+            <Dropdown.Toggle variant="success" />
+            <Dropdown.Menu>
+              <Form.Control type="text" />
+              {stationList.map((station) => (
+                <Dropdown.Item
+                  key={`destination_${station}`}
+                  value={station}
+                  onClick={() => setDestination(station)}
+                >
+                  {station}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown> */
+}
+{
+  /* <Form.Control
+              type="text"
+              list="destinationList"
+              aria-label="destinationSelect"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              className={styles.selectButton}
+              placeholder=""
+            />
+            <datalist id="destinationList">
+              {stationList.map((station) => (
+                <option
+                  key={`destination_${station}`}
+                  value={station}
+                  className={styles.option}
+                >
+                  {station}
+                </option>
+              ))}
+            </datalist> */
+}
+{
+  /* <Form.Select
+                aria-label="destinationSelect"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                className={styles.selectButton}
+              >
+                {stationList.map((station) => (
+                  <option key={`destination_${station}`} value={station}>
+                    {station}
+                  </option>
+                ))}
+              </Form.Select> */
+}
+
+{
+  /* <datalist id="startList" className={styles.selection}>
+              {stationList.map((station) => (
+                <option
+                  key={`start_${station}`}
+                  value={station}
+                  className={styles.op}
+                >
+                  {station}
+                </option>
+              ))}
+            </datalist> */
+}
+{
+  /* <Form.Select
+              aria-label="stationSelect"
+              value={start}
+              onChange={(e) => setStart(e.target.value)}
+              className={styles.selectButton}
+            >
+              <Form.Control type="text"></Form.Control>
+              {stationList.map((station) => (
+                <option key={`start_${station}`} value={station}>
+                  {station}
+                </option>
+              ))}
+            </Form.Select> */
+}
