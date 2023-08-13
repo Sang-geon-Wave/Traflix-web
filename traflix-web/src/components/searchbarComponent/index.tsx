@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { Form, Button, FloatingLabel } from 'react-bootstrap';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface PropsSearchbarComponent {
@@ -18,8 +16,8 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   }));
   const isDesktop = screenClass === 'xl';
 
-  const [start, setStart] = useState(stationList[0]);
-  const [destination, setDestination] = useState(stationList[0]);
+  const [start, setStart] = useState('');
+  const [destination, setDestination] = useState('');
   const [startDate, setStartDate] = useState('');
 
   const date = new Date();
@@ -33,6 +31,10 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
     if (startDate === '') alert('날짜를 골라주세요');
     else if (start === destination)
       alert('출발지와 도착지를 다르게 설정해주세요');
+    else if (stationList.indexOf(start) < 0)
+      alert('출발역을 다시 확인해주세요');
+    else if (stationList.indexOf(destination) < 0)
+      alert('도착역을 다시 확인해주세요');
     else
       alert(`start: ${start}, destination: ${destination} date: ${startDate}`);
   };
@@ -40,43 +42,59 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.main}>
-      <Form onSubmit={(e) => searchPath(e)} className={styles.search}>
+      <Form
+        onSubmit={(e) => searchPath(e)}
+        className={styles.search}
+        autoComplete="off"
+      >
         <div className={styles.selectStations}>
           <FloatingLabel
             controlId="labelStart"
             label="출발역"
             className={styles.selectLabel}
           >
-            <Form.Select
+            <Form.Control
+              type="text"
+              list="startList"
+              className={styles.selectButton}
               aria-label="stationSelect"
               value={start}
               onChange={(e) => setStart(e.target.value)}
-              className={styles.selectButton}
-            >
+              placeholder=""
+            />
+            <datalist id="startList">
               {stationList.map((station) => (
                 <option key={`start_${station}`} value={station}>
                   {station}
                 </option>
               ))}
-            </Form.Select>
+            </datalist>
           </FloatingLabel>
           <FloatingLabel
             controlId="labelDestination"
             label="도착역"
             className={styles.selectLabel}
           >
-            <Form.Select
+            <Form.Control
+              type="text"
+              list="destinationList"
               aria-label="destinationSelect"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
               className={styles.selectButton}
-            >
+              placeholder=""
+            />
+            <datalist id="destinationList">
               {stationList.map((station) => (
-                <option key={`destination_${station}`} value={station}>
+                <option
+                  key={`destination_${station}`}
+                  value={station}
+                  className={styles.option}
+                >
                   {station}
                 </option>
               ))}
-            </Form.Select>
+            </datalist>
           </FloatingLabel>
         </div>
         <FloatingLabel
