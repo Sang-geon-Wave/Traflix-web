@@ -19,6 +19,8 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const [start, setStart] = useState('');
   const [destination, setDestination] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [searchStartVal, setSearchStartVal] = useState('');
+  const [searchDestVal, setSearchDestVal] = useState('');
 
   const date = new Date();
   const year = date.getFullYear();
@@ -39,25 +41,23 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
       alert(`start: ${start}, destination: ${destination} date: ${startDate}`);
   };
 
-  // function myFunction() {
-  //   document.getElementById('myDropdown').classList.toggle('show');
-  // }
+  const searchStartStation = (val: string) => {
+    if (searchStartVal === '') return true;
+    return val.includes(searchStartVal);
+  };
 
-  // function filterFunction() {
-  //   var input, filter, ul, li, a, i;
-  //   input = document.getElementById('myInput');
-  //   filter = input.value.toUpperCase();
-  //   div = document.getElementById('myDropdown');
-  //   a = div.getElementsByTagName('a');
-  //   for (i = 0; i < a.length; i++) {
-  //     txtValue = a[i].textContent || a[i].innerText;
-  //     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-  //       a[i].style.display = '';
-  //     } else {
-  //       a[i].style.display = 'none';
-  //     }
-  //   }
-  // }
+  const inputStartSearch = (e: any) => {
+    setSearchStartVal(e.target.value);
+  };
+
+  const searchDestStation = (val: string) => {
+    if (searchDestVal === '') return true;
+    return val.includes(searchDestVal);
+  };
+
+  const inputDestSearch = (e: any) => {
+    setSearchDestVal(e.target.value);
+  };
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
@@ -68,158 +68,118 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
         autoComplete="off"
       >
         <div className={styles.selectStations}>
-          <FloatingLabel
-            controlId="labelStart"
-            label="출발역"
-            className={styles.selectLabel}
-          >
-            <Form.Control
-              type="text"
-              className={styles.selectButton}
-              aria-label="stationSelect"
-              value={start}
-              readOnly={true}
-              placeholder=" "
-            />
-          </FloatingLabel>
-
-          <FloatingLabel
-            controlId="labelDestination"
-            label="도착역"
-            className={styles.selectLabel}
-          >
-            <Form.Control
-              type="text"
-              className={styles.selectButton}
-              aria-label="stationSelect"
-              value={destination}
-              readOnly={true}
-              placeholder=" "
-            />
-          </FloatingLabel>
+          <div>
+            <FloatingLabel
+              controlId="labelStart"
+              label="출발역"
+              className={styles.selectLabel}
+            >
+              <Form.Control
+                type="text"
+                className={styles.selectButton}
+                aria-label="stationSelect"
+                value={start}
+                readOnly={true}
+                placeholder=" "
+              />
+            </FloatingLabel>
+            <Dropdown className={styles.dropBox}>
+              <Dropdown.Toggle
+                variant="outline-success"
+                className={styles.dropButton}
+              />
+              <Dropdown.Menu className={styles.dropList}>
+                <Form.Control
+                  type="text"
+                  onKeyUp={(e) => inputStartSearch(e)}
+                  placeholder="역 검색"
+                  className={styles.searchBox}
+                />
+                {stationList.map(
+                  (station) =>
+                    searchStartStation(station) && (
+                      <Dropdown.Item
+                        key={`start_${station}`}
+                        value={station}
+                        onClick={() => setStart(station)}
+                        className={styles.dropItem}
+                      >
+                        {station}
+                      </Dropdown.Item>
+                    ),
+                )}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          <div>
+            <FloatingLabel
+              controlId="labelDestination"
+              label="도착역"
+              className={styles.selectLabel}
+            >
+              <Form.Control
+                type="text"
+                className={styles.selectButton}
+                aria-label="stationSelect"
+                value={destination}
+                readOnly={true}
+                placeholder=" "
+              />
+            </FloatingLabel>
+            <Dropdown className={styles.dropBox}>
+              <Dropdown.Toggle
+                variant="outline-success"
+                className={styles.dropButton}
+              />
+              <Dropdown.Menu className={styles.dropList}>
+                <Form.Control
+                  type="text"
+                  onKeyUp={(e) => inputDestSearch(e)}
+                  placeholder="역 검색"
+                  className={styles.searchBox}
+                />
+                {stationList.map(
+                  (station) =>
+                    searchDestStation(station) && (
+                      <Dropdown.Item
+                        key={`destination_${station}`}
+                        value={station}
+                        onClick={() => setDestination(station)}
+                        className={styles.dropItem}
+                      >
+                        {station}
+                      </Dropdown.Item>
+                    ),
+                )}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
-        <FloatingLabel
-          controlId="labelDate"
-          label="출발일"
-          className={styles.calenderLabel}
-        >
-          <Form.Control
-            type="datetime-local"
-            min={today}
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className={styles.calender}
-          />
-        </FloatingLabel>
-        <Button
-          type="submit"
-          variant="outline-success"
-          className={styles.button}
-        >
-          검색
-        </Button>
+        <div className={styles.calBtn}>
+          <FloatingLabel
+            controlId="labelDate"
+            label="출발일"
+            className={styles.calenderLabel}
+          >
+            <Form.Control
+              type="datetime-local"
+              min={today}
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className={styles.calender}
+            />
+          </FloatingLabel>
+          <Button
+            type="submit"
+            variant="outline-success"
+            className={styles.button}
+          >
+            검색
+          </Button>
+        </div>
       </Form>
     </div>
   );
 };
 
 export default SearchbarComponent;
-{
-  /* <Dropdown>
-            <Dropdown.Toggle variant="success" />
-            <Dropdown.Menu>
-              <Form.Control type="text" />
-              {stationList.map((station) => (
-                <Dropdown.Item
-                  key={`destination_${station}`}
-                  value={station}
-                  onClick={() => setStart(station)}
-                >
-                  {station}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown> */
-}
-{
-  /* <Dropdown>
-            <Dropdown.Toggle variant="success" />
-            <Dropdown.Menu>
-              <Form.Control type="text" />
-              {stationList.map((station) => (
-                <Dropdown.Item
-                  key={`destination_${station}`}
-                  value={station}
-                  onClick={() => setDestination(station)}
-                >
-                  {station}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown> */
-}
-{
-  /* <Form.Control
-              type="text"
-              list="destinationList"
-              aria-label="destinationSelect"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              className={styles.selectButton}
-              placeholder=""
-            />
-            <datalist id="destinationList">
-              {stationList.map((station) => (
-                <option
-                  key={`destination_${station}`}
-                  value={station}
-                  className={styles.option}
-                >
-                  {station}
-                </option>
-              ))}
-            </datalist> */
-}
-{
-  /* <Form.Select
-                aria-label="destinationSelect"
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                className={styles.selectButton}
-              >
-                {stationList.map((station) => (
-                  <option key={`destination_${station}`} value={station}>
-                    {station}
-                  </option>
-                ))}
-              </Form.Select> */
-}
-
-{
-  /* <datalist id="startList" className={styles.selection}>
-              {stationList.map((station) => (
-                <option
-                  key={`start_${station}`}
-                  value={station}
-                  className={styles.op}
-                >
-                  {station}
-                </option>
-              ))}
-            </datalist> */
-}
-{
-  /* <Form.Select
-              aria-label="stationSelect"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-              className={styles.selectButton}
-            >
-              <Form.Control type="text"></Form.Control>
-              {stationList.map((station) => (
-                <option key={`start_${station}`} value={station}>
-                  {station}
-                </option>
-              ))}
-            </Form.Select> */
-}
