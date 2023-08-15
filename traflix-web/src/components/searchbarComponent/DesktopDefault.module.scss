@@ -13,14 +13,13 @@
 .selectStations {
   width: 50%;
 }
-
 .selectLabel {
   float: left;
   width: 36%;
   height: 58px;
   margin-right: 2%;
 }
-.selectButton {
+.selectText {
   border: none !important;
   box-shadow: none !important;
   border-top-left-radius: 50px !important;
@@ -60,7 +59,12 @@
   color: #198754 !important;
 }
 .dropList {
-  padding-top: 0px !important;
+  position: absolute !important;
+  left: -400% !important;
+  width: 500% !important;
+  padding-top: 5px !important;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
   max-height: 300px;
   overflow: auto;
 }

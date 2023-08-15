@@ -76,11 +76,9 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
             >
               <Form.Control
                 type="text"
-                className={styles.selectButton}
-                aria-label="stationSelect"
+                className={styles.selectText}
                 value={start}
                 readOnly={true}
-                placeholder=" "
               />
             </FloatingLabel>
             <Dropdown className={styles.dropBox}>
@@ -119,11 +117,9 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
             >
               <Form.Control
                 type="text"
-                className={styles.selectButton}
-                aria-label="stationSelect"
+                className={styles.selectText}
                 value={destination}
                 readOnly={true}
-                placeholder=" "
               />
             </FloatingLabel>
             <Dropdown className={styles.dropBox}>
