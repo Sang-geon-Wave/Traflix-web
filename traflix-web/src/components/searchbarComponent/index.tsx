@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
@@ -21,6 +21,8 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const [startDate, setStartDate] = useState('');
   const [searchStartVal, setSearchStartVal] = useState('');
   const [searchDestVal, setSearchDestVal] = useState('');
+  const [showStartSearch, setShowStartSearch] = useState(false);
+  const [showDestSearch, setShowDestSearch] = useState(false);
 
   const date = new Date();
   const year = date.getFullYear();
@@ -59,6 +61,37 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
     setSearchDestVal(e.target.value);
   };
 
+  const useOutsideClick = (callback: () => void) => {
+    const ref = useRef();
+
+    useEffect(() => {
+      const handleClick = (event: any) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          callback();
+        }
+      };
+
+      document.addEventListener('click', handleClick);
+
+      return () => {
+        document.removeEventListener('click', handleClick);
+      };
+    }, [ref]);
+
+    return ref;
+  };
+
+  const notDestClick = () => {
+    setShowDestSearch(false);
+  };
+
+  const notStartClick = () => {
+    setShowStartSearch(false);
+  };
+
+  const destRef = useOutsideClick(notDestClick);
+  const startRef = useOutsideClick(notStartClick);
+
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.main}>
@@ -79,34 +112,34 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
                 className={styles.selectText}
                 value={start}
                 readOnly={true}
+                onClick={() => setShowStartSearch(true)}
+                ref={startRef}
               />
             </FloatingLabel>
-            <Dropdown className={styles.dropBox}>
-              <Dropdown.Toggle
-                variant="outline-success"
-                className={styles.dropButton}
-              />
-              <Dropdown.Menu className={styles.dropList}>
-                <Form.Control
-                  type="text"
-                  onKeyUp={(e) => inputStartSearch(e)}
-                  placeholder="역 검색"
-                  className={styles.searchBox}
-                />
-                {stationList.map(
-                  (station) =>
-                    searchStartStation(station) && (
-                      <Dropdown.Item
-                        key={`start_${station}`}
-                        value={station}
-                        onClick={() => setStart(station)}
-                        className={styles.dropItem}
-                      >
-                        {station}
-                      </Dropdown.Item>
-                    ),
-                )}
-              </Dropdown.Menu>
+            <Dropdown className={styles.dropBox} show={true}>
+              {showStartSearch && (
+                <Dropdown.Menu className={styles.dropList}>
+                  <Form.Control
+                    type="text"
+                    onKeyUp={(e) => inputStartSearch(e)}
+                    placeholder="역 검색"
+                    className={styles.searchBox}
+                  />
+                  {stationList.map(
+                    (station) =>
+                      searchStartStation(station) && (
+                        <Dropdown.Item
+                          key={`start_${station}`}
+                          value={station}
+                          onClick={() => setStart(station)}
+                          className={styles.dropItem}
+                        >
+                          {station}
+                        </Dropdown.Item>
+                      ),
+                  )}
+                </Dropdown.Menu>
+              )}
             </Dropdown>
           </div>
           <div>
@@ -114,6 +147,8 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
               controlId="labelDestination"
               label="도착역"
               className={styles.selectLabel}
+              onClick={() => setShowDestSearch(true)}
+              ref={destRef}
             >
               <Form.Control
                 type="text"
@@ -122,32 +157,30 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
                 readOnly={true}
               />
             </FloatingLabel>
-            <Dropdown className={styles.dropBox}>
-              <Dropdown.Toggle
-                variant="outline-success"
-                className={styles.dropButton}
-              />
-              <Dropdown.Menu className={styles.dropList}>
-                <Form.Control
-                  type="text"
-                  onKeyUp={(e) => inputDestSearch(e)}
-                  placeholder="역 검색"
-                  className={styles.searchBox}
-                />
-                {stationList.map(
-                  (station) =>
-                    searchDestStation(station) && (
-                      <Dropdown.Item
-                        key={`destination_${station}`}
-                        value={station}
-                        onClick={() => setDestination(station)}
-                        className={styles.dropItem}
-                      >
-                        {station}
-                      </Dropdown.Item>
-                    ),
-                )}
-              </Dropdown.Menu>
+            <Dropdown className={styles.dropBox} show={true}>
+              {showDestSearch && (
+                <Dropdown.Menu className={styles.dropList}>
+                  <Form.Control
+                    type="text"
+                    onKeyUp={(e) => inputDestSearch(e)}
+                    placeholder="역 검색"
+                    className={styles.searchBox}
+                  />
+                  {stationList.map(
+                    (station) =>
+                      searchDestStation(station) && (
+                        <Dropdown.Item
+                          key={`destination_${station}`}
+                          value={station}
+                          onClick={() => setDestination(station)}
+                          className={styles.dropItem}
+                        >
+                          {station}
+                        </Dropdown.Item>
+                      ),
+                  )}
+                </Dropdown.Menu>
+              )}
             </Dropdown>
           </div>
         </div>
