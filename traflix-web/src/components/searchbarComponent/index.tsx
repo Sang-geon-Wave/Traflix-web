@@ -61,12 +61,16 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
     setSearchDestVal(e.target.value);
   };
 
-  const useOutsideClick = (callback: () => void) => {
+  const useOutsideClick = (callback: () => void, serachBoxId: string) => {
     const ref = useRef(false);
 
     useEffect(() => {
       const handleClick = (event: any) => {
-        if (ref.current && !ref.current.contains(event.target)) {
+        if (
+          ref.current &&
+          !ref.current.contains(event.target) &&
+          event.target.id !== serachBoxId
+        ) {
           callback();
         }
       };
@@ -81,18 +85,21 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
     return ref;
   };
 
-  const notDestClick = () => {
-    setShowDestSearch(false);
-  };
-
+  const startSearchBox = 'startSearchBox';
   const notStartClick = () => {
     setShowStartSearch(false);
   };
 
-  const startRef = useOutsideClick(notStartClick);
-  const destRef = useOutsideClick(notDestClick);
+  const destSearchBox = 'destSearchBox';
+  const notDestClick = () => {
+    setShowDestSearch(false);
+  };
+
+  const startRef = useOutsideClick(notStartClick, startSearchBox);
+  const destRef = useOutsideClick(notDestClick, destSearchBox);
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
   return (
     <div className={styles.main}>
       <Form
@@ -123,6 +130,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
                   onKeyUp={(e) => inputStartSearch(e)}
                   placeholder="역 검색"
                   className={styles.searchBox}
+                  id={startSearchBox}
                 />
                 {stationList.map(
                   (station) =>
@@ -130,9 +138,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
                       <Dropdown.Item
                         key={`start_${station}`}
                         value={station}
-                        onClick={() => {
-                          setStart(station);
-                        }}
+                        onClick={() => setStart(station)}
                         className={styles.dropItem}
                       >
                         {station}
@@ -164,6 +170,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
                   onKeyUp={(e) => inputDestSearch(e)}
                   placeholder="역 검색"
                   className={styles.searchBox}
+                  id={destSearchBox}
                 />
                 {stationList.map(
                   (station) =>
