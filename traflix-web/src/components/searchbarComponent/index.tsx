@@ -105,14 +105,14 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
             controlId="labelStart"
             label="출발역"
             className={styles.selectLabel}
-            onClick={() => setShowStartSearch(true)}
-            ref={startRef}
           >
             <Form.Control
               type="text"
               className={styles.selectText}
               value={start}
               readOnly={true}
+              onClick={() => setShowStartSearch(true)}
+              ref={startRef}
             />
           </FloatingLabel>
           <Dropdown className={styles.dropBox} show={true}>
