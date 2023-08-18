@@ -62,7 +62,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   };
 
   const useOutsideClick = (callback: () => void) => {
-    const ref = useRef();
+    const ref = useRef(false);
 
     useEffect(() => {
       const handleClick = (event: any) => {
@@ -89,8 +89,8 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
     setShowStartSearch(false);
   };
 
-  const destRef = useOutsideClick(notDestClick);
   const startRef = useOutsideClick(notStartClick);
+  const destRef = useOutsideClick(notDestClick);
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
@@ -101,88 +101,86 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
         autoComplete="off"
       >
         <div className={styles.selectStations}>
-          <div>
-            <FloatingLabel
-              controlId="labelStart"
-              label="출발역"
-              className={styles.selectLabel}
-            >
-              <Form.Control
-                type="text"
-                className={styles.selectText}
-                value={start}
-                readOnly={true}
-                onClick={() => setShowStartSearch(true)}
-                ref={startRef}
-              />
-            </FloatingLabel>
-            <Dropdown className={styles.dropBox} show={true}>
-              {showStartSearch && (
-                <Dropdown.Menu className={styles.dropList}>
-                  <Form.Control
-                    type="text"
-                    onKeyUp={(e) => inputStartSearch(e)}
-                    placeholder="역 검색"
-                    className={styles.searchBox}
-                  />
-                  {stationList.map(
-                    (station) =>
-                      searchStartStation(station) && (
-                        <Dropdown.Item
-                          key={`start_${station}`}
-                          value={station}
-                          onClick={() => setStart(station)}
-                          className={styles.dropItem}
-                        >
-                          {station}
-                        </Dropdown.Item>
-                      ),
-                  )}
-                </Dropdown.Menu>
-              )}
-            </Dropdown>
-          </div>
-          <div>
-            <FloatingLabel
-              controlId="labelDestination"
-              label="도착역"
-              className={styles.selectLabel}
+          <FloatingLabel
+            controlId="labelStart"
+            label="출발역"
+            className={styles.selectLabel}
+            onClick={() => setShowStartSearch(true)}
+            ref={startRef}
+          >
+            <Form.Control
+              type="text"
+              className={styles.selectText}
+              value={start}
+              readOnly={true}
+            />
+          </FloatingLabel>
+          <Dropdown className={styles.dropBox} show={true}>
+            {showStartSearch && (
+              <Dropdown.Menu className={styles.dropList}>
+                <Form.Control
+                  type="text"
+                  onKeyUp={(e) => inputStartSearch(e)}
+                  placeholder="역 검색"
+                  className={styles.searchBox}
+                />
+                {stationList.map(
+                  (station) =>
+                    searchStartStation(station) && (
+                      <Dropdown.Item
+                        key={`start_${station}`}
+                        value={station}
+                        onClick={() => {
+                          setStart(station);
+                        }}
+                        className={styles.dropItem}
+                      >
+                        {station}
+                      </Dropdown.Item>
+                    ),
+                )}
+              </Dropdown.Menu>
+            )}
+          </Dropdown>
+          <FloatingLabel
+            controlId="labelDestination"
+            label="도착역"
+            className={styles.selectLabel}
+          >
+            <Form.Control
+              type="text"
+              className={styles.selectText}
+              value={destination}
+              readOnly={true}
               onClick={() => setShowDestSearch(true)}
               ref={destRef}
-            >
-              <Form.Control
-                type="text"
-                className={styles.selectText}
-                value={destination}
-                readOnly={true}
-              />
-            </FloatingLabel>
-            <Dropdown className={styles.dropBox} show={true}>
-              {showDestSearch && (
-                <Dropdown.Menu className={styles.dropList}>
-                  <Form.Control
-                    type="text"
-                    onKeyUp={(e) => inputDestSearch(e)}
-                    placeholder="역 검색"
-                    className={styles.searchBox}
-                  />
-                  {stationList.map(
-                    (station) =>
-                      searchDestStation(station) && (
-                        <Dropdown.Item
-                          key={`destination_${station}`}
-                          value={station}
-                          onClick={() => setDestination(station)}
-                          className={styles.dropItem}
-                        >
-                          {station}
-                        </Dropdown.Item>
-                      ),
-                  )}
-                </Dropdown.Menu>
-              )}
-            </Dropdown>
-          </div>
+            />
+          </FloatingLabel>
+          <Dropdown className={styles.dropBox} show={true}>
+            {showDestSearch && (
+              <Dropdown.Menu className={styles.dropList}>
+                <Form.Control
+                  type="text"
+                  onKeyUp={(e) => inputDestSearch(e)}
+                  placeholder="역 검색"
+                  className={styles.searchBox}
+                />
+                {stationList.map(
+                  (station) =>
+                    searchDestStation(station) && (
+                      <Dropdown.Item
+                        key={`destination_${station}`}
+                        value={station}
+                        onClick={() => setDestination(station)}
+                        className={styles.dropItem}
+                      >
+                        {station}
+                      </Dropdown.Item>
+                    ),
+                )}
+              </Dropdown.Menu>
+            )}
+          </Dropdown>
         </div>
         <div className={styles.calBtn}>
           <FloatingLabel
