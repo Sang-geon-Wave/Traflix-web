@@ -14,21 +14,26 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
-  const isDesktop = screenClass === 'xl';
 
-  const [start, setStart] = useState('');
-  const [destination, setDestination] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [searchStartVal, setSearchStartVal] = useState('');
-  const [searchDestVal, setSearchDestVal] = useState('');
-  const [showStartSearch, setShowStartSearch] = useState(false);
-  const [showDestSearch, setShowDestSearch] = useState(false);
+  const isDesktop = screenClass === 'xl';
+  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const date = new Date();
   const year = date.getFullYear();
   const month = ('0' + (1 + date.getMonth())).slice(-2);
   const day = ('0' + date.getDate()).slice(-2);
-  const today = year + '-' + month + '-' + day + `T00:00:00`;
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const today = `${year}-${month}-${day}T00:00`;
+  const todayTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+  const [start, setStart] = useState('');
+  const [destination, setDestination] = useState('');
+  const [startDate, setStartDate] = useState(todayTime);
+  const [searchStartVal, setSearchStartVal] = useState('');
+  const [searchDestVal, setSearchDestVal] = useState('');
+  const [showStartSearch, setShowStartSearch] = useState(false);
+  const [showDestSearch, setShowDestSearch] = useState(false);
 
   const searchPath = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,7 +67,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   };
 
   const useOutsideClick = (callback: () => void, serachBoxId: string) => {
-    const ref = useRef(false);
+    const ref = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
       const handleClick = (event: any) => {
@@ -97,8 +102,6 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
 
   const startRef = useOutsideClick(notStartClick, startSearchBox);
   const destRef = useOutsideClick(notDestClick, destSearchBox);
-
-  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return (
     <div className={styles.main}>
