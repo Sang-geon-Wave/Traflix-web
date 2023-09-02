@@ -128,13 +128,15 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
           <Dropdown className={styles.dropBox} show={true}>
             {showStartSearch && (
               <Dropdown.Menu className={styles.dropList}>
-                <Form.Control
-                  type="text"
-                  onKeyUp={(e) => inputStartSearch(e)}
-                  placeholder="역 검색"
-                  className={styles.searchBox}
-                  id={startSearchBox}
-                />
+                <div className={styles.box}>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => inputStartSearch(e)}
+                    placeholder="역 검색"
+                    className={styles.searchBox}
+                    id={startSearchBox}
+                  />
+                </div>
                 {stationList.map(
                   (station) =>
                     searchStartStation(station) && (
@@ -168,13 +170,15 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
           <Dropdown className={styles.dropBox} show={true}>
             {showDestSearch && (
               <Dropdown.Menu className={styles.dropList}>
-                <Form.Control
-                  type="text"
-                  onKeyUp={(e) => inputDestSearch(e)}
-                  placeholder="역 검색"
-                  className={styles.searchBox}
-                  id={destSearchBox}
-                />
+                <div className={styles.box}>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => inputDestSearch(e)}
+                    placeholder="역 검색"
+                    className={styles.searchBox}
+                    id={destSearchBox}
+                  />
+                </div>
                 {stationList.map(
                   (station) =>
                     searchDestStation(station) && (
