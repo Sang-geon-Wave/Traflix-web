@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, BaseSyntheticEvent } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
@@ -64,7 +64,7 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
     const ref = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-      const handleClick = (event: any) => {
+      const handleClick = (event: BaseSyntheticEvent | MouseEvent) => {
         if (
           ref.current &&
           !ref.current.contains(event.target) &&
