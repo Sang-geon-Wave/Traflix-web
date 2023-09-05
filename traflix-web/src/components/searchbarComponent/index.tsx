@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
+import { dateFormat, dateTimeFormat } from '../../utils/dateFormat';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface PropsSearchbarComponent {
@@ -18,14 +19,8 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = ('0' + (1 + date.getMonth())).slice(-2);
-  const day = ('0' + date.getDate()).slice(-2);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const today = `${year}-${month}-${day}T00:00`;
-  const todayTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+  const today = dateFormat();
+  const todayTime = dateTimeFormat();
 
   const [start, setStart] = useState('');
   const [destination, setDestination] = useState('');
@@ -37,13 +32,12 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
 
   const searchPath = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (startDate === '') alert('날짜를 골라주세요');
-    else if (start === destination)
-      alert('출발지와 도착지를 다르게 설정해주세요');
-    else if (stationList.indexOf(start) < 0)
-      alert('출발역을 다시 확인해주세요');
+    if (stationList.indexOf(start) < 0) alert('출발역을 다시 확인해주세요');
     else if (stationList.indexOf(destination) < 0)
       alert('도착역을 다시 확인해주세요');
+    else if (start === destination)
+      alert('출발지와 도착지를 다르게 설정해주세요');
+    else if (startDate === '') alert('날짜를 골라주세요');
     else
       alert(`start: ${start}, destination: ${destination} date: ${startDate}`);
   };
