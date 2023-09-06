@@ -24,16 +24,14 @@ const DirectionPage = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <div className={`bg-light ${styles.sidebarContainer}`}>
-        <div className="w-100">
-          <div className="bg-success py-2">
-            <img src={logoWhite} className="p-2"></img>
-          </div>
-        </div>
-        <div className={`px-2 ${styles.cardItemsContainer}`}>
-          <TravelScheduleComponent travelSchedule={testData} />
-        </div>
+      <div className={`bg-success py-2 ${styles.navbarContainer}`}>
+        <img src={logoWhite} className="p-2"></img>
       </div>
+
+      <div className={`p-2 ${styles.cardItemsContainer}`}>
+        <TravelScheduleComponent travelSchedule={testData} />
+      </div>
+
       <div className={styles.mapContainer}>
         <MapComponent pathCoordinates={testPath}></MapComponent>
       </div>
