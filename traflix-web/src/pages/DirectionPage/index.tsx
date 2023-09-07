@@ -11,6 +11,8 @@ import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
+import SummaryComponent from '../../components/SummaryComponent';
+import SummaryTestData from '../../assets/string/summarycomponent/testData';
 
 const DirectionPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -33,6 +35,9 @@ const DirectionPage = () => {
           </Row>
           <Col className="px-2">
             <TravelScheduleComponent travelSchedule={testData} />
+          </Col>
+          <Col>
+            <SummaryComponent date={'7월 23일'} summaryData={SummaryTestData} />
           </Col>
         </Col>
         <Col className={styles.mapContainer}>

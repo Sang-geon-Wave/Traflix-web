@@ -7,6 +7,7 @@ import rightArrow from '../../assets/images/rightArrow.svg';
 
 export interface PropsSummaryComponent {
   summaryData: SummaryDataType[];
+  date: Date;
 }
 
 const SummaryComponent: React.FunctionComponent<PropsSummaryComponent> = ({
