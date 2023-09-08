@@ -16,8 +16,8 @@ const BannerComponent = () => {
     <div className={styles.banner}>
       <Carousel fade indicators={false} controls={false}>
         {imgData.map((imgData, i) => (
-          <Carousel.Item interval={intervalValue}>
-            <div key={i} className={styles.imgBox}>
+          <Carousel.Item key={i} interval={intervalValue}>
+            <div className={styles.imgBox}>
               <img src={imgData} className={styles.imageFitWidth} />
             </div>
           </Carousel.Item>

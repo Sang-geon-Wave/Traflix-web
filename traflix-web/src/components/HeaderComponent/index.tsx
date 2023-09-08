@@ -43,10 +43,22 @@ const HeaderComponent = ({}) => {
         </button>
         {isMenuOpen && (
           <div className={styles.menu}>
-            {!isLogin && <div onClick={handleSignupShow}>회원가입</div>}
-            {!isLogin && <div onClick={handleLoginShow}>로그인</div>}
-            {isLogin && <div onClick={logout}>로그아웃</div>}
-            <div>기타</div>
+            {!isLogin && (
+              <div onClick={handleSignupShow} className={styles.options}>
+                회원가입
+              </div>
+            )}
+            {!isLogin && (
+              <div onClick={handleLoginShow} className={styles.options}>
+                로그인
+              </div>
+            )}
+            {isLogin && (
+              <div onClick={logout} className={styles.options}>
+                로그아웃
+              </div>
+            )}
+            <div className={styles.options}>기타</div>
           </div>
         )}
       </div>

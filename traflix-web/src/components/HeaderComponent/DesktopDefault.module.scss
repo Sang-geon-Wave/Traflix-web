@@ -19,7 +19,7 @@
   justify-content: space-between;
 }
 .menuButton {
-  height: 42px;
+  min-height: 42px;
   width: 77px;
   padding: 5px;
   border: 1px solid rgb(199, 198, 198);
@@ -32,15 +32,24 @@
 }
 .menu {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  top: 70px;
-  right: 40px;
-  padding: 20px;
+  min-width: 120px;
+  min-height: 20px;
+  top: 55px;
+  right: 30px;
+  padding: 20px 3px;
   background-color: white;
   border: 1px solid rgb(199, 198, 198);
   border-radius: 10px;
   box-shadow: 2px 2px 2px rgb(219, 218, 218);
+}
+.options {
+  border-radius: 7px;
+  padding-left: 17px;
+}
+.options:hover {
+  background-color: #198754;
+  color: white;
+  cursor: pointer;
 }
 .logo {
   display: flex;
