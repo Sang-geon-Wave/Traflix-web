@@ -1,0 +1,90 @@
+@import '../../assets/scsses/config';
+
+.main {
+  width: 100%;
+}
+.search {
+  border: 1px solid black transparent;
+  border-radius: 50px;
+  box-shadow: 2px 3px 5px 0px gray;
+  padding: 10px;
+  background-color: white;
+}
+.selectStations {
+  width: 50%;
+}
+.selectLabel {
+  float: left;
+  width: 47%;
+  height: 58px;
+  margin-right: 1%;
+}
+.selectText {
+  border: none !important;
+  box-shadow: none !important;
+  border-top-left-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+}
+.selectText {
+  border: solid 1px;
+  z-index: 1;
+}
+.calenderLabel {
+  float: left;
+  margin-right: 1%;
+  width: 36% !important;
+  height: 58px !important;
+}
+.calender {
+  border: none !important;
+  border-radius: 50px !important;
+  user-select: none !important;
+  box-shadow: none !important;
+}
+.button {
+  width: 15%;
+  height: 58px;
+  border-radius: 50px !important;
+}
+.dropBox {
+  width: 2%;
+  float: left;
+}
+.dropButton {
+  width: 100%;
+  height: 58px;
+  border: none !important;
+  box-shadow: none !important;
+}
+.dropButton:hover {
+  border: 1px solid #1987547c !important;
+  background-color: white !important;
+  color: #198754 !important;
+}
+.dropList {
+  position: absolute !important;
+  left: -2300% !important;
+  width: 2300% !important;
+  top: 58px !important;
+  padding: 0px !important;
+  max-height: 300px;
+  overflow: auto;
+  background-color: white;
+}
+.box {
+  position: sticky;
+  box-shadow: none;
+  background-color: white;
+  padding: 5px 2px 2px 2px;
+  top: 0px;
+}
+.searchBox {
+  box-shadow: none !important;
+  border: solid 2px #198754 !important;
+}
+.dropItem:hover {
+  background-color: #19875422 !important;
+}
+.dropItem:focus {
+  background-color: #198754 !important;
+}
