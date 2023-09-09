@@ -1,7 +1,7 @@
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
-import SignupComponent from '../../components/SignupCompunent';
+import SignupComponent from '../../components/SignupComponent';
 import Modal from 'react-bootstrap/Modal';
 
 const SignupModalPage = () => {
