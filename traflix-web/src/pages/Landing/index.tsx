@@ -7,7 +7,7 @@ import cardData from '../../assets/string/cardCarouselComponent/cardData';
 
 import BannerComponent from '../../components/BannerComponent';
 import FooterComponent from '../../components/FooterComponent';
-import SearchbarComponent from '../../components/SearchbarComponent';
+import SearchbarComponent from '../../components/test';
 import HeaderComponent from '../../components/HeaderComponent';
 import CardCarouselComponent from '../../components/CardCarouselComponent';
 
