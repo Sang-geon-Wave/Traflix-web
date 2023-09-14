@@ -32,7 +32,10 @@ const DirectionPage = () => {
 
       <div className={`p-2 ${styles.cardItemsContainer}`}>
         <div>
-          <SummaryComponent date={'7월 23일'} summaryData={SummaryTestData} />
+          <SummaryComponent
+            date={new Date('2023-09-14')}
+            summaryData={SummaryTestData}
+          />
         </div>
         <TravelScheduleComponent travelSchedule={testData} />
       </div>
