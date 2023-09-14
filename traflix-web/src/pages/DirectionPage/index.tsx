@@ -24,8 +24,6 @@ const DirectionPage = () => {
 
   const testPath: MapCoordinateDataType[] = testPath1;
 
-  const testDate = new Date();
-
   return (
     <div className={styles.pageContainer}>
       <div className={`bg-success py-2 ${styles.navbarContainer}`}>
@@ -34,7 +32,10 @@ const DirectionPage = () => {
 
       <div className={`p-2 ${styles.cardItemsContainer}`}>
         <div>
-          <SummaryComponent date={testDate} summaryData={SummaryTestData} />
+          <SummaryComponent
+            date={new Date('2023-09-14')}
+            summaryData={SummaryTestData}
+          />
         </div>
         <TravelScheduleComponent travelSchedule={testData} />
       </div>

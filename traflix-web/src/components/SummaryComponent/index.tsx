@@ -24,11 +24,11 @@ const SummaryComponent: React.FunctionComponent<PropsSummaryComponent> = ({
   return (
     <div className={styles.mainBlock}>
       <div className={styles.title}>
-        {date.getMonth()}월 {date.getDate()}일 내일로 여행 추천 여정
+        {`${date.getMonth() + 1}월 ${date.getDate()}일`} 내일로 여행 추천 여정
       </div>
       <div className={styles.summaryBlock}>
         {summaryData.map((data, index) => (
-          <div>
+          <div key={`summary_${index}`}>
             <div className={styles.middle}>
               <div className={styles.summaryCard}>
                 <div>{data.place}</div>
