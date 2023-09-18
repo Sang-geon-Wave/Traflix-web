@@ -53,15 +53,9 @@ const createStore = () => {
       } catch (err) {}
       authStore.changeAccessToken(null);
     },
-    async signup(
-      userId: string,
-      userPw: string,
-      nickname: string = '',
-      email: string = '',
-    ) {
+    async signup(userPw: string, nickname: string = '', email: string = '') {
       try {
         const { data } = await api.post('/auth/signup', {
-          user_id: userId,
           user_pw: userPw,
           nickname: nickname,
           email: email,

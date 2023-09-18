@@ -22,7 +22,6 @@ const enum SignupErrorMessages {
   IllegalEmail = '올바른 이메일 주소가 아닙니다',
   UnknownError = '알수없는 오류 발생',
 }
-const idReg = /^[a-z\d]{5,16}$/;
 const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$]{8,16}$/;
 const nicknameReg = /^.{1,30}$/;
 const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -43,10 +42,9 @@ const SignupComponent = () => {
   const [showPW, setShowPW] = useState(false);
   const [showPWRE, setShowPWRE] = useState(false);
   const [user, setUser] = useState<UserSignupType>({
-    id: '',
+    email: '',
     pw: '',
     pwRe: '',
-    email: '',
     nickname: '',
   });
   const updateSignupInfo = (key: keyof UserSignupType, value: string) => {
@@ -63,17 +61,14 @@ const SignupComponent = () => {
     event.preventDefault();
     setSignupErrType('');
 
-    if (!user.id || !idReg.test(user.id)) {
-      setSignupErrType(SignupErrorMessages.IllegalID);
+    if (!user.email) {
+      setSignupErrType(SignupErrorMessages.NoEmail);
       return;
     } else if (!user.pw) {
       setSignupErrType(SignupErrorMessages.NoPW);
       return;
     } else if (!user.pwRe) {
       setSignupErrType(SignupErrorMessages.NoPWRe);
-      return;
-    } else if (!user.email) {
-      setSignupErrType(SignupErrorMessages.NoEmail);
       return;
     } else if (user.nickname.length && !nicknameReg.test(user.nickname)) {
       // Optional
@@ -84,7 +79,6 @@ const SignupComponent = () => {
       setSignupErrType(SignupErrorMessages.IllegalEmail);
       return;
     }
-
     if (!passwordReg.test(user.pw)) {
       setSignupErrType(SignupErrorMessages.IllegalPW);
       return;
@@ -93,13 +87,14 @@ const SignupComponent = () => {
       return;
     }
 
-    const res = await signup(user.id, user.pw, user.nickname, user.email);
+    const res = await signup(user.pw, user.nickname, user.email);
     if (res === HttpStatus.OK) {
-      alert(`회원가입 완료하였습니다 ${user.id}님`);
+      alert(`회원가입 완료하였습니다 ${user.email}님`);
       changeToLogin();
     } else if (res === HttpStatus.CONFLICT) {
       setSignupErrType(SignupErrorMessages.ExistID);
     } else {
+      console.log('asd');
       setSignupErrType(SignupErrorMessages.UnknownError);
     }
   };
@@ -111,20 +106,6 @@ const SignupComponent = () => {
       <Form onSubmit={submitInfo} className={styles.form}>
         <Form.Text className={styles.messageBlock}>* 필수항목</Form.Text>
         <div className={styles.title}></div>
-        <Form.Group className="mb-3" controlId="formID">
-          <Form.Label>
-            아이디 <span>*</span>
-          </Form.Label>
-
-          <Form.Control
-            type="text"
-            placeholder="아이디"
-            value={user.id}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              updateSignupInfo('id', e.target.value)
-            }
-          />
-        </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>

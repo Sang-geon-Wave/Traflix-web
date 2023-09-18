@@ -26,9 +26,9 @@ const LoginComponent = () => {
     handleLoginClose: loginModal.handleLoginClose,
   }));
 
-  useEffect(() => {
-    refresh();
-  }, []);
+  // useEffect(() => {
+  //   refresh();
+  // }, []);
 
   useEffect(() => {
     if (isLogin) {
@@ -78,6 +78,7 @@ const LoginComponent = () => {
 
     if (await login(null, usrID, usrPW, autoLogin)) {
       alert(`환영합니다 ${usrID}님`);
+      handleLoginClose();
       navigate('/');
     } else
       setLoginErr({ handle: true, text: '올바르지 않은 아이디 혹은 비밀번호' });
@@ -101,7 +102,7 @@ const LoginComponent = () => {
           <Form.Label>아이디</Form.Label>
           <Form.Control
             type="text"
-            placeholder="아이디"
+            placeholder="이메일 주소"
             value={usrID}
             onChange={(e) => inputID(e)}
           />

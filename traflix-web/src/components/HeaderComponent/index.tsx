@@ -39,7 +39,7 @@ const HeaderComponent = ({}) => {
         />
         <button className={styles.menuButton} onClick={toggleMenu}>
           <img src={listImg} />
-          임시
+          {isLogin ? '사람' : '임시'}
         </button>
         {isMenuOpen && (
           <div className={styles.menu}>
