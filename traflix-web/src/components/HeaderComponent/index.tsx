@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
@@ -9,16 +9,27 @@ import SignupModalPage from '../../pages/SignupPage';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 const HeaderComponent = ({}) => {
-  const { screenClass, isLogin, handleLoginShow, logout, handleSignupShow } =
-    useRootData(({ appStore, loginModal, authStore, signupModal }) => ({
-      screenClass: appStore.screenClass.get(),
-      isLogin: authStore.isLogin.get(),
-      logout: authStore.logout,
-      handleLoginShow: loginModal.handleLoginShow,
-      handleSignupShow: signupModal.handleSignupShow,
-    }));
+  const {
+    screenClass,
+    isLogin,
+    handleLoginShow,
+    logout,
+    refresh,
+    handleSignupShow,
+  } = useRootData(({ appStore, loginModal, authStore, signupModal }) => ({
+    screenClass: appStore.screenClass.get(),
+    isLogin: authStore.isLogin.get(),
+    logout: authStore.logout,
+    refresh: authStore.refresh,
+    handleLoginShow: loginModal.handleLoginShow,
+    handleSignupShow: signupModal.handleSignupShow,
+  }));
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
+  useEffect(() => {
+    refresh();
+  }, []);
 
   const navigate = useNavigate();
   const [isMenuOpen, setMenuOpen] = useState(false);

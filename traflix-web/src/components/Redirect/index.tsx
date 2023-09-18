@@ -23,14 +23,13 @@ const Redirection = () => {
   };
 
   useEffect(() => {
-    if (code) {
-      const tryLogin = login(code);
-      navigate('/');
-      tryLogin.then((state) => {
-        if (state) success();
-        else fail();
-      });
-    } else fail();
+    async function tryLogin() {
+      const data = await login(code);
+      if (data) success();
+      else fail();
+    }
+    tryLogin();
+    navigate('/');
   }, []);
 
   return <div>로그인 중입니다.</div>;
