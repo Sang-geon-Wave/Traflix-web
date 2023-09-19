@@ -5,6 +5,7 @@ import api from '../api';
 const createStore = () => {
   const authStore = {
     accessToken: observable.box<null | string>(null),
+    userNickname: observable.box(''),
     isLogin: observable.box(false),
 
     changeAccessToken(data: null | string) {
@@ -14,22 +15,26 @@ const createStore = () => {
     changeLoginState(data: boolean) {
       authStore.isLogin.set(data);
     },
+    changeNickname(data: string) {
+      authStore.userNickname.set(data);
+    },
 
     async login(
       code: string | null,
-      userId: string = '',
+      email: string = '',
       userPw: string = '',
       autologin: boolean = false,
     ) {
       try {
         const { data } = await api.post('/auth/login', {
           code: code,
-          user_id: userId,
+          email: email,
           user_pw: userPw,
           autologin: autologin,
         });
-        const { access_token: accessToken } = data;
+        const { access_token: accessToken, nickname: nickname } = data;
         authStore.changeAccessToken(accessToken);
+        authStore.changeNickname(nickname);
         return true;
       } catch (err) {
         authStore.changeAccessToken(null);
@@ -39,8 +44,9 @@ const createStore = () => {
     async refresh() {
       try {
         const { data } = await api.post('/auth/refresh');
-        const { access_token: accessToken } = data;
+        const { access_token: accessToken, nickname: nickname } = data;
         authStore.changeAccessToken(accessToken);
+        authStore.changeNickname(nickname);
         return accessToken;
       } catch (err) {
         authStore.changeAccessToken(null);

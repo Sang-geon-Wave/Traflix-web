@@ -18,7 +18,7 @@ const enum SignupErrorMessages {
   ExistID = '이미 존재하는 ID 입니다',
   IllegalPW = '비밀번호가 조건을 만족하지 않습니다',
   IllegalPWRe = '비밀번호 확인이 일치하지 않습니다',
-  IllegalNickname = '닉네임은 최대 30자 이하여야 합니다',
+  IllegalNickname = '닉네임은 최소 1자 최대 30자이어야 합니다',
   IllegalEmail = '올바른 이메일 주소가 아닙니다',
   UnknownError = '알수없는 오류 발생',
 }
@@ -70,7 +70,7 @@ const SignupComponent = () => {
     } else if (!user.pwRe) {
       setSignupErrType(SignupErrorMessages.NoPWRe);
       return;
-    } else if (user.nickname.length && !nicknameReg.test(user.nickname)) {
+    } else if (user.nickname.length == 0 && !nicknameReg.test(user.nickname)) {
       // Optional
       setSignupErrType(SignupErrorMessages.IllegalNickname);
       return;
@@ -89,7 +89,7 @@ const SignupComponent = () => {
 
     const res = await signup(user.pw, user.nickname, user.email);
     if (res === HttpStatus.OK) {
-      alert(`회원가입 완료하였습니다 ${user.email}님`);
+      alert(`회원가입 완료하였습니다 ${user.nickname}님`);
       changeToLogin();
     } else if (res === HttpStatus.CONFLICT) {
       setSignupErrType(SignupErrorMessages.ExistID);
@@ -168,7 +168,7 @@ const SignupComponent = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicNickname">
-          <Form.Label>닉네임</Form.Label>
+          <Form.Label>닉네임</Form.Label> <span>*</span>
           <Form.Control
             type="text"
             placeholder="닉네임"
@@ -177,6 +177,7 @@ const SignupComponent = () => {
               updateSignupInfo('nickname', e.target.value)
             }
           />
+          <Form.Text>최소 1자 최대 30자</Form.Text>
         </Form.Group>
 
         <Form.Text className={styles.messageBlock}>{signupErrType}</Form.Text>

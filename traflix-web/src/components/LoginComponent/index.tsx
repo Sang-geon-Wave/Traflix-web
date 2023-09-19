@@ -13,7 +13,7 @@ const LoginComponent = () => {
   const {
     screenClass,
     isLogin,
-    refresh,
+    nickname,
     login,
     handleSignupShow,
     handleLoginClose,
@@ -21,14 +21,10 @@ const LoginComponent = () => {
     screenClass: appStore.screenClass.get(),
     isLogin: authStore.isLogin.get(),
     login: authStore.login,
-    refresh: authStore.refresh,
+    nickname: authStore.userNickname.get(),
     handleSignupShow: signupModal.handleSignupShow,
     handleLoginClose: loginModal.handleLoginClose,
   }));
-
-  // useEffect(() => {
-  //   refresh();
-  // }, []);
 
   useEffect(() => {
     if (isLogin) {
@@ -77,7 +73,7 @@ const LoginComponent = () => {
     setLoginErr({ handle: false, text: '' });
 
     if (await login(null, usrID, usrPW, autoLogin)) {
-      alert(`환영합니다 ${usrID}님`);
+      alert(`환영합니다`);
       handleLoginClose();
       navigate('/');
     } else

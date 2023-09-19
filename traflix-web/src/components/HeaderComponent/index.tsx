@@ -15,12 +15,14 @@ const HeaderComponent = ({}) => {
     handleLoginShow,
     logout,
     refresh,
+    userNickname,
     handleSignupShow,
   } = useRootData(({ appStore, loginModal, authStore, signupModal }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: authStore.isLogin.get(),
     logout: authStore.logout,
     refresh: authStore.refresh,
+    userNickname: authStore.userNickname.get(),
     handleLoginShow: loginModal.handleLoginShow,
     handleSignupShow: signupModal.handleSignupShow,
   }));
@@ -50,7 +52,7 @@ const HeaderComponent = ({}) => {
         />
         <button className={styles.menuButton} onClick={toggleMenu}>
           <img src={listImg} />
-          {isLogin ? '사람' : '임시'}
+          {isLogin ? userNickname : '임시'}
         </button>
         {isMenuOpen && (
           <div className={styles.menu}>
