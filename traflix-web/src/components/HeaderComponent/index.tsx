@@ -57,21 +57,46 @@ const HeaderComponent = ({}) => {
         {isMenuOpen && (
           <div className={styles.menu}>
             {!isLogin && (
-              <div onClick={handleSignupShow} className={styles.options}>
+              <div
+                onClick={() => {
+                  handleSignupShow();
+                  setMenuOpen(false);
+                }}
+                className={styles.options}
+              >
                 회원가입
               </div>
             )}
             {!isLogin && (
-              <div onClick={handleLoginShow} className={styles.options}>
+              <div
+                onClick={() => {
+                  handleLoginShow();
+                  setMenuOpen(false);
+                }}
+                className={styles.options}
+              >
                 로그인
               </div>
             )}
             {isLogin && (
-              <div onClick={logout} className={styles.options}>
+              <div
+                onClick={() => {
+                  logout();
+                  setMenuOpen(false);
+                }}
+                className={styles.options}
+              >
                 로그아웃
               </div>
             )}
-            <div className={styles.options}>기타</div>
+            <div
+              className={styles.options}
+              onClick={() => {
+                setMenuOpen(false);
+              }}
+            >
+              기타
+            </div>
           </div>
         )}
       </div>
