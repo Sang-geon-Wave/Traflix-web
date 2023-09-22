@@ -8,8 +8,9 @@ import { Card } from 'react-bootstrap';
 
 const TrainCardComponent: React.FunctionComponent<TrainCardDataType> = ({
   trainType,
-  departure,
-  arrival,
+  trainNumber,
+  departureStation,
+  arrivalStation,
   departureTime,
   arrivalTime,
 }) => {
@@ -34,7 +35,7 @@ const TrainCardComponent: React.FunctionComponent<TrainCardDataType> = ({
   return (
     <Card className={styles.main}>
       <div className={styles.schedule}>
-        <span>{trainType}</span> &nbsp;{departure} &gt; {arrival}
+        <span>{trainType}</span> &nbsp;{departureStation} &gt; {arrivalStation}
         <div className={styles.timeSet}>
           <span>
             {departureTime} ~ {arrivalTime}

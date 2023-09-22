@@ -3,8 +3,9 @@ import { TrainCardDataType } from '../../../types/TrainCardType';
 const TrainTestData: TrainCardDataType[] = [
   {
     trainType: 'KTX',
-    departure: '서울',
-    arrival: '부산',
+    trainNumber: 1,
+    departureStation: '서울',
+    arrivalStation: '부산',
     departureTime: '10:30',
     arrivalTime: '13:50',
   },

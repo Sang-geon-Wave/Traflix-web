@@ -41,8 +41,9 @@ const TravelScheduleComponent: React.FunctionComponent<
       <img className={styles.icon} src={train} />
       <TrainCardComponent
         trainType={trainSchedule[0].trainType}
-        departure={trainSchedule[0].departure}
-        arrival={trainSchedule[0].arrival}
+        trainNumber={trainSchedule[0].trainNumber}
+        departureStation={trainSchedule[0].departureStation}
+        arrivalStation={trainSchedule[0].arrivalStation}
         departureTime={trainSchedule[0].departureTime}
         arrivalTime={trainSchedule[0].arrivalTime}
       />

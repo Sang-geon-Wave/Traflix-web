@@ -1,7 +1,8 @@
 export interface TrainCardDataType {
   trainType: string;
-  departure: string;
-  arrival: string;
+  trainNumber: number;
+  departureStation: string;
+  arrivalStation: string;
   departureTime: string;
   arrivalTime: string;
 }
