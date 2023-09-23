@@ -43,7 +43,8 @@ const TrainCardComponent: React.FunctionComponent<TrainCardDataType> = ({
             {departureTime} ~ {arrivalTime}
           </span>
           <h6>
-            {estimatedHour}:{estimatedMinute}소요
+            {estimatedHour}:{estimatedMinute < 10 ? 0 : ''}
+            {estimatedMinute}소요
           </h6>
         </div>
       </div>
