@@ -35,7 +35,9 @@ const TrainCardComponent: React.FunctionComponent<TrainCardDataType> = ({
   return (
     <Card className={styles.main}>
       <div className={styles.schedule}>
-        <span>{trainType}</span> &nbsp;{departureStation} &gt; {arrivalStation}
+        <span>{trainType}</span>
+        &nbsp; {trainNumber}&nbsp;| &nbsp;{departureStation} &gt;{' '}
+        {arrivalStation}
         <div className={styles.timeSet}>
           <span>
             {departureTime} ~ {arrivalTime}
