@@ -95,7 +95,7 @@ const LoginComponent = () => {
       <Form onSubmit={(e) => tryLogin(e)} className={styles.form}>
         <div className={styles.title}></div>
         <Form.Group className="mb-3" controlId="formID">
-          <Form.Label>아이디</Form.Label>
+          <Form.Label>이메일 주소</Form.Label>
           <Form.Control
             type="text"
             placeholder="이메일 주소"

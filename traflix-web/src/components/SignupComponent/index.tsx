@@ -64,25 +64,28 @@ const SignupComponent = () => {
     if (!user.email) {
       setSignupErrType(SignupErrorMessages.NoEmail);
       return;
-    } else if (!user.pw) {
+    }
+    if (!user.pw) {
       setSignupErrType(SignupErrorMessages.NoPW);
       return;
-    } else if (!user.pwRe) {
+    }
+    if (!user.pwRe) {
       setSignupErrType(SignupErrorMessages.NoPWRe);
       return;
-    } else if (user.nickname.length == 0 && !nicknameReg.test(user.nickname)) {
-      // Optional
+    }
+    if (user.nickname.length === 0 && !nicknameReg.test(user.nickname)) {
       setSignupErrType(SignupErrorMessages.IllegalNickname);
       return;
-    } else if (user.email.length && !emailReg.test(user.email)) {
-      // Optional
+    }
+    if (user.email.length && !emailReg.test(user.email)) {
       setSignupErrType(SignupErrorMessages.IllegalEmail);
       return;
     }
     if (!passwordReg.test(user.pw)) {
       setSignupErrType(SignupErrorMessages.IllegalPW);
       return;
-    } else if (user.pw !== user.pwRe) {
+    }
+    if (user.pw !== user.pwRe) {
       setSignupErrType(SignupErrorMessages.IllegalPWRe);
       return;
     }
@@ -94,7 +97,6 @@ const SignupComponent = () => {
     } else if (res === HttpStatus.CONFLICT) {
       setSignupErrType(SignupErrorMessages.ExistID);
     } else {
-      console.log('asd');
       setSignupErrType(SignupErrorMessages.UnknownError);
     }
   };
