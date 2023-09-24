@@ -11,6 +11,9 @@ import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
+import TrainTestData from '../../assets/string/trainCardComponent';
+import SummaryComponent from '../../components/SummaryComponent';
+import SummaryTestData from '../../assets/string/summarycomponent/testData';
 
 const DirectionPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -23,22 +26,27 @@ const DirectionPage = () => {
   const testPath: MapCoordinateDataType[] = testPath1;
 
   return (
-    <div className={styles.app}>
-      <Row className="gx-0">
-        <Col className="bg-light" lg={3}>
-          <Row className="gx-0 w-100">
-            <Col className="bg-success py-2">
-              <img src={logoWhite} className="p-2"></img>
-            </Col>
-          </Row>
-          <Col className="px-2">
-            <TravelScheduleComponent travelSchedule={testData} />
-          </Col>
-        </Col>
-        <Col className={styles.mapContainer}>
-          <MapComponent pathCoordinates={testPath}></MapComponent>
-        </Col>
-      </Row>
+    <div className={styles.pageContainer}>
+      <div className={`bg-success py-2 ${styles.navbarContainer}`}>
+        <img src={logoWhite} className="p-2"></img>
+      </div>
+
+      <div className={`p-2 ${styles.cardItemsContainer}`}>
+        <div>
+          <SummaryComponent
+            date={new Date('2023-09-14')}
+            summaryData={SummaryTestData}
+          />
+        </div>
+        <TravelScheduleComponent 
+          travelSchedule={testData}
+          trainSchedule={TrainTestData}
+        />
+      </div>
+
+      <div className={styles.mapContainer}>
+        <MapComponent pathCoordinates={testPath}></MapComponent>
+      </div>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({
 
   const [mapStyle, setMapStyle] = useState({
     width: '100%',
-    height: '100vh',
+    height: '100%',
   });
 
   const centerCoordinate = {
@@ -35,7 +35,7 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({
   };
 
   return (
-    <div>
+    <div className="w-100 h-100">
       <Map
         center={{ lat: centerCoordinate.lat, lng: centerCoordinate.lng }}
         style={mapStyle}
