@@ -52,7 +52,7 @@ const HeaderComponent = ({}) => {
         />
         <button className={styles.menuButton} onClick={toggleMenu}>
           <img src={listImg} />
-          {isLogin ? userNickname : '임시'}
+          {isLogin ? userNickname : '메뉴'}
         </button>
         {isMenuOpen && (
           <div className={styles.menu}>

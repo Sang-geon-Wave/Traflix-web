@@ -114,7 +114,7 @@ const LoginComponent = () => {
               className={styles.nonBorder}
             />
             <img
-              src={showPW ? eyeFill : eyeSlashFill}
+              src={showPW ? eyeSlashFill : eyeFill}
               onClick={() => setShowPW(!showPW)}
             />
           </InputGroup>
