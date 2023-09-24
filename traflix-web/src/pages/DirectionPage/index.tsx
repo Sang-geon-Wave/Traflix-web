@@ -11,6 +11,7 @@ import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
+import TrainTestData from '../../assets/string/trainCardComponent';
 import SummaryComponent from '../../components/SummaryComponent';
 import SummaryTestData from '../../assets/string/summarycomponent/testData';
 
@@ -37,7 +38,10 @@ const DirectionPage = () => {
             summaryData={SummaryTestData}
           />
         </div>
-        <TravelScheduleComponent travelSchedule={testData} />
+        <TravelScheduleComponent 
+          travelSchedule={testData}
+          trainSchedule={TrainTestData}
+        />
       </div>
 
       <div className={styles.mapContainer}>
