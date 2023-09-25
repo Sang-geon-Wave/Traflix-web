@@ -2,7 +2,6 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import stationList from '../../assets/string/seachbarComponent/testData';
 import cardData from '../../assets/string/cardCarouselComponent/cardData';
 
 import BannerComponent from '../../components/BannerComponent';
@@ -30,7 +29,7 @@ const LandingPage = () => {
         <BannerComponent />
         <div className={styles.searchBarArea}>
           <img src={bannerstring} />
-          <SearchbarComponent stationList={stationList} />
+          <SearchbarComponent />
         </div>
       </Row>
       <Row>
