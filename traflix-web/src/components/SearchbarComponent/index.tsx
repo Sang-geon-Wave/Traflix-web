@@ -29,7 +29,7 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await api.post('/search/stationName');
+      const { data } = await api.get('/search/stationName');
 
       let stations = [''];
       for (let i = 0; i < data.data.length; i++) {
