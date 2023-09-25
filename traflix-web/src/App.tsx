@@ -5,7 +5,6 @@ import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
 import DirectionPage from './pages/DirectionPage';
 import useRootData from './hooks/useRootData';
-import SummaryTestPage from './pages/SummaryTestPage';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -29,8 +28,6 @@ const App = () => {
         <Route path="/mock" element={<MockPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/directions" element={<DirectionPage />} />
-
-        <Route path="/summary" element={<SummaryTestPage />} />
       </Routes>
     </Router>
   );

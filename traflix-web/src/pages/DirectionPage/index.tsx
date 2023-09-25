@@ -38,7 +38,7 @@ const DirectionPage = () => {
             summaryData={SummaryTestData}
           />
         </div>
-        <TravelScheduleComponent 
+        <TravelScheduleComponent
           travelSchedule={testData}
           trainSchedule={TrainTestData}
         />

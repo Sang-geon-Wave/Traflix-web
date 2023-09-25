@@ -3,15 +3,9 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
 import { dateFormat, dateTimeFormat } from '../../utils/dateFormat';
-// import stylesMobileDefault from './MobileDefault.module.scss';
+import api from '../../api';
 
-export interface PropsSearchbarComponent {
-  stationList: string[];
-}
-
-const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
-  stationList,
-}) => {
+const SearchbarComponent: React.FunctionComponent = ({}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -30,6 +24,25 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
   const [showStartSearch, setShowStartSearch] = useState(false);
   const [showDestSearch, setShowDestSearch] = useState(false);
 
+  const [stationList, setStationList] = useState(['']);
+  const [stationMap, _] = useState(new Map<string, string>());
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await api.post('/search/stationName');
+
+      let stations = [''];
+      for (let i = 0; i < data.data.length; i++) {
+        stationMap.set(
+          data.data[i].station_name + '역',
+          data.data[i].station_code,
+        );
+        stations.push(data.data[i].station_name + '역');
+      }
+      setStationList(stations);
+    }
+    fetchData();
+  }, []);
   const searchPath = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (stationList.indexOf(start) < 0) alert('출발역을 다시 확인해주세요');
@@ -39,7 +52,11 @@ const SearchbarComponent: React.FunctionComponent<PropsSearchbarComponent> = ({
       alert('출발지와 도착지를 다르게 설정해주세요');
     else if (startDate === '') alert('날짜를 골라주세요');
     else
-      alert(`start: ${start}, destination: ${destination} date: ${startDate}`);
+      alert(
+        `start: ${stationMap.get(start) as string}, destination: ${
+          stationMap.get(destination) as string
+        } date: ${startDate}`,
+      );
   };
 
   const searchStartStation = (val: string) => {
