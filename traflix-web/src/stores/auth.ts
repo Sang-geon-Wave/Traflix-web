@@ -5,6 +5,7 @@ import api from '../api';
 const createStore = () => {
   const authStore = {
     accessToken: observable.box<null | string>(null),
+    userNickname: observable.box(''),
     isLogin: observable.box(false),
 
     changeAccessToken(data: null | string) {
@@ -14,16 +15,26 @@ const createStore = () => {
     changeLoginState(data: boolean) {
       authStore.isLogin.set(data);
     },
+    changeNickname(data: string) {
+      authStore.userNickname.set(data);
+    },
 
-    async login(userId: string, userPw: string, autologin: boolean = false) {
+    async login(
+      code: string | null,
+      email: string = '',
+      userPw: string = '',
+      autologin: boolean = false,
+    ) {
       try {
         const { data } = await api.post('/auth/login', {
-          user_id: userId,
+          code: code,
+          email: email,
           user_pw: userPw,
           autologin: autologin,
         });
-        const { access_token: accessToken } = data;
+        const { access_token: accessToken, nickname: nickname } = data;
         authStore.changeAccessToken(accessToken);
+        authStore.changeNickname(nickname);
         return true;
       } catch (err) {
         authStore.changeAccessToken(null);
@@ -33,8 +44,9 @@ const createStore = () => {
     async refresh() {
       try {
         const { data } = await api.post('/auth/refresh');
-        const { access_token: accessToken } = data;
+        const { access_token: accessToken, nickname: nickname } = data;
         authStore.changeAccessToken(accessToken);
+        authStore.changeNickname(nickname);
         return accessToken;
       } catch (err) {
         authStore.changeAccessToken(null);
@@ -47,15 +59,9 @@ const createStore = () => {
       } catch (err) {}
       authStore.changeAccessToken(null);
     },
-    async signup(
-      userId: string,
-      userPw: string,
-      nickname: string = '',
-      email: string = '',
-    ) {
+    async signup(userPw: string, nickname: string = '', email: string = '') {
       try {
         const { data } = await api.post('/auth/signup', {
-          user_id: userId,
           user_pw: userPw,
           nickname: nickname,
           email: email,
