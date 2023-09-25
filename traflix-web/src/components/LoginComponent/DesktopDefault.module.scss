@@ -1,10 +1,7 @@
-@import '../../assets/scsses/config';
-
 .main {
   width: 100%;
   text-align: center;
 }
-
 .logo {
   width: 40%;
   margin-bottom: 20px;
@@ -12,9 +9,6 @@
 .form {
   margin-top: 20px;
   text-align: left !important;
-}
-.form span {
-  color: red !important;
 }
 .formButton {
   width: 100%;
@@ -39,13 +33,31 @@
 .nonBorder {
   border: none !important;
 }
-.messageBlock {
-  color: red !important;
+.kakao {
+  width: 100% !important;
+  background-color: #fee500 !important;
+  border-radius: 12px !important;
+  border-color: #fee500 !important;
+  margin-bottom: 10px !important;
+  padding: 0.75rem 0.375rem;
+  text-align: center !important;
+  vertical-align: middle;
 }
-.signInLink {
+.kakaoSymbol {
+  width: 1rem;
+  margin-right: 2%;
+}
+.kakaoButton {
+  width: 100% !important;
+  background-color: #fee500 !important;
+  border-color: #fee500 !important;
+  margin-bottom: 25px !important;
   color: black !important;
 }
-.signInLink span {
+.signUpLink {
+  color: black !important;
+}
+.signUpLink span {
   text-decoration: underline;
   cursor: pointer;
 }
