@@ -4,13 +4,14 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import { TravelCardDataType } from '../../types/TravelCardDataType';
 import { Card } from 'react-bootstrap';
+import api from '../../api';
 
 const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   img,
   title,
   subtitle,
   load,
-  moreInfo,
+  moreInfo, // 여기에 content_id 집어넣어야 할 듯 이건 누구 파트인지 알아보자
 }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -18,6 +19,23 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
+  const setDetailModal = async () => {
+    const { data } = await api.post('/search/contentDetail', {
+      content_id: moreInfo,
+    });
+
+    // data.detail이 아래와 같은 set(추후 변경 가능성 높음)
+    // {
+    //  "title":"가야밀면돼지국밥 일산본점",
+    //  "img":"http://tong.visitkorea.or.kr/cms/resource/13/2891913_image2_1.jpg",
+    //  "addr":"경기도 고양시 일산서구 호수로856번길 8-9",
+    //  "overview":"어쩌구"
+    // }
+    // 그럼 이제 너가 모달 안에 들어가는 변수들을 저거에 맞게 변경하면 끝입니다.
+
+    console.log(data.detail); // 이 함수 대신 modal을 여는 함수 실행하면 될 듯
+  };
 
   return (
     <Card className={styles.main}>
@@ -31,9 +49,9 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
           <Card.Link href={load} className={styles.links} target="_blank">
             길찾기
           </Card.Link>
-          <Card.Link href={moreInfo} className={styles.links} target="_blank">
+          <Card.Text className={styles.links} onClick={setDetailModal}>
             자세히보기
-          </Card.Link>
+          </Card.Text>
         </div>
       </Card.Body>
     </Card>
