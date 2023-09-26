@@ -12,6 +12,11 @@ import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import HeaderComponent from '../../components/HeaderComponent';
 import LoadingComponent from '../../components/LoadingComponent';
+import SummaryComponent from '../../components/SummaryComponent';
+import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
+import test1 from '../../assets/strings/ContentDetailComponent/mockData';
+import { ContentDetailDataType } from '../../types/ContentDetailDataType';
+import { useState } from 'react';
 
 const DirectionPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -23,16 +28,30 @@ const DirectionPage = () => {
 
   const testPath: MapCoordinateDataType[] = testPath1;
 
+  const [isOpen, setIsOpen] = useState(false);
+  const handleShowModal = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  };
+
   return (
     <div className={styles.pageContainer}>
       <HeaderComponent />
 
+      <div className={`bg-success py-2 ${styles.navbarContainer}`}>
+        <img src={logoWhite} className="p-2"></img>
+      </div>
+      <div>
+        <ContentDetailModalComponent
+          isOpen={true}
+          contentDetailData={test1}
+        ></ContentDetailModalComponent>
+      </div>
       <div className={styles.cardItemsContainer}>
         <Suspense fallback={<LoadingComponent />}>
           <TravelScheduleComponent />
         </Suspense>
       </div>
-
       <div className={styles.mapContainer}>
         <MapComponent pathCoordinates={testPath}></MapComponent>
       </div>
