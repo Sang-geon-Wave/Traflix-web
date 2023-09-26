@@ -14,6 +14,10 @@ import testData from '../../assets/string/travelCardComponent';
 import TrainTestData from '../../assets/string/trainCardComponent';
 import SummaryComponent from '../../components/SummaryComponent';
 import SummaryTestData from '../../assets/string/summarycomponent/testData';
+import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
+import test1 from '../../assets/strings/ContentDetailComponent/mockData';
+import { ContentDetailDataType } from '../../types/ContentDetailDataType';
+import { useState } from 'react';
 
 const DirectionPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -25,12 +29,23 @@ const DirectionPage = () => {
 
   const testPath: MapCoordinateDataType[] = testPath1;
 
+  const [isOpen, setIsOpen] = useState(false);
+  const handleShowModal = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  };
+
   return (
     <div className={styles.pageContainer}>
       <div className={`bg-success py-2 ${styles.navbarContainer}`}>
         <img src={logoWhite} className="p-2"></img>
       </div>
-
+      <div>
+        <ContentDetailModalComponent
+          isOpen={true}
+          contentDetailData={test1}
+        ></ContentDetailModalComponent>
+      </div>
       <div className={`p-2 ${styles.cardItemsContainer}`}>
         <div>
           <SummaryComponent
@@ -43,7 +58,6 @@ const DirectionPage = () => {
           trainSchedule={TrainTestData}
         />
       </div>
-
       <div className={styles.mapContainer}>
         <MapComponent pathCoordinates={testPath}></MapComponent>
       </div>
