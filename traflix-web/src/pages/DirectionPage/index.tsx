@@ -29,10 +29,9 @@ const DirectionPage = () => {
 
   const testPath: MapCoordinateDataType[] = testPath1;
 
-  const [isOpen, setIsOpen] = useState(false);
-  const handleShowModal = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  const handleContentDetailModal = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
 
   return (
@@ -42,8 +41,9 @@ const DirectionPage = () => {
       </div>
       <div>
         <ContentDetailModalComponent
-          isOpen={true}
+          isOpen={isOpen}
           contentDetailData={test1}
+          handleContentDetailModal={handleContentDetailModal}
         ></ContentDetailModalComponent>
       </div>
       <div className={`p-2 ${styles.cardItemsContainer}`}>

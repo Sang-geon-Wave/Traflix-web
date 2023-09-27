@@ -10,11 +10,12 @@ import { ContentDetailDataType } from '../../types/ContentDetailDataType';
 export interface PropsContentDetailModalComponent {
   contentDetailData: ContentDetailDataType;
   isOpen: boolean;
+  handleContentDetailModal: () => void;
 }
 
 const ContentDetailModalComponent: React.FunctionComponent<
   PropsContentDetailModalComponent
-> = ({ isOpen, contentDetailData }) => {
+> = ({ isOpen, contentDetailData, handleContentDetailModal }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -23,31 +24,14 @@ const ContentDetailModalComponent: React.FunctionComponent<
 
   const navigate = useNavigate();
 
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-
-  const handleOptionToggle = (option: string) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
-  };
-  const handleModalClose = () => {
-    setSelectedOptions([]);
-  };
-  const handleNextButton = () => {
-    // options = selectedOptions;
-    setSelectedOptions([]);
-  };
-
   return (
     <div>
-      {
+      {isOpen && (
         <div className={styles.main}>
           <button
             className={styles.close}
             onClick={() => {
-              handleModalClose();
+              handleContentDetailModal();
             }}
           >
             <img src={closeImg}></img>
@@ -72,7 +56,7 @@ const ContentDetailModalComponent: React.FunctionComponent<
             </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };
