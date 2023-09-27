@@ -3,6 +3,10 @@ export interface ContentDetailDataType {
   img: string;
   contentType: string;
   tel: string;
+  telname: string;
   address: string;
-  detail: string;
+  overview: string;
+  zipcode: string;
+  homepage: string;
+  intro: {};
 }

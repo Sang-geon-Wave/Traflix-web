@@ -25,15 +25,6 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
       content_id: moreInfo,
     });
 
-    // data.detail이 아래와 같은 set(추후 변경 가능성 높음)
-    // {
-    //  "title":"가야밀면돼지국밥 일산본점",
-    //  "img":"http://tong.visitkorea.or.kr/cms/resource/13/2891913_image2_1.jpg",
-    //  "addr":"경기도 고양시 일산서구 호수로856번길 8-9",
-    //  "overview":"어쩌구"
-    // }
-    // 그럼 이제 너가 모달 안에 들어가는 변수들을 저거에 맞게 변경하면 끝입니다.
-
     console.log(data.detail); // 이 함수 대신 modal을 여는 함수 실행하면 될 듯
   };
 
