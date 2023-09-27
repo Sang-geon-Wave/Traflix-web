@@ -9,16 +9,18 @@ import { ContentDetailDataType } from '../../types/ContentDetailDataType';
 
 export interface PropsContentDetailModalComponent {
   contentDetailData: ContentDetailDataType;
-  isOpen: boolean;
-  handleContentDetailModal: () => void;
 }
 
 const ContentDetailModalComponent: React.FunctionComponent<
   PropsContentDetailModalComponent
-> = ({ isOpen, contentDetailData, handleContentDetailModal }) => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+> = ({ contentDetailData }) => {
+  const { screenClass, contentShow, handleContentClose } = useRootData(
+    ({ appStore, contentModal }) => ({
+      screenClass: appStore.screenClass.get(),
+      contentShow: contentModal.contentShow.get(),
+      handleContentClose: contentModal.handleContentClose,
+    }),
+  );
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
@@ -26,12 +28,12 @@ const ContentDetailModalComponent: React.FunctionComponent<
 
   return (
     <div>
-      {isOpen && (
+      {contentShow && (
         <div className={styles.main}>
           <button
             className={styles.close}
             onClick={() => {
-              handleContentDetailModal();
+              handleContentClose();
             }}
           >
             <img src={closeImg}></img>
@@ -45,7 +47,7 @@ const ContentDetailModalComponent: React.FunctionComponent<
             <div className={styles.content}>
               <div className={styles.contentTitle}>상세 정보</div>
               <div className={styles.contentText}>
-                {contentDetailData.detail}
+                {contentDetailData.title}
               </div>
               <div className={styles.contentTitle}>주소</div>
               <div className={styles.contentText}>
