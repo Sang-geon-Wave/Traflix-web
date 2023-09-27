@@ -13,17 +13,23 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   load,
   moreInfo, // 여기에 content_id 집어넣어야 할 듯 이건 누구 파트인지 알아보자
 }) => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, handleContentShow } = useRootData(
+    ({ appStore, contentModal }) => ({
+      screenClass: appStore.screenClass.get(),
+      handleContentShow: contentModal.handleContentShow,
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const setDetailModal = async () => {
     const { data } = await api.post('/search/contentDetail', {
-      content_id: moreInfo,
+      //content_id: moreInfo,
+      content_id: 2465071, //2851257,
     });
+
+    handleContentShow();
 
     console.log(data.detail); // 이 함수 대신 modal을 여는 함수 실행하면 될 듯
   };
