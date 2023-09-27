@@ -3,8 +3,10 @@ import { observable } from 'mobx';
 const createStore = () => {
   const contentModal = {
     contentShow: observable.box(false),
+    content: observable.box({}),
 
-    handleContentShow() {
+    handleContentShow(contents: object) {
+      contentModal.content.set(contents);
       contentModal.contentShow.set(true);
     },
     handleContentClose() {
