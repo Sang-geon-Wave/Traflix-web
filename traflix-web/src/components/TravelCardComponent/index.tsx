@@ -29,8 +29,7 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
       content_id: 2465071, //2851257,
     });
 
-    handleContentShow();
-
+    handleContentShow(data.detail);
     console.log(data.detail); // 이 함수 대신 modal을 여는 함수 실행하면 될 듯
   };
 
