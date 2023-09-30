@@ -19,19 +19,17 @@ import { ContentDetailDataType } from '../../types/ContentDetailDataType';
 import { useState } from 'react';
 
 const DirectionPage = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, content } = useRootData(
+    ({ appStore, contentModal }) => ({
+      screenClass: appStore.screenClass.get(),
+      content: contentModal.content.get(),
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   const testPath: MapCoordinateDataType[] = testPath1;
-
-  const [isOpen, setIsOpen] = useState(true);
-  const handleContentDetailModal = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <div className={styles.pageContainer}>
@@ -41,11 +39,7 @@ const DirectionPage = () => {
         <img src={logoWhite} className="p-2"></img>
       </div>
       <div>
-        <ContentDetailModalComponent
-          isOpen={isOpen}
-          contentDetailData={test1}
-          handleContentDetailModal={handleContentDetailModal}
-        ></ContentDetailModalComponent>
+        <ContentDetailModalComponent />
       </div>
       <div className={styles.cardItemsContainer}>
         <Suspense fallback={<LoadingComponent />}>
