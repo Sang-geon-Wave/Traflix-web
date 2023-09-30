@@ -7,6 +7,7 @@
   width: 300px;
   height: 100%;
   background-color: white;
+  // overflow-y: scroll;
 
   z-index: 999;
   position: absolute;
@@ -19,6 +20,7 @@
   background-color: white;
   padding: 15px;
   margin-top: 30px;
+  overflow-y: scroll;
 }
 .titleImg {
   display: flex;
@@ -46,7 +48,7 @@
 .close {
   position: absolute;
   border: 0px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   right: 10px;
   top: 10px;
 }
