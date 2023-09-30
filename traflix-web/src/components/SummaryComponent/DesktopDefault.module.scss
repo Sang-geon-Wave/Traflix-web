@@ -3,11 +3,13 @@
 .mainBlock {
   display: flex;
   flex-direction: column;
-  background-color: #336657;
+  background-color: #1d7742;
   justify-content: space-evenly;
   width: 100%;
   height: 180px;
-  margin-bottom: 1px;
+  border-bottom-style: solid !important;
+  border-bottom: 1.5px;
+  border-bottom-color: #336657 !important;
 }
 .title {
   display: flex;

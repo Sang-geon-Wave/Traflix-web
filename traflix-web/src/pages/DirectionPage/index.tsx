@@ -12,6 +12,7 @@ import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
 import TrainTestData from '../../assets/string/trainCardComponent';
+import HeaderComponent from '../../components/HeaderComponent';
 
 const DirectionPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -25,9 +26,7 @@ const DirectionPage = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <div className={`bg-success py-2 ${styles.navbarContainer}`}>
-        <img src={logoWhite} className="p-2"></img>
-      </div>
+      <HeaderComponent />
 
       <div className={styles.cardItemsContainer}>
         <TravelScheduleComponent
