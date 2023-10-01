@@ -12,8 +12,7 @@ import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
 import TrainTestData from '../../assets/string/trainCardComponent';
-import SummaryComponent from '../../components/SummaryComponent';
-import SummaryTestData from '../../assets/string/summarycomponent/testData';
+import HeaderComponent from '../../components/HeaderComponent';
 
 const DirectionPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -27,17 +26,9 @@ const DirectionPage = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <div className={`bg-success py-2 ${styles.navbarContainer}`}>
-        <img src={logoWhite} className="p-2"></img>
-      </div>
+      <HeaderComponent />
 
-      <div className={`p-2 ${styles.cardItemsContainer}`}>
-        <div>
-          <SummaryComponent
-            date={new Date('2023-09-14')}
-            summaryData={SummaryTestData}
-          />
-        </div>
+      <div className={styles.cardItemsContainer}>
         <TravelScheduleComponent
           travelSchedule={testData}
           trainSchedule={TrainTestData}
