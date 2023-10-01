@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
+import api from '../../api';
 
 import cafe from '../../assets/images/cafe.svg';
 import festival from '../../assets/images/festival.png';
@@ -29,9 +30,13 @@ export interface PropsTravelScheduleComponent {
 const TravelScheduleComponent: React.FunctionComponent<
   PropsTravelScheduleComponent
 > = ({ travelSchedule, trainSchedule }) => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, accessToken, isLogin } = useRootData(
+    ({ appStore, authStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      accessToken: authStore.accessToken.get(),
+      isLogin: authStore.isLogin.get(),
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -44,9 +49,29 @@ const TravelScheduleComponent: React.FunctionComponent<
     ['mountain', mountain],
   ];
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
     async function fetchData() {
+      try {
+        const { data } = await api.get('/user/me', {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        setUserEmail(data.email);
+      } catch (err) {
+        if (isLogin) {
+          alert('잠시후 다시 시도해 주세요');
+        }
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData(email: string = '') {
+      // const { data } = await api.get('/search/wholeSchedule', {});
       let init = [];
       for (let i = 0; i < SummaryTestData.length; i++) {
         init.push(false);
@@ -55,12 +80,14 @@ const TravelScheduleComponent: React.FunctionComponent<
     }
     fetchData();
   }, []);
+
   const updateIndex = (idx: number) => {
     let update = [...detailVisibility];
     update[idx] = !update[idx];
     console.log(update[idx]);
     setDetailVisibility(update);
   };
+
   return (
     <div className={styles.main}>
       {SummaryTestData.map((Data, i) => (
