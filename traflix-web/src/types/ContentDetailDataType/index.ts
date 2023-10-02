@@ -4,7 +4,7 @@ export interface ContentDetailDataType {
   contentType: string;
   tel: string;
   telname: string;
-  address: string;
+  addr: string;
   overview: string;
   zipcode: string;
   homepage: string;
