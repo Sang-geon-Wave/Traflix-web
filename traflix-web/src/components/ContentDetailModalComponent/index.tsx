@@ -78,7 +78,7 @@ const ContentDetailModalComponent: React.FunctionComponent<
       parkinglodging: '주차 시설',
       reservationlodging: '예약 안내',
       reservationurl: '예약안내 홈페이지',
-      infoventerlodging: '문의 및 안내',
+      infocenterlodging: '문의 및 안내',
     },
     '38': {
       chkcreditcardshopping: '신용카드가능 정보',
@@ -126,12 +126,22 @@ const ContentDetailModalComponent: React.FunctionComponent<
               <div className={styles.contentText}>{content.addr}</div>
               <div className={styles.contentTitle}>전화번호</div>
               <div className={styles.contentText}>{content.tel}</div>
+              <div className={styles.contentTitle}>전화명</div>
+              <div className={styles.contentText}>{content.telname}</div>
+              <div className={styles.contentTitle}>홈페이지</div>
+              <div className={styles.contentText}>{content.homepage}</div>
+              <div className={styles.contentTitle}>우편번호</div>
+              <div className={styles.contentText}>{content.zipcode}</div>
               {Object.keys(detailIntro[content.contentType]).map((key) => (
                 <div key={key}>
                   <div className={styles.contentTitle}>
                     {detailIntro[content.contentType][key]}
                   </div>
-                  <div className={styles.contentText}>{content.intro[key]}</div>
+                  <div className={styles.contentText}>
+                    {content.intro[key] === ''
+                      ? '정보 없음'
+                      : content.intro[key]}
+                  </div>
                 </div>
               ))}
             </div>
