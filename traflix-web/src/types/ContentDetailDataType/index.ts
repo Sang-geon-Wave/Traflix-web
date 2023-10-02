@@ -8,5 +8,5 @@ export interface ContentDetailDataType {
   overview: string;
   zipcode: string;
   homepage: string;
-  intro: {};
+  intro: { [key: string]: string };
 }
