@@ -21,6 +21,7 @@ import TravelCardComponent from '../TravelCardComponent';
 import SummaryTestData from '../../assets/string/summarycomponent/testData';
 import { TrainCardDataType } from '../../types/TrainCardType';
 import { TravelCardDataType } from '../../types/TravelCardType';
+import { UUID } from 'crypto';
 
 export interface PropsTravelScheduleComponent {
   travelSchedule: TravelCardDataType[];
@@ -30,13 +31,10 @@ export interface PropsTravelScheduleComponent {
 const TravelScheduleComponent: React.FunctionComponent<
   PropsTravelScheduleComponent
 > = ({ travelSchedule, trainSchedule }) => {
-  const { screenClass, accessToken, isLogin } = useRootData(
-    ({ appStore, authStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      accessToken: authStore.accessToken.get(),
-      isLogin: authStore.isLogin.get(),
-    }),
-  );
+  const { screenClass, isLogin } = useRootData(({ appStore, authStore }) => ({
+    screenClass: appStore.screenClass.get(),
+    isLogin: authStore.isLogin.get(),
+  }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -49,29 +47,28 @@ const TravelScheduleComponent: React.FunctionComponent<
     ['mountain', mountain],
   ];
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
-  const [userEmail, setUserEmail] = useState('');
 
+  async function getEmail() {
+    try {
+      const { data } = await api.get('/user/me');
+      return data.email;
+    } catch (err) {
+      if (isLogin) {
+        alert('잠시후 다시 시도해 주세요');
+      }
+    }
+  }
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await api.get('/user/me', {
-          headers: {
-            Authorization: accessToken,
-          },
+        var userEmail = await getEmail();
+        const { data } = await api.post('/search/myJourney', {
+          email: userEmail,
         });
-        setUserEmail(data.email);
-      } catch (err) {
-        if (isLogin) {
-          alert('잠시후 다시 시도해 주세요');
-        }
+        console.log(data);
+      } catch {
+        alert('fail');
       }
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    async function fetchData(email: string = '') {
-      // const { data } = await api.get('/search/wholeSchedule', {});
       let init = [];
       for (let i = 0; i < SummaryTestData.length; i++) {
         init.push(false);
