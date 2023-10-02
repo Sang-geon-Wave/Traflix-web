@@ -18,10 +18,10 @@ import SummaryComponent from '../SummaryComponent';
 import TrainCardComponent from '../TrainCardComponent';
 import TravelCardComponent from '../TravelCardComponent';
 
-import SummaryTestData from '../../assets/string/summarycomponent/testData';
 import { TrainCardDataType } from '../../types/TrainCardType';
 import { TravelCardDataType } from '../../types/TravelCardType';
-import { UUID } from 'crypto';
+import { SummarySetDataType } from '../../types/SummarySetDataType';
+import { SummaryDataType } from '../../types/SummaryDataType';
 
 export interface PropsTravelScheduleComponent {
   travelSchedule: TravelCardDataType[];
@@ -47,6 +47,10 @@ const TravelScheduleComponent: React.FunctionComponent<
     ['mountain', mountain],
   ];
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
+  const [eventData, setEventData] = useState<
+    (TravelCardDataType | TrainCardDataType)[][]
+  >([]);
+  const [summaryData, setSummaryData] = useState<SummarySetDataType[]>([]);
 
   async function getEmail() {
     try {
@@ -58,22 +62,127 @@ const TravelScheduleComponent: React.FunctionComponent<
       }
     }
   }
+  async function getTrainData(id: any) {
+    const { data } = await api.post('/search/trainSchedule', {
+      id: id,
+    });
+    return data;
+  }
+  async function getTravelData(id: any) {
+    const { data } = await api.post('/search/contentInfo', {
+      id: id,
+    });
+    return data;
+  }
+  async function setJourneyData(data: any) {
+    let journeyList: (TravelCardDataType | TrainCardDataType)[][] = [];
+    let summarySetList: SummarySetDataType[] = [];
+    for (let i = 0; i < data.data.length; i++) {
+      let summaryList: SummaryDataType[] = [];
+      let eventList: (TravelCardDataType | TrainCardDataType)[] = [];
+
+      let dep: string = '';
+      let depTime: string = '';
+      let arr: string = '';
+      let arrTime: string = '';
+      for (let j = 0; j < data.data[i].length; j++) {
+        if (data.data[i][j].is_train === 1) {
+          let departure = await getTrainData(data.data[i][j].train_schedule_id);
+          let arrival = await getTrainData(
+            data.data[i][j + 1].train_schedule_id,
+          );
+          let tmpData: TrainCardDataType = {
+            isTrain: true,
+            trainType: departure.data[0].train_type,
+            trainNumber: departure.data[0].train_number,
+            departureStation: departure.data[0].station_name,
+            arrivalStation: arrival.data[0].station_name,
+            departureTime: departure.data[0].stop_time,
+            arrivalTime: arrival.data[0].stop_time,
+          };
+          eventList.push(tmpData);
+
+          //summaryList
+          if (dep === '') {
+            dep = tmpData.departureStation;
+            depTime = tmpData.departureTime;
+            arr = tmpData.arrivalStation;
+            arrTime = tmpData.arrivalTime;
+          } else {
+            arr = tmpData.arrivalStation;
+          }
+          j++;
+        } else {
+          let event = await getTravelData(data.data[i][j].content_id);
+          let tmpData: TravelCardDataType = {
+            isTrain: false,
+            travelType: event.data.travelType,
+            img: event.data.img,
+            title: event.data.title,
+            subtitle: event.data.subtitle,
+            load: event.data.load,
+            moreInfo: event.data.moreInfo,
+          };
+          eventList.push(tmpData);
+
+          //summaryList
+          if (summaryList.length === 0 && dep !== '') {
+            summaryList.push({
+              place: dep,
+              time: depTime.substring(0, 5),
+              tag: '출발',
+            });
+            dep = '';
+          }
+        }
+      }
+      //summaryList
+      if (dep === '') {
+        summaryList.push({
+          place: arr,
+          time: arrTime.substring(0, 5),
+          tag: '도착',
+        });
+      } else {
+        summaryList.push({
+          place: dep,
+          time: depTime.substring(0, 5),
+          tag: '경유',
+        });
+        summaryList.push({
+          place: arr,
+          time: arrTime.substring(0, 5),
+          tag: '도착',
+        });
+      }
+      summarySetList.push({
+        journeyDate: data.data[i][0].journey_date,
+        summaryData: summaryList,
+      });
+      dep = arr = depTime = arrTime = '';
+      journeyList.push(eventList);
+    }
+    setSummaryData(summarySetList);
+    setEventData(journeyList);
+  }
   useEffect(() => {
     async function fetchData() {
       try {
-        var userEmail = await getEmail();
+        const userEmail = await getEmail();
         const { data } = await api.post('/search/myJourney', {
           email: userEmail,
         });
         console.log(data);
+        await setJourneyData(data);
+
+        let init = [];
+        for (let i = 0; i < data.length; i++) {
+          init.push(false);
+        }
+        setDetailVisibility(init);
       } catch {
-        alert('fail');
+        alert('잠시후 다시 시도해 주세요');
       }
-      let init = [];
-      for (let i = 0; i < SummaryTestData.length; i++) {
-        init.push(false);
-      }
-      setDetailVisibility(init);
     }
     fetchData();
   }, []);
@@ -81,22 +190,15 @@ const TravelScheduleComponent: React.FunctionComponent<
   const updateIndex = (idx: number) => {
     let update = [...detailVisibility];
     update[idx] = !update[idx];
-    console.log(update[idx]);
     setDetailVisibility(update);
   };
 
   return (
     <div className={styles.main}>
-      {SummaryTestData.map((Data, i) => (
+      {summaryData.map((Data, i) => (
         <div className={styles.summaryBox} key={i}>
           <SummaryComponent
-            date={
-              new Date(
-                `${Data.date.substring(0, 4)}-
-                ${Data.date.substring(4, 6)}-
-                ${Data.date.substring(6, 8)}`,
-              )
-            }
+            date={new Date(Data.journeyDate)}
             summaryData={Data.summaryData}
           />
           {detailVisibility[i] ? (
@@ -106,39 +208,54 @@ const TravelScheduleComponent: React.FunctionComponent<
           )}
           {detailVisibility[i] ? (
             <div className={styles.detailBox}>
-              <img className={styles.icon} src={train} />
-              <TrainCardComponent
-                trainType={trainSchedule[0].trainType}
-                trainNumber={trainSchedule[0].trainNumber}
-                departureStation={trainSchedule[0].departureStation}
-                arrivalStation={trainSchedule[0].arrivalStation}
-                departureTime={trainSchedule[0].departureTime}
-                arrivalTime={trainSchedule[0].arrivalTime}
-              />
-              <div>
-                {travelSchedule.map((element: TravelCardDataType, index) => (
-                  <div className={styles.main} key={index}>
-                    {travelTypes.map(
-                      (travelType: any, idx) =>
-                        travelType[0] === element.travelType && (
-                          <img
-                            className={styles.icon}
-                            src={travelType[1]}
-                            key={`${travelType[0]}${idx}`}
-                          />
-                        ),
-                    )}
-                    <TravelCardComponent
-                      title={element.title}
-                      subtitle={element.subtitle}
-                      img={element.img}
-                      load={element.load}
-                      moreInfo={element.moreInfo}
-                      travelType={element.travelType}
-                    />
-                  </div>
-                ))}
-              </div>
+              {eventData[i].map(
+                (element: TravelCardDataType | TrainCardDataType, index) =>
+                  element.isTrain ? (
+                    <div>
+                      <img className={styles.icon} src={train} />
+                      <TrainCardComponent
+                        isTrain={true}
+                        trainType={(element as TrainCardDataType).trainType}
+                        trainNumber={(element as TrainCardDataType).trainNumber}
+                        departureStation={
+                          (element as TrainCardDataType).departureStation
+                        }
+                        arrivalStation={
+                          (element as TrainCardDataType).arrivalStation
+                        }
+                        departureTime={(
+                          element as TrainCardDataType
+                        ).departureTime.substring(0, 5)}
+                        arrivalTime={(
+                          element as TrainCardDataType
+                        ).arrivalTime.substring(0, 5)}
+                      />
+                    </div>
+                  ) : (
+                    <div className={styles.main} key={index}>
+                      {travelTypes.map(
+                        (travelType: any, idx) =>
+                          travelType[0] ===
+                            (element as TravelCardDataType).travelType && (
+                            <img
+                              className={styles.icon}
+                              src={travelType[1]}
+                              key={`${travelType[0]}${idx}`}
+                            />
+                          ),
+                      )}
+                      <TravelCardComponent
+                        isTrain={true}
+                        title={(element as TravelCardDataType).title}
+                        subtitle={(element as TravelCardDataType).subtitle}
+                        img={(element as TravelCardDataType).img}
+                        load={(element as TravelCardDataType).load}
+                        moreInfo={(element as TravelCardDataType).moreInfo}
+                        travelType={(element as TravelCardDataType).travelType}
+                      />
+                    </div>
+                  ),
+              )}
             </div>
           ) : (
             <></>

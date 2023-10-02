@@ -1,4 +1,5 @@
 export interface TrainCardDataType {
+  isTrain: boolean;
   trainType: string;
   trainNumber: number;
   departureStation: string;

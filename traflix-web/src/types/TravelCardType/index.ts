@@ -1,4 +1,5 @@
 export interface TravelCardDataType {
+  isTrain: boolean;
   travelType: string;
   img: string;
   title: string;
