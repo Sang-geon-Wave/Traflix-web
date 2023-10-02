@@ -26,10 +26,9 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   const setDetailModal = async () => {
     const { data } = await api.post('/search/contentDetail', {
       //content_id: moreInfo,
-      content_id: 1886054, //2465071, //2851257, //132205
+      content_id: 2792802,
     });
 
-    console.log(data.detail);
     handleContentShow(data.detail);
   };
 

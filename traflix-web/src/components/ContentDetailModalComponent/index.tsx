@@ -60,6 +60,12 @@ const ContentDetailModalComponent: React.FunctionComponent<
               <div className={styles.contentText}>{content.addr}</div>
               <div className={styles.contentTitle}>전화번호</div>
               <div className={styles.contentText}>{content.tel}</div>
+              <div className={styles.contentTitle}>전화명</div>
+              <div className={styles.contentText}>{content.telname}</div>
+              <div className={styles.contentTitle}>홈페이지</div>
+              <div className={styles.contentText}>{content.homepage}</div>
+              <div className={styles.contentTitle}>우편번호</div>
+              <div className={styles.contentText}>{content.zipcode}</div>
               {Object.keys(contentDetailData[content.contentType]).map(
                 (key) => (
                   <div key={key}>
@@ -67,7 +73,9 @@ const ContentDetailModalComponent: React.FunctionComponent<
                       {contentDetailData[content.contentType][key]}
                     </div>
                     <div className={styles.contentText}>
-                      {content.intro[key]}
+                      {content.intro[key] === ''
+                        ? '정보 없음'
+                        : content.intro[key]}
                     </div>
                   </div>
                 ),
