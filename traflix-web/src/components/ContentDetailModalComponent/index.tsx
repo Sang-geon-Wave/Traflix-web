@@ -48,7 +48,10 @@ const ContentDetailModalComponent: React.FunctionComponent<
       usefee: '이용요금',
       discountinfo: '할인정보',
     },
-    // 아래로 쭉 전부다 추가하고 83 ~ 85번째 줄 주석 해제하고 86번 없애라
+    '32': {
+      pickup: '픽업 여부',
+    },
+    // 여기서 너가 각 관광지 타입마다 필요한 정보만 추가하면 끝남
   };
 
   return (
@@ -78,13 +81,12 @@ const ContentDetailModalComponent: React.FunctionComponent<
               <div className={styles.contentText}>{content.addr}</div>
               <div className={styles.contentTitle}>전화번호</div>
               <div className={styles.contentText}>{content.tel}</div>
-              {Object.entries(content.intro).map(([key, value]) => (
+              {Object.keys(detailIntro[content.contentType]).map((key) => (
                 <div key={key}>
-                  {/* <div className={styles.contentTitle}>
-                    {detailIntro[content.contentType][key[0]]}
-                  </div> */}
-                  <div className={styles.contentTitle}>{key}</div>
-                  <div className={styles.contentText}>{value}</div>
+                  <div className={styles.contentTitle}>
+                    {detailIntro[content.contentType][key]}
+                  </div>
+                  <div className={styles.contentText}>{content.intro[key]}</div>
                 </div>
               ))}
             </div>
