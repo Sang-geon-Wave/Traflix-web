@@ -7,6 +7,7 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import MapComponent from '../../components/MapComponent';
 import config from '../../config';
 
+import LoadingComponent from '../../components/LoadingComponent';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
