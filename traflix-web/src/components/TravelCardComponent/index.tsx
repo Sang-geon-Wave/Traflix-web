@@ -2,7 +2,7 @@ import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
-import { TravelCardDataType } from '../../types/TravelCardDataType';
+import { TravelCardDataType } from '../../types/TravelCardType';
 import { Card } from 'react-bootstrap';
 import api from '../../api';
 

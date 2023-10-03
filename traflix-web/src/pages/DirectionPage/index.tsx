@@ -10,6 +10,8 @@ import config from '../../config';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
+import testData from '../../assets/string/travelCardComponent';
+import TrainTestData from '../../assets/string/trainCardComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import LoadingComponent from '../../components/LoadingComponent';
 import SummaryComponent from '../../components/SummaryComponent';
@@ -43,7 +45,10 @@ const DirectionPage = () => {
       </div>
       <div className={styles.cardItemsContainer}>
         <Suspense fallback={<LoadingComponent />}>
-          <TravelScheduleComponent />
+          <TravelScheduleComponent
+            travelSchedule={testData}
+            trainSchedule={TrainTestData}
+          />
         </Suspense>
       </div>
       <div className={styles.mapContainer}>

@@ -3,7 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-import { TrainCardDataType } from '../../types/TrainCardDataType';
+import { TrainCardDataType } from '../../types/TrainCardType';
 import { Card } from 'react-bootstrap';
 
 const TrainCardComponent: React.FunctionComponent<TrainCardDataType> = ({
