@@ -41,9 +41,6 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
           <Card.Subtitle className={styles.subtitle}>{subtitle}</Card.Subtitle>
         </div>
         <div className={styles.linkBox}>
-          <Card.Link href={load} className={styles.links} target="_blank">
-            길찾기
-          </Card.Link>
           <Card.Text className={styles.links} onClick={setDetailModal}>
             자세히보기
           </Card.Text>
