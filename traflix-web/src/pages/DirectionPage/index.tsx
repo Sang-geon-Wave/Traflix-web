@@ -13,8 +13,6 @@ import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
 import TrainTestData from '../../assets/string/trainCardComponent';
 import HeaderComponent from '../../components/HeaderComponent';
-import LoadingComponent from '../../components/LoadingComponent';
-import SummaryComponent from '../../components/SummaryComponent';
 import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
 import test1 from '../../assets/strings/ContentDetailComponent/mockData';
 import { ContentDetailDataType } from '../../types/ContentDetailDataType';
@@ -36,10 +34,6 @@ const DirectionPage = () => {
   return (
     <div className={styles.pageContainer}>
       <HeaderComponent />
-
-      <div className={`bg-success py-2 ${styles.navbarContainer}`}>
-        <img src={logoWhite} className="p-2"></img>
-      </div>
       <div>
         <ContentDetailModalComponent />
       </div>
