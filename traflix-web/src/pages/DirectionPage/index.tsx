@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
@@ -13,6 +13,7 @@ import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
 import TrainTestData from '../../assets/string/trainCardComponent';
 import HeaderComponent from '../../components/HeaderComponent';
+import LoadingComponent from '../../components/LoadingComponent';
 
 const DirectionPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -29,10 +30,12 @@ const DirectionPage = () => {
       <HeaderComponent />
 
       <div className={styles.cardItemsContainer}>
-        <TravelScheduleComponent
-          travelSchedule={testData}
-          trainSchedule={TrainTestData}
-        />
+        <Suspense fallback={<LoadingComponent />}>
+          <TravelScheduleComponent
+            travelSchedule={testData}
+            trainSchedule={TrainTestData}
+          />
+        </Suspense>
       </div>
 
       <div className={styles.mapContainer}>
