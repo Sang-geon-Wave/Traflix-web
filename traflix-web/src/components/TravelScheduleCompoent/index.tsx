@@ -40,11 +40,14 @@ const TravelScheduleComponent: React.FunctionComponent<
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const travelTypes = [
-    ['cafe', cafe],
-    ['festival', festival],
-    ['culture', culture],
-    ['activite', activite],
-    ['mountain', mountain],
+    ['12', culture],
+    ['14', culture],
+    ['15', festival],
+    ['25', activite],
+    ['28', activite],
+    ['32', cafe],
+    ['38', cafe],
+    ['39', cafe],
   ];
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
   const [eventData, setEventData] = useState<
