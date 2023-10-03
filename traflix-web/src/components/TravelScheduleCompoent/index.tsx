@@ -24,13 +24,12 @@ import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
 
 export interface PropsTravelScheduleComponent {
-  travelSchedule: TravelCardDataType[];
-  trainSchedule: TrainCardDataType[];
+  schedule: (TravelCardDataType | TrainCardDataType)[][];
 }
 
 const TravelScheduleComponent: React.FunctionComponent<
   PropsTravelScheduleComponent
-> = ({ travelSchedule, trainSchedule }) => {
+> = ({ schedule }) => {
   const { screenClass, isLogin } = useRootData(({ appStore, authStore }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: authStore.isLogin.get(),
@@ -180,9 +179,7 @@ const TravelScheduleComponent: React.FunctionComponent<
         const { data } = await api.post('/search/myJourney', {
           email: userEmail,
         });
-        console.log(data);
         await setJourneyData(data);
-
         const init = new Array(data.length).fill(false);
         setDetailVisibility(init);
       } catch {
