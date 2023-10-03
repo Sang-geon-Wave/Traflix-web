@@ -4,11 +4,14 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import api from '../../api';
 
-import cafe from '../../assets/images/cafe.svg';
-import festival from '../../assets/images/festival.png';
-import mountain from '../../assets/images/tree.svg';
-import culture from '../../assets/images/culture.png';
-import activite from '../../assets/images/scooter.svg';
+import tour from '../../assets/images/cafe.svg';
+import culture from '../../assets/images/cafe.svg';
+import festival from '../../assets/images/cafe.svg';
+import course from '../../assets/images/cafe.svg';
+import sport from '../../assets/images/cafe.svg';
+import lodgment from '../../assets/images/cafe.svg';
+import shopping from '../../assets/images/cafe.svg';
+import restaurant from '../../assets/images/cafe.svg';
 import train from '../../assets/images/train.svg';
 
 import arrowDown from '../../assets/images/caret-down-fill.svg';
@@ -18,19 +21,12 @@ import SummaryComponent from '../SummaryComponent';
 import TrainCardComponent from '../TrainCardComponent';
 import TravelCardComponent from '../TravelCardComponent';
 
-import { TrainCardDataType } from '../../types/TrainCardType';
-import { TravelCardDataType } from '../../types/TravelCardType';
+import { TrainCardDataType } from '../../types/TrainCardDataType';
+import { TravelCardDataType } from '../../types/TravelCardDataType';
 import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
 
-export interface PropsTravelScheduleComponent {
-  travelSchedule: TravelCardDataType[];
-  trainSchedule: TrainCardDataType[];
-}
-
-const TravelScheduleComponent: React.FunctionComponent<
-  PropsTravelScheduleComponent
-> = ({ travelSchedule, trainSchedule }) => {
+const TravelScheduleComponent: React.FunctionComponent = ({}) => {
   const { screenClass, isLogin } = useRootData(({ appStore, authStore }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: authStore.isLogin.get(),
@@ -39,14 +35,14 @@ const TravelScheduleComponent: React.FunctionComponent<
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const travelTypes = [
-    ['12', culture],
+    ['12', tour],
     ['14', culture],
     ['15', festival],
-    ['25', activite],
-    ['28', activite],
-    ['32', cafe],
-    ['38', cafe],
-    ['39', cafe],
+    ['25', course],
+    ['28', sport],
+    ['32', lodgment],
+    ['38', shopping],
+    ['39', restaurant],
   ];
 
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
@@ -180,7 +176,6 @@ const TravelScheduleComponent: React.FunctionComponent<
         const { data } = await api.post('/search/myJourney', {
           email: userEmail,
         });
-        console.log(data);
         await setJourneyData(data);
 
         const init = new Array(data.length).fill(false);
