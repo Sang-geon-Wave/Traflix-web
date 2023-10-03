@@ -13,11 +13,18 @@ import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import testData from '../../assets/string/travelCardComponent';
 import TrainTestData from '../../assets/string/trainCardComponent';
 import HeaderComponent from '../../components/HeaderComponent';
+import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
+import test1 from '../../assets/strings/ContentDetailComponent/mockData';
+import { ContentDetailDataType } from '../../types/ContentDetailDataType';
+import { useState } from 'react';
 
 const DirectionPage = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, content } = useRootData(
+    ({ appStore, contentModal }) => ({
+      screenClass: appStore.screenClass.get(),
+      content: contentModal.content.get(),
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
@@ -27,14 +34,15 @@ const DirectionPage = () => {
   return (
     <div className={styles.pageContainer}>
       <HeaderComponent />
-
+      <div>
+        <ContentDetailModalComponent />
+      </div>
       <div className={styles.cardItemsContainer}>
         <TravelScheduleComponent
           travelSchedule={testData}
           trainSchedule={TrainTestData}
         />
       </div>
-
       <div className={styles.mapContainer}>
         <MapComponent pathCoordinates={testPath}></MapComponent>
       </div>
