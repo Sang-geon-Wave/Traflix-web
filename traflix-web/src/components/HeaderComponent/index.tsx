@@ -82,6 +82,7 @@ const HeaderComponent = ({}) => {
               <div
                 onClick={() => {
                   logout();
+                  navigate('/');
                   setMenuOpen(false);
                 }}
                 className={styles.options}
@@ -89,14 +90,17 @@ const HeaderComponent = ({}) => {
                 로그아웃
               </div>
             )}
-            <div
-              className={styles.options}
-              onClick={() => {
-                setMenuOpen(false);
-              }}
-            >
-              기타
-            </div>
+            {isLogin && (
+              <div
+                className={styles.options}
+                onClick={() => {
+                  navigate('/directions');
+                  setMenuOpen(false);
+                }}
+              >
+                마이페이지
+              </div>
+            )}
           </div>
         )}
       </div>

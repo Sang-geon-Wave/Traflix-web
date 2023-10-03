@@ -26,12 +26,6 @@ const LoginComponent = () => {
     handleLoginClose: loginModal.handleLoginClose,
   }));
 
-  useEffect(() => {
-    if (isLogin) {
-      navigate('/');
-    }
-  }, [isLogin]);
-
   const navigate = useNavigate();
   const isDesktop = screenClass === 'xl';
 
@@ -75,7 +69,6 @@ const LoginComponent = () => {
     if (await login(null, usrID, usrPW, autoLogin)) {
       alert(`환영합니다`);
       handleLoginClose();
-      navigate('/');
     } else
       setLoginErr({ handle: true, text: '올바르지 않은 아이디 혹은 비밀번호' });
   };

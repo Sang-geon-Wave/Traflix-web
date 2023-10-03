@@ -13,13 +13,24 @@
 .selectStations {
   width: 50%;
 }
+.label {
+  float: left;
+  width: 47%;
+  height: 58px;
+  margin-right: 1%;
+  padding: 0.45rem 1rem;
+  color: gray;
+  font-size: 0.8rem;
+}
 .selectLabel {
   float: left;
   width: 47%;
   height: 58px;
   margin-right: 1%;
+  lighting-color: none;
 }
 .selectText {
+  padding: 0 !important;
   border: none !important;
   box-shadow: none !important;
   border-top-left-radius: 50px !important;
@@ -27,15 +38,18 @@
 }
 .selectText {
   border: solid 1px;
-  z-index: 1;
 }
 .calenderLabel {
   float: left;
   margin-right: 1%;
   width: 36% !important;
   height: 58px !important;
+  padding: 0.45rem 1rem;
+  color: gray;
+  font-size: 0.8rem;
 }
 .calender {
+  padding: 0 !important;
   border: none !important;
   border-radius: 50px !important;
   user-select: none !important;
