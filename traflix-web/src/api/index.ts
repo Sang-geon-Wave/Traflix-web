@@ -11,6 +11,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const accessToken = store.accessToken.get();
+
     try {
       if (accessToken) {
         config.headers.authorization = `${accessToken}`;

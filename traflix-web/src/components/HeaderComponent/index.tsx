@@ -39,7 +39,6 @@ const HeaderComponent = ({}) => {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-
   return (
     <div className={styles.header}>
       <LoginModalPage />
