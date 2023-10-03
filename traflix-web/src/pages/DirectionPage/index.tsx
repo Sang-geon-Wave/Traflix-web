@@ -20,10 +20,11 @@ import { ContentDetailDataType } from '../../types/ContentDetailDataType';
 import { useState } from 'react';
 
 const DirectionPage = () => {
-  const { screenClass, content } = useRootData(
-    ({ appStore, contentModal }) => ({
+  const { screenClass, content, places } = useRootData(
+    ({ appStore, contentModal, map }) => ({
       screenClass: appStore.screenClass.get(),
       content: contentModal.content.get(),
+      places: map.places,
     }),
   );
   const isDesktop = screenClass === 'xl';
@@ -47,7 +48,7 @@ const DirectionPage = () => {
         </Suspense>
       </div>
       <div className={styles.mapContainer}>
-        <MapComponent pathCoordinates={testPath}></MapComponent>
+        <MapComponent pathCoordinates={places}></MapComponent>
       </div>
     </div>
   );

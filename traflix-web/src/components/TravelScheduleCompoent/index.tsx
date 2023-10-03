@@ -68,11 +68,13 @@ const TravelScheduleComponent: React.FunctionComponent<
 
   const getTrainData = async (id: any) => {
     const { data } = await api.post('/search/trainSchedule', { id });
+    console.log(data);
     return data;
   };
 
   const getTravelData = async (id: any) => {
     const { data } = await api.post('/search/contentInfo', { id });
+    console.log(data);
     return data;
   };
 
@@ -119,6 +121,7 @@ const TravelScheduleComponent: React.FunctionComponent<
           j++;
         } else {
           const event = await getTravelData(data.data[i][j].content_id);
+          console.log(event.moreInfo);
           const tmpData: TravelCardDataType = {
             isTrain: false,
             travelType: event.data.travelType,
@@ -128,7 +131,6 @@ const TravelScheduleComponent: React.FunctionComponent<
             load: event.data.load,
             moreInfo: event.data.moreInfo,
           };
-          eventList.push(tmpData);
 
           if (summaryList.length === 0 && dep !== '') {
             summaryList.push({
