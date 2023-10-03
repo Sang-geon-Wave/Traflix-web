@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
@@ -38,10 +38,12 @@ const DirectionPage = () => {
         <ContentDetailModalComponent />
       </div>
       <div className={styles.cardItemsContainer}>
-        <TravelScheduleComponent
-          travelSchedule={testData}
-          trainSchedule={TrainTestData}
-        />
+        <Suspense fallback={<LoadingComponent />}>
+          <TravelScheduleComponent
+            travelSchedule={testData}
+            trainSchedule={TrainTestData}
+          />
+        </Suspense>
       </div>
       <div className={styles.mapContainer}>
         <MapComponent pathCoordinates={testPath}></MapComponent>
