@@ -45,25 +45,21 @@ const MapComponent: React.FunctionComponent = () => {
   //   // };
   // }
 
-  const randomRgb = function () {
-    let r = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256);
-    let b = Math.floor(Math.random() * 256);
-
-    return [r, g, b];
-  };
-
   const randomRgbHex = function () {
-    let [r, g, b] = randomRgb();
+    const colorArray = [
+      '#ffc107',
+      '#607D8B',
+      '#2196F3',
+      '#795548',
+      '#00BCD4',
+      '#FF5722',
+      '#673AB7',
+      '#4CAF50',
+    ];
 
-    const newR =
-      r.toString(16).length === 1 ? '0' + r.toString(16) : r.toString(16);
-    const newG =
-      g.toString(16).length === 1 ? '0' + g.toString(16) : g.toString(16);
-    const newB =
-      b.toString(16).length === 1 ? '0' + b.toString(16) : b.toString(16);
+    const random = Math.floor(Math.random() * colorArray.length);
 
-    return newR + newG + newB;
+    return colorArray[random];
   };
 
   return (
@@ -85,15 +81,16 @@ const MapComponent: React.FunctionComponent = () => {
           )),
         )}
 
-        {pathCoordinates.map((pathCoordinate) => (
+        {pathCoordinates.map((pathCoordinate, index) => (
           <Polyline
+            key={`line-${index}`}
             path={pathCoordinate.map((coordinate) => ({
               lat: coordinate.lat,
               lng: coordinate.lng,
             }))}
             strokeWeight={5}
-            strokeColor={`#${randomRgbHex()}`}
-            strokeOpacity={0.5}
+            strokeColor={`${randomRgbHex()}`}
+            strokeOpacity={0.7}
             strokeStyle={'solid'}
           />
         ))}
