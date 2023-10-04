@@ -176,9 +176,7 @@ const TravelScheduleComponent: React.FunctionComponent<
     const fetchData = async () => {
       try {
         const userEmail = await getEmail();
-        const { data } = await api.post('/search/myJourney', {
-          email: userEmail,
-        });
+        const { data } = await api.post('/search/myJourney');
         await setJourneyData(data);
         const init = new Array(data.length).fill(false);
         setDetailVisibility(init);
@@ -186,9 +184,8 @@ const TravelScheduleComponent: React.FunctionComponent<
         alert('잠시후 다시 시도해 주세요');
       }
     };
-
-    fetchData();
-  }, []);
+    if (isLogin) fetchData();
+  }, [isLogin]);
 
   const updateIndex = (idx: number) => {
     const update = [...detailVisibility];

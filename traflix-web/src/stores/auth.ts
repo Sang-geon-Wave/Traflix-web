@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, runInAction } from 'mobx';
 import axios from 'axios';
 import api from '../api';
 
@@ -33,11 +33,15 @@ const createStore = () => {
           autologin: autologin,
         });
         const { access_token: accessToken, nickname: nickname } = data;
-        authStore.changeAccessToken(accessToken);
-        authStore.changeNickname(nickname);
+        runInAction(() => {
+          authStore.changeAccessToken(accessToken);
+          authStore.changeNickname(nickname);
+        });
         return true;
       } catch (err) {
-        authStore.changeAccessToken(null);
+        runInAction(() => {
+          authStore.changeAccessToken(null);
+        });
         return false;
       }
     },
@@ -45,11 +49,15 @@ const createStore = () => {
       try {
         const { data } = await api.post('/auth/refresh');
         const { access_token: accessToken, nickname: nickname } = data;
-        authStore.changeAccessToken(accessToken);
-        authStore.changeNickname(nickname);
+        runInAction(() => {
+          authStore.changeAccessToken(accessToken);
+          authStore.changeNickname(nickname);
+        });
         return accessToken;
       } catch (err) {
-        authStore.changeAccessToken(null);
+        runInAction(() => {
+          authStore.changeAccessToken(null);
+        });
         return null;
       }
     },
@@ -57,7 +65,9 @@ const createStore = () => {
       try {
         const { data } = await api.post('/auth/logout');
       } catch (err) {}
-      authStore.changeAccessToken(null);
+      runInAction(() => {
+        authStore.changeAccessToken(null);
+      });
     },
     async signup(userPw: string, nickname: string = '', email: string = '') {
       try {
