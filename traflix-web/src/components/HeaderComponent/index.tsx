@@ -80,9 +80,8 @@ const HeaderComponent = ({}) => {
             {isLogin && (
               <div
                 onClick={() => {
-                  logout();
-                  navigate('/');
                   setMenuOpen(false);
+                  logout();
                 }}
                 className={styles.options}
               >

@@ -22,14 +22,13 @@ import { TrainCardDataType } from '../../types/TrainCardType';
 import { TravelCardDataType } from '../../types/TravelCardType';
 import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
+import { useLocation } from 'react-router-dom';
 
-export interface PropsTravelScheduleComponent {
-  schedule: (TravelCardDataType | TrainCardDataType)[][];
-}
+export interface PropsTravelScheduleComponent {}
 
 const TravelScheduleComponent: React.FunctionComponent<
   PropsTravelScheduleComponent
-> = ({ schedule }) => {
+> = ({}) => {
   const { screenClass, isLogin } = useRootData(({ appStore, authStore }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: authStore.isLogin.get(),
@@ -52,6 +51,7 @@ const TravelScheduleComponent: React.FunctionComponent<
   const [eventData, setEventData] = useState<
     (TravelCardDataType | TrainCardDataType)[][]
   >([]);
+
   const [summaryData, setSummaryData] = useState<SummarySetDataType[]>([]);
 
   const getEmail = async () => {
@@ -172,26 +172,51 @@ const TravelScheduleComponent: React.FunctionComponent<
     setEventData(journeyList);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userEmail = await getEmail();
-        const { data } = await api.post('/search/myJourney');
-        await setJourneyData(data);
-        const init = new Array(data.length).fill(false);
-        setDetailVisibility(init);
-      } catch {
-        alert('잠시후 다시 시도해 주세요');
-      }
-    };
-    if (isLogin) fetchData();
-  }, [isLogin]);
-
   const updateIndex = (idx: number) => {
     const update = [...detailVisibility];
     update[idx] = !update[idx];
     setDetailVisibility(update);
   };
+
+  const location = useLocation();
+  if (location.state) {
+    console.log('search');
+    const searchPath = async (
+      start: string,
+      destination: string,
+      startDate: string,
+      option: string,
+    ) => {
+      console.log(`${start} ${destination} ${startDate} ${option}`);
+      // const data = await algotithm(start, destination, startDate, option);
+      //return data;
+    };
+    const data = searchPath(
+      location.state.start,
+      location.state.destination,
+      location.state.startDate,
+      location.state.option,
+    );
+
+    //setEventData(data);
+  } else {
+    console.log('mypage');
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const { data } = await api.post('/search/myJourney');
+          await setJourneyData(data);
+          const init = new Array(data.length).fill(false);
+          setDetailVisibility(init);
+        } catch {
+          alert('잠시후 다시 시도해 주세요');
+        }
+      };
+      if (isLogin) {
+        fetchData();
+      }
+    }, [isLogin]);
+  }
 
   return (
     <div className={styles.main}>

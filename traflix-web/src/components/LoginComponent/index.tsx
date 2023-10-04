@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Form, Button, InputGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import config from '../../config';
 import eyeFill from '../../assets/images/eye-fill.svg';
 import eyeSlashFill from '../../assets/images/eye-slash-fill.svg';
@@ -77,6 +77,8 @@ const LoginComponent = () => {
   const REDIRECT_URI = config.redirectUrl;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const tryKakaoLogin = async () => {
+    const location = window.location.pathname;
+    window.sessionStorage.setItem('url', location);
     window.location.href = kakaoURL;
   };
 
