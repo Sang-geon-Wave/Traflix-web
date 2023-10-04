@@ -129,6 +129,14 @@ const TravelScheduleComponent: React.FunctionComponent<
           } else {
             arr = tmpData.arrivalStation;
           }
+
+          if (j === data.data[i].length - 2) {
+            latlngList.push({
+              placeName: arrival.data[0].station_name,
+              lat: arrival.data[0].station_latitude,
+              lng: arrival.data[0].station_longitude,
+            });
+          }
           j++;
         } else {
           const event = await getTravelData(data.data[i][j].content_id);
@@ -141,6 +149,19 @@ const TravelScheduleComponent: React.FunctionComponent<
             load: event.data.load,
             moreInfo: event.data.moreInfo,
           };
+
+          console.log(
+            event.data.title,
+            event.data.mapx as number,
+            event.data.mapy as number,
+          );
+
+          latlngList.push({
+            placeName: event.data.title,
+            lng: event.data.mapx as number,
+            lat: event.data.mapy as number,
+          });
+
           eventList.push(tmpData);
 
           if (summaryList.length === 0 && dep !== '') {
@@ -155,6 +176,7 @@ const TravelScheduleComponent: React.FunctionComponent<
       }
 
       handleMappAdd(latlngList);
+      console.log(latlngList);
 
       if (dep === '') {
         summaryList.push({
