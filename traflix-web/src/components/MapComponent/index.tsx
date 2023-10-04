@@ -84,10 +84,12 @@ const MapComponent: React.FunctionComponent = () => {
         {pathCoordinates.map((pathCoordinate, index) => (
           <Polyline
             key={`line-${index}`}
-            path={pathCoordinate.map((coordinate) => ({
-              lat: coordinate.lat,
-              lng: coordinate.lng,
-            }))}
+            path={pathCoordinate
+              .filter((coordinate) => coordinate.isTrain)
+              .map((coordinate) => ({
+                lat: coordinate.lat,
+                lng: coordinate.lng,
+              }))}
             strokeWeight={5}
             strokeColor={`${randomRgbHex()}`}
             strokeOpacity={0.7}
