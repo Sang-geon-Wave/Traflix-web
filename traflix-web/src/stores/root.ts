@@ -3,6 +3,7 @@ import loginModal from './loginModal';
 import signupModal from './signupModal';
 import authStore from './auth';
 import contentModal from './contentModal';
+import optionModal from './optionModal';
 import map from './map';
 
 export interface TypeRootStore {
@@ -11,6 +12,7 @@ export interface TypeRootStore {
   authStore: typeof authStore;
   signupModal: typeof signupModal;
   contentModal: typeof contentModal;
+  optionModal: typeof optionModal;
   map: typeof map;
 }
 
@@ -20,6 +22,7 @@ const createRootStore = () => ({
   authStore,
   signupModal,
   contentModal,
+  optionModal,
   map,
 });
 

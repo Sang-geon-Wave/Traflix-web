@@ -6,8 +6,6 @@ import MapComponent from '../../components/MapComponent';
 
 import LoadingComponent from '../../components/LoadingComponent';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
-import testData from '../../assets/string/travelCardComponent';
-import TrainTestData from '../../assets/string/trainCardComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
 
@@ -32,10 +30,7 @@ const DirectionPage = () => {
       </div>
       <div className={styles.cardItemsContainer}>
         <Suspense fallback={<LoadingComponent />}>
-          <TravelScheduleComponent
-            travelSchedule={testData}
-            trainSchedule={TrainTestData}
-          />
+          <TravelScheduleComponent />
         </Suspense>
         <ContentDetailModalComponent />
       </div>

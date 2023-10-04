@@ -4,11 +4,17 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
 import { dateFormat, dateTimeFormat } from '../../utils/dateFormat';
 import api from '../../api';
+import SelectComponent from '../SelectComponent';
+import { SelectCardDataType } from '../../types/SelectCardDataType';
+import cafe from '../../assets/images/cafe.svg';
 
 const SearchbarComponent: React.FunctionComponent = ({}) => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, handleOptionShow } = useRootData(
+    ({ appStore, optionModal }) => ({
+      screenClass: appStore.screenClass.get(),
+      handleOptionShow: optionModal.handleOptionShow,
+    }),
+  );
 
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -43,20 +49,22 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
     }
     fetchData();
   }, []);
+
   const searchPath = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (stationList.indexOf(start) < 0) alert('출발역을 다시 확인해주세요');
+    if (start === '' || destination === '')
+      alert(`${start === '' ? '출발역' : '도착역'}을 선택해주세요`);
+    else if (stationList.indexOf(start) < 0)
+      alert('출발역을 다시 확인해주세요');
     else if (stationList.indexOf(destination) < 0)
       alert('도착역을 다시 확인해주세요');
     else if (start === destination)
       alert('출발지와 도착지를 다르게 설정해주세요');
     else if (startDate === '') alert('날짜를 골라주세요');
-    else
-      alert(
-        `start: ${stationMap.get(start) as string}, destination: ${
-          stationMap.get(destination) as string
-        } date: ${startDate}`,
-      );
+    else {
+      handleOptionShow();
+      return;
+    }
   };
 
   const searchStartStation = (val: string) => {
@@ -114,20 +122,34 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
   const startRef = useOutsideClick(notStartClick, startSearchBox);
   const destRef = useOutsideClick(notDestClick, destSearchBox);
 
+  const modalData: SelectCardDataType[] = [
+    { tag: '12', img: cafe },
+    { tag: '14', img: cafe },
+    { tag: '15', img: '' },
+    { tag: '28', img: '' },
+    { tag: '32', img: '' },
+    { tag: '38', img: '' },
+    { tag: '39', img: '' },
+  ];
+
   return (
     <div className={styles.main}>
+      <SelectComponent
+        start={stationMap.get(start)}
+        destination={stationMap.get(destination)}
+        startDate={startDate}
+        selectCardData={modalData}
+      />
       <Form
         onSubmit={(e) => searchPath(e)}
         className={styles.search}
         autoComplete="off"
       >
         <div className={styles.selectStations}>
-          <FloatingLabel
-            controlId="labelStart"
-            label="출발역"
-            className={styles.selectLabel}
-          >
+          <label htmlFor="startStation" className={styles.label}>
+            출발역
             <Form.Control
+              id="startStation"
               type="text"
               className={styles.selectText}
               value={start}
@@ -135,7 +157,7 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
               onClick={() => setShowStartSearch(true)}
               ref={startRef}
             />
-          </FloatingLabel>
+          </label>
           <Dropdown className={styles.dropBox} show={true}>
             {showStartSearch && (
               <Dropdown.Menu className={styles.dropList}>
@@ -164,12 +186,10 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
               </Dropdown.Menu>
             )}
           </Dropdown>
-          <FloatingLabel
-            controlId="labelDestination"
-            label="도착역"
-            className={styles.selectLabel}
-          >
+          <label htmlFor="destStation" className={styles.label}>
+            도착역
             <Form.Control
+              id="destStation"
               type="text"
               className={styles.selectText}
               value={destination}
@@ -177,7 +197,7 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
               onClick={() => setShowDestSearch(true)}
               ref={destRef}
             />
-          </FloatingLabel>
+          </label>
           <Dropdown className={styles.dropBox} show={true}>
             {showDestSearch && (
               <Dropdown.Menu className={styles.dropList}>
@@ -208,25 +228,23 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
           </Dropdown>
         </div>
         <div className={styles.calBtn}>
-          <FloatingLabel
-            controlId="labelDate"
-            label="출발일"
-            className={styles.calenderLabel}
-          >
+          <label htmlFor="startDate" className={styles.calenderLabel}>
+            출발일
             <Form.Control
+              id="startDate"
               type="datetime-local"
               min={today}
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               className={styles.calender}
             />
-          </FloatingLabel>
+          </label>
           <Button
             type="submit"
             variant="outline-success"
             className={styles.button}
           >
-            검색
+            취향 선택
           </Button>
         </div>
       </Form>

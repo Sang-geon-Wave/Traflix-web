@@ -80,22 +80,25 @@ const HeaderComponent = ({}) => {
             {isLogin && (
               <div
                 onClick={() => {
-                  logout();
                   setMenuOpen(false);
+                  logout();
                 }}
                 className={styles.options}
               >
                 로그아웃
               </div>
             )}
-            <div
-              className={styles.options}
-              onClick={() => {
-                setMenuOpen(false);
-              }}
-            >
-              기타
-            </div>
+            {isLogin && (
+              <div
+                className={styles.options}
+                onClick={() => {
+                  navigate('/directions');
+                  setMenuOpen(false);
+                }}
+              >
+                마이페이지
+              </div>
+            )}
           </div>
         )}
       </div>

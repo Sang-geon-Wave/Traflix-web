@@ -23,13 +23,15 @@ const Redirection = () => {
   };
 
   useEffect(() => {
+    const url = window.sessionStorage.getItem('url');
+    window.sessionStorage.removeItem('url');
     async function tryLogin() {
       const data = await login(code);
       if (data) success();
       else fail();
     }
     tryLogin();
-    navigate('/');
+    navigate(`${url}`);
   }, []);
 
   return <div>로그인 중입니다.</div>;
