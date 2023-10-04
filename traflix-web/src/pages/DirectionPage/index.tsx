@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
@@ -11,20 +11,26 @@ import testData from '../../assets/string/travelCardComponent';
 import TrainTestData from '../../assets/string/trainCardComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
+import { useLocation } from 'react-router-dom';
 
 const DirectionPage = () => {
-  const { screenClass, content } = useRootData(
-    ({ appStore, contentModal }) => ({
-      screenClass: appStore.screenClass.get(),
-      content: contentModal.content.get(),
-    }),
-  );
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   const testPath: MapCoordinateDataType[] = testPath1;
   const scheduleData = [testData, TrainTestData];
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state)
+      console.log(
+        `${location.state.start} ${location.state.destination} ${location.state.startDate} ${location.state.option}`,
+      );
+  }, []);
 
   return (
     <div className={styles.pageContainer}>

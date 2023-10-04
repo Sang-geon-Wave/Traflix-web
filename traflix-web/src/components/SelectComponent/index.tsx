@@ -8,8 +8,8 @@ import { SelectCardDataType } from '../../types/SelectCardDataType';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface PropsSelectComponent {
-  start: string | undefined;
-  destination: string | undefined;
+  start: string;
+  destination: string;
   startDate: string;
   selectCardData: SelectCardDataType[];
 }
@@ -53,12 +53,16 @@ const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
   };
 
   const handleNextButton = () => {
-    setSelectedOptions([]);
     handleOptionClose();
-    alert(
-      `start: ${start} destination: ${destination} date: ${startDate} option: ${selectedOptions}`,
-    );
-    navigate('/directions');
+    navigate('/directions', {
+      state: {
+        start: start,
+        destination: destination,
+        startDate: startDate,
+        option: selectedOptions,
+      },
+    });
+    setSelectedOptions([]);
   };
 
   return (
