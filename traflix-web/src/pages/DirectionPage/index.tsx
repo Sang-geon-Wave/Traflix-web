@@ -18,13 +18,14 @@ import ContentDetailModalComponent from '../../components/ContentDetailModalComp
 import test1 from '../../assets/strings/ContentDetailComponent/mockData';
 import { ContentDetailDataType } from '../../types/ContentDetailDataType';
 import { useState } from 'react';
+import { toJS } from 'mobx';
 
 const DirectionPage = () => {
   const { screenClass, content, places } = useRootData(
     ({ appStore, contentModal, map }) => ({
       screenClass: appStore.screenClass.get(),
       content: contentModal.content.get(),
-      places: map.places,
+      places: toJS(map.places),
     }),
   );
   const isDesktop = screenClass === 'xl';
@@ -32,8 +33,6 @@ const DirectionPage = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   const testPath: MapCoordinateDataType[] = testPath1;
-
-  console.log('MAP MOBX', places);
 
   return (
     <div className={styles.pageContainer}>
@@ -50,7 +49,7 @@ const DirectionPage = () => {
         </Suspense>
       </div>
       <div className={styles.mapContainer}>
-        <MapComponent pathCoordinates={places}></MapComponent>
+        <MapComponent></MapComponent>
       </div>
     </div>
   );
