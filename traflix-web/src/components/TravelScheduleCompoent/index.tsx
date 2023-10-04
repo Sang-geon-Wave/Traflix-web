@@ -24,6 +24,7 @@ import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import { toJS } from 'mobx';
+import { TRUE } from 'sass';
 
 export interface PropsTravelScheduleComponent {
   travelSchedule: TravelCardDataType[];
@@ -108,6 +109,7 @@ const TravelScheduleComponent: React.FunctionComponent<
             placeName: departure.data[0].station_name,
             lat: departure.data[0].station_latitude,
             lng: departure.data[0].station_longitude,
+            isTrain: true,
           });
 
           const tmpData: TrainCardDataType = {
@@ -135,6 +137,7 @@ const TravelScheduleComponent: React.FunctionComponent<
               placeName: arrival.data[0].station_name,
               lat: arrival.data[0].station_latitude,
               lng: arrival.data[0].station_longitude,
+              isTrain: true,
             });
           }
           j++;
@@ -150,16 +153,11 @@ const TravelScheduleComponent: React.FunctionComponent<
             moreInfo: event.data.moreInfo,
           };
 
-          console.log(
-            event.data.title,
-            event.data.mapx as number,
-            event.data.mapy as number,
-          );
-
           latlngList.push({
             placeName: event.data.title,
             lng: event.data.mapx as number,
             lat: event.data.mapy as number,
+            isTrain: false,
           });
 
           eventList.push(tmpData);
