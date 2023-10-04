@@ -64,6 +64,7 @@ const createStore = () => {
     async logout() {
       try {
         const { data } = await api.post('/auth/logout');
+        authStore.changeLoginState(false);
       } catch (err) {}
       runInAction(() => {
         authStore.changeAccessToken(null);

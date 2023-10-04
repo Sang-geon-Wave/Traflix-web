@@ -217,7 +217,6 @@ const TravelScheduleComponent: React.FunctionComponent<
 
   const location = useLocation();
   if (location.state) {
-    console.log('search');
     const searchPath = async (
       start: string,
       destination: string,
@@ -237,7 +236,6 @@ const TravelScheduleComponent: React.FunctionComponent<
 
     //setEventData(data);
   } else {
-    console.log('mypage');
     useEffect(() => {
       const fetchData = async () => {
         try {

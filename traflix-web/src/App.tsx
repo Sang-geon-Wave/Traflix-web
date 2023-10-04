@@ -6,6 +6,7 @@ import MockPage from './pages/MockPage';
 import Redirection from './components/Redirect';
 import DirectionPage from './pages/DirectionPage';
 import useRootData from './hooks/useRootData';
+import MypageDirection from './components/MypageDirection';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/directions" element={<DirectionPage />} />
         <Route path="/oauth/kakao/callback" element={<Redirection />} />
+        <Route path="/Mypage" element={<MypageDirection />} />
       </Routes>
     </Router>
   );
