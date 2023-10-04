@@ -3,36 +3,39 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import MapComponent from '../../components/MapComponent';
+
 import LoadingComponent from '../../components/LoadingComponent';
-import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
-import testPath1 from '../../assets/strings/MapComponent/mockData';
 import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import HeaderComponent from '../../components/HeaderComponent';
 import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
 
+import { toJS } from 'mobx';
+
 const DirectionPage = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, content, places } = useRootData(
+    ({ appStore, contentModal, map }) => ({
+      screenClass: appStore.screenClass.get(),
+      content: contentModal.content.get(),
+      places: toJS(map.places),
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  const testPath: MapCoordinateDataType[] = testPath1;
-
   return (
     <div className={styles.pageContainer}>
-      <HeaderComponent />
-      <div>
-        <ContentDetailModalComponent />
+      <div className={styles.navbarContainer}>
+        <HeaderComponent />
       </div>
       <div className={styles.cardItemsContainer}>
         <Suspense fallback={<LoadingComponent />}>
           <TravelScheduleComponent />
         </Suspense>
+        <ContentDetailModalComponent />
       </div>
       <div className={styles.mapContainer}>
-        <MapComponent pathCoordinates={testPath}></MapComponent>
+        <MapComponent></MapComponent>
       </div>
     </div>
   );
