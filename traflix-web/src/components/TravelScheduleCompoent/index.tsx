@@ -90,7 +90,8 @@ const TravelScheduleComponent: React.FunctionComponent<
     for (let i = 0; i < data.data.length; i++) {
       const summaryList: SummaryDataType[] = [];
       const eventList: (TravelCardDataType | TrainCardDataType)[] = [];
-      let latlngList: MapCoordinateDataType[] = [];
+      let latlngTrain: MapCoordinateDataType[] = [];
+      let latlngContent: MapCoordinateDataType[] = [];
       let dep: string = '';
       let depTime: string = '';
       let arr: string = '';
@@ -104,11 +105,18 @@ const TravelScheduleComponent: React.FunctionComponent<
           const arrival = await getTrainData(
             data.data[i][j + 1].train_schedule_id,
           );
-
-          latlngList.push({
-            placeName: departure.data[0].station_name,
-            lat: departure.data[0].station_latitude,
-            lng: departure.data[0].station_longitude,
+          if (latlngTrain.length === 0) {
+            latlngTrain.push({
+              placeName: departure.data[0].station_name,
+              lat: departure.data[0].station_latitude,
+              lng: departure.data[0].station_longitude,
+              isTrain: true,
+            });
+          }
+          latlngTrain.push({
+            placeName: arrival.data[0].station_name,
+            lat: arrival.data[0].station_latitude,
+            lng: arrival.data[0].station_longitude,
             isTrain: true,
           });
 
@@ -131,15 +139,6 @@ const TravelScheduleComponent: React.FunctionComponent<
           } else {
             arr = tmpData.arrivalStation;
           }
-
-          if (j === data.data[i].length - 2) {
-            latlngList.push({
-              placeName: arrival.data[0].station_name,
-              lat: arrival.data[0].station_latitude,
-              lng: arrival.data[0].station_longitude,
-              isTrain: true,
-            });
-          }
           j++;
         } else {
           const event = await getTravelData(data.data[i][j].content_id);
@@ -153,7 +152,7 @@ const TravelScheduleComponent: React.FunctionComponent<
             moreInfo: event.data.moreInfo,
           };
 
-          latlngList.push({
+          latlngContent.push({
             placeName: event.data.title,
             lng: event.data.mapx as number,
             lat: event.data.mapy as number,
@@ -172,9 +171,12 @@ const TravelScheduleComponent: React.FunctionComponent<
           }
         }
       }
+      let combinedArray: MapCoordinateDataType[] = [
+        ...latlngTrain,
+        ...latlngContent,
+      ];
 
-      handleMappAdd(latlngList);
-      console.log(latlngList);
+      handleMappAdd(combinedArray);
 
       if (dep === '') {
         summaryList.push({
