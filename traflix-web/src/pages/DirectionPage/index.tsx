@@ -27,9 +27,8 @@ const DirectionPage = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <HeaderComponent />
-      <div>
-        <ContentDetailModalComponent />
+      <div className={styles.navbarContainer}>
+        <HeaderComponent />
       </div>
       <div className={styles.cardItemsContainer}>
         <Suspense fallback={<LoadingComponent />}>
@@ -38,6 +37,7 @@ const DirectionPage = () => {
             trainSchedule={TrainTestData}
           />
         </Suspense>
+        <ContentDetailModalComponent />
       </div>
       <div className={styles.mapContainer}>
         <MapComponent></MapComponent>
