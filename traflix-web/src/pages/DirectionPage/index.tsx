@@ -33,6 +33,8 @@ const DirectionPage = () => {
 
   const testPath: MapCoordinateDataType[] = testPath1;
 
+  console.log('MAP MOBX', places);
+
   return (
     <div className={styles.pageContainer}>
       <HeaderComponent />
