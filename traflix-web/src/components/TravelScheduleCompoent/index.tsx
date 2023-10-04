@@ -22,6 +22,9 @@ import { TrainCardDataType } from '../../types/TrainCardType';
 import { TravelCardDataType } from '../../types/TravelCardType';
 import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
+import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
+import { toJS } from 'mobx';
+import { TRUE } from 'sass';
 
 export interface PropsTravelScheduleComponent {
   travelSchedule: TravelCardDataType[];
@@ -31,10 +34,14 @@ export interface PropsTravelScheduleComponent {
 const TravelScheduleComponent: React.FunctionComponent<
   PropsTravelScheduleComponent
 > = ({ travelSchedule, trainSchedule }) => {
-  const { screenClass, isLogin } = useRootData(({ appStore, authStore }) => ({
-    screenClass: appStore.screenClass.get(),
-    isLogin: authStore.isLogin.get(),
-  }));
+  const { screenClass, isLogin, places, handleMappAdd } = useRootData(
+    ({ appStore, authStore, map }) => ({
+      screenClass: appStore.screenClass.get(),
+      isLogin: authStore.isLogin.get(),
+      places: map.places,
+      handleMappAdd: map.handleMapAdd,
+    }),
+  );
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
@@ -83,7 +90,8 @@ const TravelScheduleComponent: React.FunctionComponent<
     for (let i = 0; i < data.data.length; i++) {
       const summaryList: SummaryDataType[] = [];
       const eventList: (TravelCardDataType | TrainCardDataType)[] = [];
-
+      let latlngTrain: MapCoordinateDataType[] = [];
+      let latlngContent: MapCoordinateDataType[] = [];
       let dep: string = '';
       let depTime: string = '';
       let arr: string = '';
@@ -97,6 +105,21 @@ const TravelScheduleComponent: React.FunctionComponent<
           const arrival = await getTrainData(
             data.data[i][j + 1].train_schedule_id,
           );
+          if (latlngTrain.length === 0) {
+            latlngTrain.push({
+              placeName: departure.data[0].station_name,
+              lat: departure.data[0].station_latitude,
+              lng: departure.data[0].station_longitude,
+              isTrain: true,
+            });
+          }
+          latlngTrain.push({
+            placeName: arrival.data[0].station_name,
+            lat: arrival.data[0].station_latitude,
+            lng: arrival.data[0].station_longitude,
+            isTrain: true,
+          });
+
           const tmpData: TrainCardDataType = {
             isTrain: true,
             trainType: departure.data[0].train_type,
@@ -128,6 +151,14 @@ const TravelScheduleComponent: React.FunctionComponent<
             load: event.data.load,
             moreInfo: event.data.moreInfo,
           };
+
+          latlngContent.push({
+            placeName: event.data.title,
+            lng: event.data.mapx as number,
+            lat: event.data.mapy as number,
+            isTrain: false,
+          });
+
           eventList.push(tmpData);
 
           if (summaryList.length === 0 && dep !== '') {
@@ -140,6 +171,12 @@ const TravelScheduleComponent: React.FunctionComponent<
           }
         }
       }
+      let combinedArray: MapCoordinateDataType[] = [
+        ...latlngTrain,
+        ...latlngContent,
+      ];
+
+      handleMappAdd(combinedArray);
 
       if (dep === '') {
         summaryList.push({
