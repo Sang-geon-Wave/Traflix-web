@@ -11,7 +11,8 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   title,
   subtitle,
   load,
-  moreInfo, // 여기에 content_id 집어넣어야 할 듯 이건 누구 파트인지 알아보자
+  moreInfo,
+  travelType,
 }) => {
   const { screenClass, handleContentShow } = useRootData(
     ({ appStore, contentModal }) => ({
@@ -26,7 +27,7 @@ const TravelCardComponent: React.FunctionComponent<TravelCardDataType> = ({
   const setDetailModal = async () => {
     const { data } = await api.post('/search/contentDetail', {
       content_id: moreInfo,
-      // content_id: 2792802,
+      content_type_id: travelType,
     });
 
     handleContentShow(data.detail);
