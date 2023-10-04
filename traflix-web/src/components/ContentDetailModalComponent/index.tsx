@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import stylesMobileDefault from './MobileDefault.module.scss';
 import closeImg from '../../assets/images/x.svg';
 import contentDetailData from '../../assets/string/ContentDetailModalComponent/testData';
-// import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface PropsContentDetailModalComponent {}
 
@@ -20,7 +20,7 @@ const ContentDetailModalComponent: React.FunctionComponent<
     }),
   );
   const isDesktop = screenClass === 'xl';
-  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   const contentName: { [key: string]: string } = {
     '12': '관광지',
