@@ -24,6 +24,7 @@ import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
 import { useLocation } from 'react-router-dom';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
+import LoadingComponent from '../LoadingComponent';
 
 export interface PropsTravelScheduleComponent {}
 
@@ -39,6 +40,7 @@ const TravelScheduleComponent: React.FunctionComponent<
   );
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const [isLoading, setIsLoading] = useState(true);
 
   const travelTypes = [
     ['12', culture],
@@ -225,6 +227,7 @@ const TravelScheduleComponent: React.FunctionComponent<
           await setJourneyData(data);
           const init = new Array(data.length).fill(false);
           setDetailVisibility(init);
+          setIsLoading(false);
         } catch {
           alert('잠시후 다시 시도해 주세요');
         }
@@ -233,6 +236,10 @@ const TravelScheduleComponent: React.FunctionComponent<
         fetchData();
       }
     }, [isLogin]);
+  }
+
+  if (isLoading) {
+    return <LoadingComponent />;
   }
 
   return (
