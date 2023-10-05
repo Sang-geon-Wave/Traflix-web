@@ -61,17 +61,6 @@ const TravelScheduleComponent: React.FunctionComponent<
 
   const [summaryData, setSummaryData] = useState<SummarySetDataType[]>([]);
 
-  const getEmail = async () => {
-    try {
-      const { data } = await api.get('/user/me');
-      return data.email;
-    } catch (err) {
-      if (isLogin) {
-        alert('잠시후 다시 시도해 주세요');
-      }
-    }
-  };
-
   const getTrainData = async (id: any) => {
     const { data } = await api.post('/search/trainSchedule', { id });
     return data;

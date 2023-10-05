@@ -44,7 +44,6 @@ const LoginComponent = () => {
   };
 
   const [showPW, setShowPW] = useState(false);
-  const [autoLogin, setAutoLogin] = useState(false);
 
   const goToSignup = () => {
     handleLoginClose();
@@ -66,7 +65,7 @@ const LoginComponent = () => {
 
     setLoginErr({ handle: false, text: '' });
 
-    if (await login(null, usrID, usrPW, autoLogin)) {
+    if (await login(null, usrID, usrPW)) {
       alert(`환영합니다`);
       handleLoginClose();
     } else
@@ -115,12 +114,6 @@ const LoginComponent = () => {
           </InputGroup>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formAuto">
-          <Form.Check
-            onChange={() => setAutoLogin(!autoLogin)}
-            type="checkbox"
-            label="자동 로그인"
-            checked={autoLogin}
-          />
           {loginErr.handle && (
             <Form.Text className={styles.errMessage}>{loginErr.text}</Form.Text>
           )}

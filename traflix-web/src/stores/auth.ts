@@ -19,18 +19,12 @@ const createStore = () => {
       authStore.userNickname.set(data);
     },
 
-    async login(
-      code: string | null,
-      email: string = '',
-      userPw: string = '',
-      autologin: boolean = false,
-    ) {
+    async login(code: string | null, email: string = '', userPw: string = '') {
       try {
         const { data } = await api.post('/auth/login', {
           code: code,
           email: email,
           user_pw: userPw,
-          autologin: autologin,
         });
         const { access_token: accessToken, nickname: nickname } = data;
         runInAction(() => {
