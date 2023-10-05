@@ -58,17 +58,6 @@ const TravelScheduleComponent: React.FunctionComponent<
 
   const [summaryData, setSummaryData] = useState<SummarySetDataType[]>([]);
 
-  const getEmail = async () => {
-    try {
-      const { data } = await api.get('/user/me');
-      return data.email;
-    } catch (err) {
-      if (isLogin) {
-        alert('잠시후 다시 시도해 주세요');
-      }
-    }
-  };
-
   const getTrainData = async (id: any) => {
     const { data } = await api.post('/search/trainSchedule', { id });
     return data;
@@ -210,7 +199,6 @@ const TravelScheduleComponent: React.FunctionComponent<
 
   const location = useLocation();
   if (location.state) {
-    console.log('search');
     const searchPath = async (
       start: string,
       destination: string,
@@ -230,7 +218,6 @@ const TravelScheduleComponent: React.FunctionComponent<
 
     //setEventData(data);
   } else {
-    console.log('mypage');
     useEffect(() => {
       const fetchData = async () => {
         try {
