@@ -24,19 +24,16 @@ import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
 import { useLocation } from 'react-router-dom';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
-import { toJS } from 'mobx';
-import { TRUE } from 'sass';
 
 export interface PropsTravelScheduleComponent {}
 
 const TravelScheduleComponent: React.FunctionComponent<
   PropsTravelScheduleComponent
 > = () => {
-  const { screenClass, isLogin, places, handleMappAdd } = useRootData(
+  const { screenClass, isLogin, handleMappAdd } = useRootData(
     ({ appStore, authStore, map }) => ({
       screenClass: appStore.screenClass.get(),
       isLogin: authStore.isLogin.get(),
-      places: map.places,
       handleMappAdd: map.handleMapAdd,
     }),
   );
@@ -98,35 +95,31 @@ const TravelScheduleComponent: React.FunctionComponent<
 
       for (let j = 0; j < data.data[i].length; j++) {
         if (data.data[i][j].is_train === 1) {
-          const departure = await getTrainData(
-            data.data[i][j].train_schedule_id,
-          );
-          const arrival = await getTrainData(
-            data.data[i][j + 1].train_schedule_id,
-          );
+          const departure = data.data[i][j];
+          const arrival = data.data[i][j + 1];
           if (latlngTrain.length === 0) {
             latlngTrain.push({
-              placeName: departure.data[0].station_name,
-              lat: departure.data[0].station_latitude,
-              lng: departure.data[0].station_longitude,
+              placeName: departure.station_name,
+              lat: departure.station_latitude,
+              lng: departure.station_longitude,
               isTrain: true,
             });
           }
           latlngTrain.push({
-            placeName: arrival.data[0].station_name,
-            lat: arrival.data[0].station_latitude,
-            lng: arrival.data[0].station_longitude,
+            placeName: arrival.station_name,
+            lat: arrival.station_latitude,
+            lng: arrival.station_longitude,
             isTrain: true,
           });
 
           const tmpData: TrainCardDataType = {
             isTrain: true,
-            trainType: departure.data[0].train_type,
-            trainNumber: departure.data[0].train_number,
-            departureStation: departure.data[0].station_name,
-            arrivalStation: arrival.data[0].station_name,
-            departureTime: departure.data[0].stop_time,
-            arrivalTime: arrival.data[0].stop_time,
+            trainType: departure.train_type,
+            trainNumber: departure.train_number,
+            departureStation: departure.station_name,
+            arrivalStation: arrival.station_name,
+            departureTime: departure.stop_time,
+            arrivalTime: arrival.stop_time,
           };
           eventList.push(tmpData);
 

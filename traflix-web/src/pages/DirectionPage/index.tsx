@@ -9,16 +9,10 @@ import TravelScheduleComponent from '../../components/TravelScheduleCompoent';
 import HeaderComponent from '../../components/HeaderComponent';
 import ContentDetailModalComponent from '../../components/ContentDetailModalComponent';
 
-import { toJS } from 'mobx';
-
 const DirectionPage = () => {
-  const { screenClass, content, places } = useRootData(
-    ({ appStore, contentModal, map }) => ({
-      screenClass: appStore.screenClass.get(),
-      content: contentModal.content.get(),
-      places: toJS(map.places),
-    }),
-  );
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;

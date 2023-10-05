@@ -15,7 +15,13 @@
 .cardItemsContainer {
   grid-area: 2 / 1 / 3 / 2;
   overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
   padding: 0;
+}
+
+.cardItemsContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .mapContainer {

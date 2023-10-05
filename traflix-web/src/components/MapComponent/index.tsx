@@ -15,7 +15,7 @@ export interface PropsMapComponent {
 const MapComponent: React.FunctionComponent = () => {
   const { screenClass, places } = useRootData(({ appStore, map }) => ({
     screenClass: appStore.screenClass.get(),
-    places: map.places,
+    places: toJS(map.places),
   }));
   useKakaoLoader();
 
@@ -23,7 +23,7 @@ const MapComponent: React.FunctionComponent = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const pathCoordinates = toJS(places);
+  const pathCoordinates = places;
   const [mapStyle, setMapStyle] = useState({
     width: '100%',
     height: '100%',
