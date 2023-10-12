@@ -3,4 +3,5 @@ export interface MapCoordinateDataType {
   lat: number;
   lng: number;
   isTrain: boolean;
+  contentType?: string;
 }

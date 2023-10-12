@@ -134,6 +134,7 @@ const DirectionPage = () => {
             lng: event.data.mapx as number,
             lat: event.data.mapy as number,
             isTrain: false,
+            contentType: event.data.travelType,
           });
 
           eventList.push(tmpData);
