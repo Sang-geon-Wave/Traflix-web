@@ -4,40 +4,16 @@
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  width: 90% !important;
+  width: 100% !important;
   min-height: 100px;
-  background-color: white;
   z-index: 999;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.close {
-  position: absolute;
-  border: 0px;
-  width: 30px !important;
-  height: 30px !important;
-  right: 10px;
-  top: 10px;
-}
-.modalBackground {
-  display: flex;
-  top: 0;
-  left: 0;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
 }
 .title {
   width: 100%;
-  height: 40px;
+  min-height: 40px;
   text-align: center;
   font-size: 25px;
-  margin-left: 50%;
-  transform: translate(-50%);
-  margin-top: 30px;
+  margin-top: 5%;
 }
 .subTitle {
   width: 100%;
@@ -52,8 +28,8 @@
   width: 100%;
   height: 400px;
   margin-top: 5%;
-  padding-left: 5%;
-  padding-right: 3%;
+  padding-left: 2%;
+  padding-right: 0%;
 }
 .card {
   display: flex;
@@ -73,11 +49,12 @@
   border: 1px solid #336657;
   border-radius: 5px;
   margin-right: 2%;
+  margin-bottom: 10px;
   overflow: hidden;
   padding: 0%;
 }
 .card:hover {
-  border: 1px solid #336657;
+  border: 1px solid #33665733;
 }
 .cardImg {
   width: 110px;
@@ -97,7 +74,7 @@
   width: 90%;
   height: 40px;
   margin-left: 5%;
-  margin-bottom: 20px;
+  margin-bottom: 5%;
 }
 .nextButton {
   width: 100%;

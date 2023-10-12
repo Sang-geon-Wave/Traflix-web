@@ -6,6 +6,7 @@ import aeyoungImg from '../../assets/images/aeyung.jpg';
 import closeImg from '../../assets/images/x.svg';
 import { SelectCardDataType } from '../../types/SelectCardDataType';
 import stylesMobileDefault from './MobileDefault.module.scss';
+import { Modal, ModalBody } from 'react-bootstrap';
 
 export interface PropsSelectComponent {
   start: string;
@@ -66,51 +67,45 @@ const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
   };
 
   return (
-    <div>
-      {optionShow && (
-        <div className={styles.modalBackground}>
-          <div className={styles.select}>
-            <img
-              src={closeImg}
-              onClick={handleOptionClose}
-              className={styles.close}
-            />
-            <div className={styles.title}>선호하는 여행 취향을 골라주세요!</div>
-            <div className={styles.subTitle}>
-              총 <span>{selectedOptions.length}</span>/7개 선택됨
-            </div>
-            <div className={styles.cardBox}>
-              {selectCardData.map((selectCardData) => (
-                <button
-                  key={selectCardData.tag}
-                  className={
-                    selectedOptions.includes(selectCardData.tag)
-                      ? styles.cardActive
-                      : styles.card
-                  }
-                  onClick={() => handleOptionToggle(selectCardData.tag)}
-                >
-                  <img className={styles.cardImg} src={selectCardData.img} />
-                  <div className={styles.cardText}>
-                    {contentName[selectCardData.tag]}
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div className={styles.buttonBox}>
-              <button
-                className={styles.nextButton}
-                onClick={() => {
-                  handleNextButton();
-                }}
-              >
-                경로 추천
-              </button>
-            </div>
+    <Modal className={styles.modal} show={optionShow} size="lg">
+      <Modal.Header closeButton onClick={handleOptionClose} />
+      <div className={styles.select}>
+        <Modal.Body>
+          <div className={styles.title}>선호하는 여행 취향을 골라주세요!</div>
+          <div className={styles.subTitle}>
+            총 <span>{selectedOptions.length}</span>/7개 선택됨
           </div>
-        </div>
-      )}
-    </div>
+          <div className={styles.cardBox}>
+            {selectCardData.map((selectCardData) => (
+              <button
+                key={selectCardData.tag}
+                className={
+                  selectedOptions.includes(selectCardData.tag)
+                    ? styles.cardActive
+                    : styles.card
+                }
+                onClick={() => handleOptionToggle(selectCardData.tag)}
+              >
+                <img className={styles.cardImg} src={selectCardData.img} />
+                <div className={styles.cardText}>
+                  {contentName[selectCardData.tag]}
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className={styles.buttonBox}>
+            <button
+              className={styles.nextButton}
+              onClick={() => {
+                handleNextButton();
+              }}
+            >
+              경로 추천
+            </button>
+          </div>
+        </Modal.Body>
+      </div>
+    </Modal>
   );
 };
 
