@@ -5,18 +5,19 @@
 }
 .search {
   border: 1px solid black transparent;
-  border-radius: 50px;
+  border-radius: 35px;
   box-shadow: 2px 3px 5px 0px gray;
   padding: 10px;
   background-color: white;
 }
 .selectStations {
-  width: 50%;
+  width: 100%;
+  float: bottom;
 }
 .label {
   float: left;
   width: 47%;
-  height: 58px;
+  height: 45px;
   margin-right: 1%;
   padding: 0.45rem 1rem;
   color: gray;
@@ -26,29 +27,31 @@
   padding: 0 !important;
   border: none !important;
   box-shadow: none !important;
-  border-top-left-radius: 50px !important;
-  border-bottom-left-radius: 50px !important;
+  border-top-left-radius: 35px !important;
+  border-bottom-left-radius: 35px !important;
 }
 .calenderLabel {
-  float: left;
-  margin-right: 1%;
-  width: 36% !important;
-  height: 58px !important;
+  float: bottom;
+  width: 100% !important;
+  height: 29px !important;
   padding: 0.45rem 1rem;
   color: gray;
   font-size: 0.8rem;
+  margin-bottom: 28px;
 }
 .calender {
   padding: 0 !important;
   border: none !important;
-  border-radius: 50px !important;
+  border-radius: 35px !important;
   user-select: none !important;
   box-shadow: none !important;
 }
 .button {
-  width: 15%;
-  height: 58px;
-  border-radius: 50px !important;
+  padding: 0px !important;
+  margin-left: 2.5%;
+  width: 95%;
+  height: 29px;
+  border-radius: 10px !important;
 }
 .dropBox {
   width: 2%;

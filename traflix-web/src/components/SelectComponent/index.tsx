@@ -5,7 +5,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import aeyoungImg from '../../assets/images/aeyung.jpg';
 import closeImg from '../../assets/images/x.svg';
 import { SelectCardDataType } from '../../types/SelectCardDataType';
-// import stylesMobileDefault from './MobileDefault.module.scss';
+import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface PropsSelectComponent {
   start: string;
@@ -28,7 +28,7 @@ const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
     }),
   );
   const isDesktop = screenClass === 'xl';
-  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   const navigate = useNavigate();
 
@@ -97,13 +97,15 @@ const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
                 </button>
               ))}
             </div>
-            <div
-              className={styles.buttonBox}
-              onClick={() => {
-                handleNextButton();
-              }}
-            >
-              <button className={styles.nextButton}>경로 추천</button>
+            <div className={styles.buttonBox}>
+              <button
+                className={styles.nextButton}
+                onClick={() => {
+                  handleNextButton();
+                }}
+              >
+                경로 추천
+              </button>
             </div>
           </div>
         </div>
