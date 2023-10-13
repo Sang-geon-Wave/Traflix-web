@@ -10,6 +10,7 @@
 
 .bottomSheetHeader {
   height: 30px;
+  border-top: solid 1px gray;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   position: relative;
@@ -40,5 +41,5 @@
 
 .mapContainer {
   grid-area: 2 / 1 / 3 / 2;
-  min-height: 600px;
+  min-height: 100%;
 }
