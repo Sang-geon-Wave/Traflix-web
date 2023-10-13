@@ -43,9 +43,35 @@ const DirectionPage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  const { sheet, content } = useBottomSheet();
+  if (!isDesktop) {
+    const { sheet, content } = useBottomSheet();
 
-  return isDesktop ? (
+    return (
+      <div className={styles.pageContainer}>
+        <div className={styles.navbarContainer}>
+          <HeaderComponent />
+        </div>
+        <Wrapper ref={sheet}>
+          <div className={styles.bottomSheetHeader}>
+            <div className={styles.handle} />
+          </div>
+          <div className={styles.bottomSheetContent}>
+            <div ref={content}>
+              <Suspense fallback={<LoadingComponent />}>
+                <TravelScheduleComponent />
+              </Suspense>
+              <ContentDetailModalComponent />
+            </div>
+          </div>
+        </Wrapper>
+        <div className={styles.mapContainer}>
+          <MapComponent></MapComponent>
+        </div>
+      </div>
+    );
+  }
+
+  return (
     <div className={styles.pageContainer}>
       <div className={styles.navbarContainer}>
         <HeaderComponent />
@@ -56,28 +82,6 @@ const DirectionPage = () => {
         </Suspense>
         <ContentDetailModalComponent />
       </div>
-      <div className={styles.mapContainer}>
-        <MapComponent></MapComponent>
-      </div>
-    </div>
-  ) : (
-    <div className={styles.pageContainer}>
-      <div className={styles.navbarContainer}>
-        <HeaderComponent />
-      </div>
-      <Wrapper ref={sheet}>
-        <div className={styles.bottomSheetHeader}>
-          <div className={styles.handle} />
-        </div>
-        <div className={styles.bottomSheetContent}>
-          <div ref={content}>
-            <Suspense fallback={<LoadingComponent />}>
-              <TravelScheduleComponent />
-            </Suspense>
-            <ContentDetailModalComponent />
-          </div>
-        </div>
-      </Wrapper>
       <div className={styles.mapContainer}>
         <MapComponent></MapComponent>
       </div>
