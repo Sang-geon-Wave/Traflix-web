@@ -73,7 +73,7 @@ const LoginComponent = () => {
   };
 
   const REST_API_KEY = config.kakaoRestApi;
-  const REDIRECT_URI = config.redirectUrl;
+  const REDIRECT_URI = config.baseUrl + config.redirectPath;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const tryKakaoLogin = async () => {
     const location = window.location.pathname;
