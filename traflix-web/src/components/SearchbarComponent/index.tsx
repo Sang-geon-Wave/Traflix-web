@@ -7,6 +7,7 @@ import api from '../../api';
 import SelectComponent from '../SelectComponent';
 import { SelectCardDataType } from '../../types/SelectCardDataType';
 import cafe from '../../assets/images/cafe.svg';
+import stylesMobileDefault from './MobileDefault.module.scss';
 
 const SearchbarComponent: React.FunctionComponent = ({}) => {
   const { screenClass, handleOptionShow } = useRootData(
@@ -17,7 +18,7 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
   );
 
   const isDesktop = screenClass === 'xl';
-  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   const today = dateFormat();
   const todayTime = dateTimeFormat();
@@ -227,7 +228,7 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
             )}
           </Dropdown>
         </div>
-        <div className={styles.calBtn}>
+        <div>
           <label htmlFor="startDate" className={styles.calenderLabel}>
             출발일
             <Form.Control
