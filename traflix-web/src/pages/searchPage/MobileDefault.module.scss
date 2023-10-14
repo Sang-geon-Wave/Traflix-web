@@ -8,6 +8,27 @@
   grid-template-rows: 60px auto 150px;
 }
 
+.bottomSheet {
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  z-index: 20;
+  top: 80%;
+  left: 0;
+  right: 0;
+
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+  height: 80vh;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  transition: transform 350ms ease-out;
+}
+
 .bottomSheetHeader {
   height: 30px;
   border-top: solid 1px gray;
@@ -41,5 +62,5 @@
 
 .mapContainer {
   grid-area: 2 / 1 / 3 / 2;
-  min-height: 100%;
+  min-height: 80%;
 }

@@ -29,30 +29,6 @@ import { SummaryDataType } from '../../types/SummaryDataType';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import { motion } from 'framer-motion';
 import useBottomSheet from '../../hooks/useBottomSheet';
-import styled from 'styled-components';
-import { BOTTOM_SHEET_HEIGHT } from '../../hooks/BottomSheetOption';
-
-const Wrapper = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-
-  position: fixed;
-  z-index: 20;
-  top: 80%;
-  left: 0;
-  right: 0;
-
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
-  height: ${BOTTOM_SHEET_HEIGHT}px;
-  //height: 80%;
-
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-  transition: transform 350ms ease-out;
-`;
 
 const DirectionPage = () => {
   const { screenClass, isLogin, handleMappAdd } = useRootData(
@@ -240,14 +216,12 @@ const DirectionPage = () => {
   if (!isDesktop) {
     const { sheet, content } = useBottomSheet();
 
-    console.log(window.innerHeight);
-
     return (
       <div className={styles.pageContainer}>
         <div className={styles.navbarContainer}>
           <HeaderComponent />
         </div>
-        <Wrapper ref={sheet}>
+        <motion.div className={styles.bottomSheet} ref={sheet}>
           <div className={styles.bottomSheetHeader}>
             <div className={styles.handle} />
           </div>
@@ -353,7 +327,7 @@ const DirectionPage = () => {
               <ContentDetailModalComponent />
             </div>
           </div>
-        </Wrapper>
+        </motion.div>
         <div className={styles.mapContainer}>
           <MapComponent></MapComponent>
         </div>
