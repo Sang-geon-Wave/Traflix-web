@@ -20,7 +20,6 @@ const BannerComponent = () => {
         indicators={false}
         controls={false}
         className={styles.mainCarousel}
-        bsPrefix="mainCarousel"
       >
         {imgData.map((imgData, i) => (
           <Carousel.Item key={i} interval={intervalValue}>
