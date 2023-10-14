@@ -66,6 +66,7 @@ const SearchPage = () => {
     const { data } = await api.post('/search/contentInfo', { id });
     return data;
   };
+
   const setJourneyData = async (data: any) => {
     const journeyList: (TravelCardDataType | TrainCardDataType)[][] = [];
     const summarySetList: SummarySetDataType[] = [];
@@ -203,18 +204,20 @@ const SearchPage = () => {
         start: string,
         destination: string,
         startDate: string,
-        option: string,
+        option: string[],
       ) => {
         try {
           setIsLoading(true);
           // 아래 api만 수정하면 이것도 될거임
-          // const { data } = await api.post('/search/myJourney', {
-          //   code: code,
-          //   email: email,
-          //   user_pw: userPw,
-          // });
-          const { data } = await api.post('/search/myJourney');
-          await setJourneyData(data);
+          const { data } = await api.post('/search/findPath', {
+            station_code_dep: start,
+            station_code_arr: destination,
+            datetime_dep: startDate,
+            taste: option,
+          });
+          console.log(option);
+          // const { data } = await api.post('/search/myJourney');
+          // await setJourneyData(data);
           const init = new Array(data.length).fill(false);
           setDetailVisibility(init);
           setIsLoading(false);
