@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, useRef } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
@@ -28,6 +28,31 @@ import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import { useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import useBottomSheet from '../../hooks/useBottomSheet';
+import styled from 'styled-components';
+import { BOTTOM_SHEET_HEIGHT } from '../../hooks/BottomSheetOption';
+
+const Wrapper = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  z-index: 20;
+  top: calc(100% - 90px);
+  left: 0;
+  right: 0;
+
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+  height: ${BOTTOM_SHEET_HEIGHT}px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  transition: transform 350ms ease-out;
+`;
 
 const DirectionPage = () => {
   const { screenClass, isLogin, handleMappAdd } = useRootData(
@@ -232,6 +257,34 @@ const DirectionPage = () => {
         fetchData();
       }
     }, [isLogin]);
+  }
+
+  if (!isDesktop) {
+    const { sheet, content } = useBottomSheet();
+
+    return (
+      <div className={styles.pageContainer}>
+        <div className={styles.navbarContainer}>
+          <HeaderComponent />
+        </div>
+        <Wrapper ref={sheet}>
+          <div className={styles.bottomSheetHeader}>
+            <div className={styles.handle} />
+          </div>
+          <div className={styles.bottomSheetContent}>
+            <div ref={content}>
+              <Suspense fallback={<LoadingComponent />}>
+                <TravelScheduleComponent />
+              </Suspense>
+              <ContentDetailModalComponent />
+            </div>
+          </div>
+        </Wrapper>
+        <div className={styles.mapContainer}>
+          <MapComponent></MapComponent>
+        </div>
+      </div>
+    );
   }
 
   return (
