@@ -198,24 +198,38 @@ const SearchPage = () => {
 
   const location = useLocation();
   if (location.state) {
-    const searchPath = async (
-      start: string,
-      destination: string,
-      startDate: string,
-      option: string,
-    ) => {
-      console.log(`${start} ${destination} ${startDate} ${option}`);
-      // const data = await algotithm(start, destination, startDate, option);
-      //return data;
-    };
-    const data = searchPath(
-      location.state.start,
-      location.state.destination,
-      location.state.startDate,
-      location.state.option,
-    );
-
-    //setEventData(data);
+    useEffect(() => {
+      const searchPath = async (
+        start: string,
+        destination: string,
+        startDate: string,
+        option: string,
+      ) => {
+        try {
+          setIsLoading(true);
+          // 아래 api만 수정하면 이것도 될거임
+          // const { data } = await api.post('/search/myJourney', {
+          //   code: code,
+          //   email: email,
+          //   user_pw: userPw,
+          // });
+          const { data } = await api.post('/search/myJourney');
+          await setJourneyData(data);
+          const init = new Array(data.length).fill(false);
+          setDetailVisibility(init);
+          setIsLoading(false);
+        } catch {
+          alert('잠시후 다시 시도해 주세요');
+        }
+        console.log(`${start} ${destination} ${startDate} ${option}`);
+      };
+      searchPath(
+        location.state.start,
+        location.state.destination,
+        location.state.startDate,
+        location.state.option,
+      );
+    }, [location]);
   }
 
   if (!isDesktop) {
