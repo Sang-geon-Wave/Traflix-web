@@ -98,7 +98,7 @@ const HeaderComponent = ({}) => {
               <div
                 className={styles.options}
                 onClick={() => {
-                  navigate('/directions');
+                  navigate('/myPage');
                   setMenuOpen(false);
                 }}
               >
