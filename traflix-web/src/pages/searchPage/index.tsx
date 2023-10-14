@@ -27,6 +27,7 @@ import { TravelCardDataType } from '../../types/TravelCardType';
 import { SummarySetDataType } from '../../types/SummarySetDataType';
 import { SummaryDataType } from '../../types/SummaryDataType';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useBottomSheet from '../../hooks/useBottomSheet';
 import styled from 'styled-components';
@@ -46,7 +47,6 @@ const Wrapper = styled(motion.div)`
   border-top-right-radius: 12px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
   height: ${BOTTOM_SHEET_HEIGHT}px;
-  //height: 80%;
 
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -54,7 +54,7 @@ const Wrapper = styled(motion.div)`
   transition: transform 350ms ease-out;
 `;
 
-const DirectionPage = () => {
+const SearchPage = () => {
   const { screenClass, isLogin, handleMappAdd } = useRootData(
     ({ appStore, authStore, map }) => ({
       screenClass: appStore.screenClass.get(),
@@ -219,28 +219,30 @@ const DirectionPage = () => {
     setDetailVisibility(update);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await api.post('/search/myJourney');
-        await setJourneyData(data);
-        const init = new Array(data.length).fill(false);
-        setDetailVisibility(init);
-        setIsLoading(false);
-      } catch {
-        alert('잠시후 다시 시도해 주세요');
-      }
+  const location = useLocation();
+  if (location.state) {
+    const searchPath = async (
+      start: string,
+      destination: string,
+      startDate: string,
+      option: string,
+    ) => {
+      console.log(`${start} ${destination} ${startDate} ${option}`);
+      // const data = await algotithm(start, destination, startDate, option);
+      //return data;
     };
-    if (isLogin) {
-      fetchData();
-    }
-  }, [isLogin]);
+    const data = searchPath(
+      location.state.start,
+      location.state.destination,
+      location.state.startDate,
+      location.state.option,
+    );
+
+    //setEventData(data);
+  }
 
   if (!isDesktop) {
     const { sheet, content } = useBottomSheet();
-
-    console.log(window.innerHeight);
 
     return (
       <div className={styles.pageContainer}>
@@ -350,6 +352,7 @@ const DirectionPage = () => {
                   ))}
                 </div>
               </Suspense>
+              <ContentDetailModalComponent />
               <ContentDetailModalComponent />
             </div>
           </div>
@@ -466,4 +469,4 @@ const DirectionPage = () => {
   );
 };
 
-export default DirectionPage;
+export default SearchPage;

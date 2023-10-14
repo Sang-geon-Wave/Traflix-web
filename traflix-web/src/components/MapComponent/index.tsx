@@ -85,9 +85,8 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
     keyValue: Number,
   ) => {
     return (
-      <div>
+      <div key={`line-${keyValue}`}>
         <Polyline
-          key={`line-${keyValue}`}
           path={pathCoordinate
             .filter((coordinate) => coordinate.isTrain)
             .map((coordinate) => ({
