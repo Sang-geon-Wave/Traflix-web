@@ -30,31 +30,8 @@ import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useBottomSheet from '../../hooks/useBottomSheet';
-import styled from 'styled-components';
-import { BOTTOM_SHEET_HEIGHT } from '../../hooks/BottomSheetOption';
 
-const Wrapper = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-
-  position: fixed;
-  z-index: 20;
-  top: calc(100% - 90px);
-  left: 0;
-  right: 0;
-
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
-  height: ${BOTTOM_SHEET_HEIGHT}px;
-
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-  transition: transform 350ms ease-out;
-`;
-
-const DirectionPage = () => {
+const SearchPage = () => {
   const { screenClass, isLogin, handleMappAdd } = useRootData(
     ({ appStore, authStore, map }) => ({
       screenClass: appStore.screenClass.get(),
@@ -159,6 +136,7 @@ const DirectionPage = () => {
             lng: event.data.mapx as number,
             lat: event.data.mapy as number,
             isTrain: false,
+            contentType: event.data.travelType,
           });
 
           eventList.push(tmpData);
@@ -220,29 +198,21 @@ const DirectionPage = () => {
 
   const location = useLocation();
   if (location.state) {
-    const searchPath = async (
-      start: string,
-      destination: string,
-      startDate: string,
-      option: string,
-    ) => {
-      console.log(`${start} ${destination} ${startDate} ${option}`);
-      // const data = await algotithm(start, destination, startDate, option);
-      //return data;
-    };
-    const data = searchPath(
-      location.state.start,
-      location.state.destination,
-      location.state.startDate,
-      location.state.option,
-    );
-
-    //setEventData(data);
-  } else {
     useEffect(() => {
-      const fetchData = async () => {
+      const searchPath = async (
+        start: string,
+        destination: string,
+        startDate: string,
+        option: string,
+      ) => {
         try {
           setIsLoading(true);
+          // 아래 api만 수정하면 이것도 될거임
+          // const { data } = await api.post('/search/myJourney', {
+          //   code: code,
+          //   email: email,
+          //   user_pw: userPw,
+          // });
           const { data } = await api.post('/search/myJourney');
           await setJourneyData(data);
           const init = new Array(data.length).fill(false);
@@ -251,11 +221,15 @@ const DirectionPage = () => {
         } catch {
           alert('잠시후 다시 시도해 주세요');
         }
+        console.log(`${start} ${destination} ${startDate} ${option}`);
       };
-      if (isLogin) {
-        fetchData();
-      }
-    }, [isLogin]);
+      searchPath(
+        location.state.start,
+        location.state.destination,
+        location.state.startDate,
+        location.state.option,
+      );
+    }, [location]);
   }
 
   if (!isDesktop) {
@@ -266,19 +240,113 @@ const DirectionPage = () => {
         <div className={styles.navbarContainer}>
           <HeaderComponent />
         </div>
-        <Wrapper ref={sheet}>
+        <motion.div className={styles.bottomSheet} ref={sheet}>
           <div className={styles.bottomSheetHeader}>
             <div className={styles.handle} />
           </div>
           <div className={styles.bottomSheetContent}>
             <div ref={content}>
               <Suspense fallback={<LoadingComponent />}>
-                <TravelScheduleComponent />
+                {isLoading ? <LoadingComponent /> : <></>}
+                <div className={styles.main}>
+                  {summaryData.map((Data, i) => (
+                    <div className={styles.summaryBox} key={i}>
+                      <SummaryComponent
+                        date={new Date(Data.journeyDate)}
+                        summaryData={Data.summaryData}
+                      />
+                      {detailVisibility[i] ? (
+                        <img src={arrowUp} onClick={() => updateIndex(i)} />
+                      ) : (
+                        <img src={arrowDown} onClick={() => updateIndex(i)} />
+                      )}
+                      {detailVisibility[i] ? (
+                        <div className={styles.detailBox}>
+                          {eventData[i].map(
+                            (
+                              element: TravelCardDataType | TrainCardDataType,
+                              index,
+                            ) => (
+                              <div key={index}>
+                                {element.isTrain ? (
+                                  <div>
+                                    <img className={styles.icon} src={train} />
+                                    <TrainCardComponent
+                                      isTrain={true}
+                                      trainType={
+                                        (element as TrainCardDataType).trainType
+                                      }
+                                      trainNumber={
+                                        (element as TrainCardDataType)
+                                          .trainNumber
+                                      }
+                                      departureStation={
+                                        (element as TrainCardDataType)
+                                          .departureStation
+                                      }
+                                      arrivalStation={
+                                        (element as TrainCardDataType)
+                                          .arrivalStation
+                                      }
+                                      departureTime={(
+                                        element as TrainCardDataType
+                                      ).departureTime.substring(0, 5)}
+                                      arrivalTime={(
+                                        element as TrainCardDataType
+                                      ).arrivalTime.substring(0, 5)}
+                                    />
+                                  </div>
+                                ) : (
+                                  <div className={styles.main} key={index}>
+                                    {travelTypes.map(
+                                      (travelType: any, idx) =>
+                                        travelType[0] ===
+                                          (element as TravelCardDataType)
+                                            .travelType && (
+                                          <img
+                                            className={styles.icon}
+                                            src={travelType[1]}
+                                            key={`${travelType[0]}${idx}`}
+                                          />
+                                        ),
+                                    )}
+                                    <TravelCardComponent
+                                      isTrain={true}
+                                      title={
+                                        (element as TravelCardDataType).title
+                                      }
+                                      subtitle={
+                                        (element as TravelCardDataType).subtitle
+                                      }
+                                      img={(element as TravelCardDataType).img}
+                                      load={
+                                        (element as TravelCardDataType).load
+                                      }
+                                      moreInfo={
+                                        (element as TravelCardDataType).moreInfo
+                                      }
+                                      travelType={
+                                        (element as TravelCardDataType)
+                                          .travelType
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </Suspense>
               <ContentDetailModalComponent />
             </div>
           </div>
-        </Wrapper>
+        </motion.div>
         <div className={styles.mapContainer}>
           <MapComponent></MapComponent>
         </div>
@@ -391,4 +459,4 @@ const DirectionPage = () => {
   );
 };
 
-export default DirectionPage;
+export default SearchPage;

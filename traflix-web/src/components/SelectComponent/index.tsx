@@ -55,7 +55,7 @@ const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
 
   const handleNextButton = () => {
     handleOptionClose();
-    navigate('/directions', {
+    navigate('/searchPage', {
       state: {
         start: start,
         destination: destination,
