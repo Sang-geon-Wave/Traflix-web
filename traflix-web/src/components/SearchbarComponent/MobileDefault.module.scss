@@ -13,13 +13,13 @@
 }
 .selectStations {
   width: 100%;
-  float: bottom;
+  position: relative;
 }
 .label {
   float: left;
-  width: 47%;
+  width: 100%;
   height: 45px;
-  margin-right: 1%;
+  margin-bottom: 3%;
   padding: 0.45rem 1rem;
   color: gray;
   font-size: 0.8rem;
@@ -71,9 +71,9 @@
 }
 .dropList {
   position: absolute !important;
-  left: -2300% !important;
-  width: 2300% !important;
-  top: 58px !important;
+  left: 100% !important;
+  width: 4800% !important;
+  top: 5px !important;
   padding: 0px !important;
   max-height: 300px;
   overflow: auto;

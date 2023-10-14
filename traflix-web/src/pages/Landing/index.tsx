@@ -28,10 +28,9 @@ const LandingPage = () => {
       <Row>
         <BannerComponent />
         <div className={styles.searchBarArea}>
-          <img src={bannerstring} />
-          {isDesktop ? <SearchbarComponent /> : <></>}
+          <img src={bannerstring} className={styles.sloganImage} />
+          <SearchbarComponent />
         </div>
-        {isDesktop ? <></> : <SearchbarComponent />}
       </Row>
       <Row>
         <div className={styles.hotSpotContainer}>
