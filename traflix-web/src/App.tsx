@@ -6,7 +6,7 @@ import MockPage from './pages/MockPage';
 import Redirection from './components/Redirect';
 import DirectionPage from './pages/MyPage';
 import useRootData from './hooks/useRootData';
-import SearchPage from './pages/sear';
+import SearchPage from './pages/SearchPage';
 
 const App = () => {
   const componentRef = useRef(null);
