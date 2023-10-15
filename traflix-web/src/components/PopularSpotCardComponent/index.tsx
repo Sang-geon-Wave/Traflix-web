@@ -20,9 +20,9 @@ const PopularSpotCardComponent: React.FunctionComponent<CardDataType> = ({
     <div className={styles.card}>
       <img src={imgUrl} />
       <div className={styles.caption}>
+        <p>{info}</p>
         <span>{place}</span>
         <p>{addr}</p>
-        <p>{info}</p>
       </div>
     </div>
   );
