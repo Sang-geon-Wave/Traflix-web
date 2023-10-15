@@ -7,6 +7,7 @@ const createStore = () => {
   const map = {
     places: observable.array(maps),
     handleMapAdd(contents: MapCoordinateDataType[]) {
+      map.places.clear();
       map.places.push(contents);
     },
     handleMapClear() {

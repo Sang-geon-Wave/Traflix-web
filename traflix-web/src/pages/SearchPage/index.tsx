@@ -63,11 +63,6 @@ const SearchPage = () => {
 
   const [summaryData, setSummaryData] = useState<SummarySetDataType[]>([]);
 
-  const getTravelData = async (id: any) => {
-    const { data } = await api.post('/search/contentInfo', { id });
-    return data;
-  };
-
   const setJourneyData = async (data: any) => {
     const journeyList: (TravelCardDataType | TrainCardDataType)[][] = [];
     const summarySetList: SummarySetDataType[] = [];
@@ -122,23 +117,22 @@ const SearchPage = () => {
           }
           j++;
         } else {
-          const event = await getTravelData(data.data[i][j].content_id);
           const tmpData: TravelCardDataType = {
             isTrain: false,
-            travelType: event.data.travelType,
-            img: event.data.img,
-            title: event.data.title,
-            subtitle: event.data.subtitle,
-            load: event.data.load,
-            moreInfo: event.data.moreInfo,
+            travelType: data.data[i][j].content.contenttypeid,
+            img: data.data[i][j].content.firstimage,
+            title: data.data[i][j].content.title,
+            subtitle: ' ',
+            load: ' ',
+            moreInfo: data.data[i][j].content.contentid,
           };
 
           latlngContent.push({
-            placeName: event.data.title,
-            lng: event.data.mapx as number,
-            lat: event.data.mapy as number,
+            placeName: data.data[i][j].content.title,
+            lng: data.data[i][j].content.mapx as number,
+            lat: data.data[i][j].content.mapy as number,
             isTrain: false,
-            contentType: event.data.travelType,
+            contentType: data.data[i][j].content.contenttypeid,
           });
 
           eventList.push(tmpData);
@@ -216,8 +210,6 @@ const SearchPage = () => {
             datetime_dep: startDate,
             taste: option,
           });
-
-          console.log(data);
           await setJourneyData(data);
           const init = new Array(data.length).fill(false);
           setDetailVisibility(init);
