@@ -5,11 +5,13 @@ import stylesMobileDefault from './MobileDefault.module.scss';
 import MapComponent from '../../components/MapComponent';
 import api from '../../api';
 
-import cafe from '../../assets/images/cafe.svg';
-import festival from '../../assets/images/festival.png';
-import mountain from '../../assets/images/tree.svg';
-import culture from '../../assets/images/culture.png';
-import activite from '../../assets/images/scooter.svg';
+import culture from '../../assets/images/contentIcon/culture.svg';
+import castle from '../../assets/images/contentIcon/castle.svg';
+import sport from '../../assets/images/contentIcon/sport.svg';
+import festival from '../../assets/images/contentIcon/festival.svg';
+import lodgment from '../../assets/images/contentIcon/lodgment.svg';
+import shopping from '../../assets/images/contentIcon/shopping.svg';
+import restaurant from '../../assets/images/contentIcon/restaurant.svg';
 import train from '../../assets/images/train.svg';
 
 import arrowDown from '../../assets/images/caret-down-fill.svg';
@@ -45,14 +47,13 @@ const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const travelTypes = [
-    ['12', culture],
+    ['12', castle],
     ['14', culture],
     ['15', festival],
-    ['25', activite],
-    ['28', activite],
-    ['32', cafe],
-    ['38', cafe],
-    ['39', cafe],
+    ['28', sport],
+    ['32', lodgment],
+    ['38', shopping],
+    ['39', restaurant],
   ];
 
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
@@ -215,16 +216,15 @@ const SearchPage = () => {
             datetime_dep: startDate,
             taste: option,
           });
-          console.log(option);
-          // const { data } = await api.post('/search/myJourney');
-          // await setJourneyData(data);
+
+          console.log(data);
+          await setJourneyData(data);
           const init = new Array(data.length).fill(false);
           setDetailVisibility(init);
           setIsLoading(false);
         } catch {
           alert('잠시후 다시 시도해 주세요');
         }
-        console.log(`${start} ${destination} ${startDate} ${option}`);
       };
       searchPath(
         location.state.start,
