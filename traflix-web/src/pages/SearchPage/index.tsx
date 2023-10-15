@@ -5,11 +5,13 @@ import stylesMobileDefault from './MobileDefault.module.scss';
 import MapComponent from '../../components/MapComponent';
 import api from '../../api';
 
-import cafe from '../../assets/images/cafe.svg';
-import festival from '../../assets/images/festival.png';
-import mountain from '../../assets/images/tree.svg';
-import culture from '../../assets/images/culture.png';
-import activite from '../../assets/images/scooter.svg';
+import culture from '../../assets/images/contentIcon/culture.svg';
+import castle from '../../assets/images/contentIcon/castle.svg';
+import sport from '../../assets/images/contentIcon/sport.svg';
+import festival from '../../assets/images/contentIcon/festival.svg';
+import lodgment from '../../assets/images/contentIcon/lodgment.svg';
+import shopping from '../../assets/images/contentIcon/shopping.svg';
+import restaurant from '../../assets/images/contentIcon/restaurant.svg';
 import train from '../../assets/images/train.svg';
 
 import arrowDown from '../../assets/images/caret-down-fill.svg';
@@ -45,14 +47,13 @@ const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const travelTypes = [
-    ['12', culture],
+    ['12', castle],
     ['14', culture],
     ['15', festival],
-    ['25', activite],
-    ['28', activite],
-    ['32', cafe],
-    ['38', cafe],
-    ['39', cafe],
+    ['28', sport],
+    ['32', lodgment],
+    ['38', shopping],
+    ['39', restaurant],
   ];
 
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
@@ -62,10 +63,6 @@ const SearchPage = () => {
 
   const [summaryData, setSummaryData] = useState<SummarySetDataType[]>([]);
 
-  const getTravelData = async (id: any) => {
-    const { data } = await api.post('/search/contentInfo', { id });
-    return data;
-  };
   const setJourneyData = async (data: any) => {
     const journeyList: (TravelCardDataType | TrainCardDataType)[][] = [];
     const summarySetList: SummarySetDataType[] = [];
@@ -120,23 +117,22 @@ const SearchPage = () => {
           }
           j++;
         } else {
-          const event = await getTravelData(data.data[i][j].content_id);
           const tmpData: TravelCardDataType = {
             isTrain: false,
-            travelType: event.data.travelType,
-            img: event.data.img,
-            title: event.data.title,
-            subtitle: event.data.subtitle,
-            load: event.data.load,
-            moreInfo: event.data.moreInfo,
+            travelType: data.data[i][j].content.contenttypeid,
+            img: data.data[i][j].content.firstimage,
+            title: data.data[i][j].content.title,
+            subtitle: ' ',
+            load: ' ',
+            moreInfo: data.data[i][j].content.contentid,
           };
 
           latlngContent.push({
-            placeName: event.data.title,
-            lng: event.data.mapx as number,
-            lat: event.data.mapy as number,
+            placeName: data.data[i][j].content.title,
+            lng: data.data[i][j].content.mapx as number,
+            lat: data.data[i][j].content.mapy as number,
             isTrain: false,
-            contentType: event.data.travelType,
+            contentType: data.data[i][j].content.contenttypeid,
           });
 
           eventList.push(tmpData);
@@ -203,17 +199,17 @@ const SearchPage = () => {
         start: string,
         destination: string,
         startDate: string,
-        option: string,
+        option: string[],
       ) => {
         try {
           setIsLoading(true);
           // 아래 api만 수정하면 이것도 될거임
-          // const { data } = await api.post('/search/myJourney', {
-          //   code: code,
-          //   email: email,
-          //   user_pw: userPw,
-          // });
-          const { data } = await api.post('/search/myJourney');
+          const { data } = await api.post('/search/findPath', {
+            station_code_dep: start,
+            station_code_arr: destination,
+            datetime_dep: startDate,
+            taste: option,
+          });
           await setJourneyData(data);
           const init = new Array(data.length).fill(false);
           setDetailVisibility(init);
@@ -221,7 +217,6 @@ const SearchPage = () => {
         } catch {
           alert('잠시후 다시 시도해 주세요');
         }
-        console.log(`${start} ${destination} ${startDate} ${option}`);
       };
       searchPath(
         location.state.start,
