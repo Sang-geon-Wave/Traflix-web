@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useRef, BaseSyntheticEvent } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import stylesMobileDefault from './MobileDefault.module.scss';
 import { Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
 import { dateFormat, dateTimeFormat } from '../../utils/dateFormat';
 import api from '../../api';
 import SelectComponent from '../SelectComponent';
+
 import { SelectCardDataType } from '../../types/SelectCardDataType';
-import cafe from '../../assets/images/cafe.svg';
-import stylesMobileDefault from './MobileDefault.module.scss';
+import imgModalSelectType12 from '../../assets/images/img_modal_select_type12.png';
+import imgModalSelectType14 from '../../assets/images/img_modal_select_type14.png';
+import imgModalSelectType15 from '../../assets/images/img_modal_select_type15.png';
+import imgModalSelectType28 from '../../assets/images/img_modal_select_type28.png';
+import imgModalSelectType32 from '../../assets/images/img_modal_select_type32.png';
+import imgModalSelectType38 from '../../assets/images/img_modal_select_type38.png';
+import imgModalSelectType39 from '../../assets/images/img_modal_select_type39.png';
 
 const SearchbarComponent: React.FunctionComponent = ({}) => {
   const { screenClass, handleOptionShow } = useRootData(
@@ -124,13 +131,13 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
   const destRef = useOutsideClick(notDestClick, destSearchBox);
 
   const modalData: SelectCardDataType[] = [
-    { tag: '12', img: cafe },
-    { tag: '14', img: cafe },
-    { tag: '15', img: '' },
-    { tag: '28', img: '' },
-    { tag: '32', img: '' },
-    { tag: '38', img: '' },
-    { tag: '39', img: '' },
+    { tag: '12', img: imgModalSelectType12 },
+    { tag: '14', img: imgModalSelectType14 },
+    { tag: '15', img: imgModalSelectType15 },
+    { tag: '28', img: imgModalSelectType28 },
+    { tag: '32', img: imgModalSelectType32 },
+    { tag: '38', img: imgModalSelectType38 },
+    { tag: '39', img: imgModalSelectType39 },
   ];
 
   return (
