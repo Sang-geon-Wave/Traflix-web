@@ -7,13 +7,14 @@ import useKakaoLoader from './useKakaoLoader';
 import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import { toJS } from 'mobx';
 
-import culture from '../../assets/images/contentIcon/culture.svg';
-import castle from '../../assets/images/contentIcon/castle.svg';
-import sport from '../../assets/images/contentIcon/sport.svg';
-import festival from '../../assets/images/contentIcon/festival.svg';
-import lodgment from '../../assets/images/contentIcon/lodgment.svg';
-import shopping from '../../assets/images/contentIcon/shopping.svg';
-import restaurant from '../../assets/images/contentIcon/restaurant.svg';
+import markerTrain from '../../assets/images/marker/marker_train.png';
+import markerType12 from '../../assets/images/marker/marker_type12.png';
+import markerType14 from '../../assets/images/marker/marker_type14.png';
+import markerType15 from '../../assets/images/marker/marker_type15.png';
+import markerType28 from '../../assets/images/marker/marker_type28.png';
+import markerType32 from '../../assets/images/marker/marker_type32.png';
+import markerType38 from '../../assets/images/marker/marker_type38.png';
+import markerType39 from '../../assets/images/marker/marker_type39.png';
 
 export interface PropsMapComponent {}
 
@@ -54,13 +55,13 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
   };
 
   const contentUrl: { [key: string]: string } = {
-    '12': castle,
-    '14': culture,
-    '15': festival,
-    '28': sport,
-    '32': lodgment,
-    '38': shopping,
-    '39': restaurant,
+    '12': markerType12,
+    '14': markerType14,
+    '15': markerType15,
+    '28': markerType28,
+    '32': markerType32,
+    '38': markerType38,
+    '39': markerType39,
   };
 
   const mapCoordinateType = (mapCoordinate: MapCoordinateDataType) => {
@@ -71,11 +72,11 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
         image={{
           src: mapCoordinate.contentType
             ? contentUrl[mapCoordinate.contentType]
-            : 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
-          size: { width: 25, height: 25 },
+            : markerTrain,
+          size: { width: 24, height: 30 },
         }}
       >
-        <div className={styles.markerText}>{mapCoordinate.placeName}</div>
+        {/* <div className={styles.markerText}>{mapCoordinate.placeName}</div> */}
       </MapMarker>
     );
   };
