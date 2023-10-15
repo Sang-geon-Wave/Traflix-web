@@ -36,9 +36,16 @@ const HeaderComponent = ({}) => {
   const navigate = useNavigate();
   const [isMenuOpen, setMenuOpen] = useState(false);
 
+  const tryLogout = async () => {
+    setMenuOpen(false);
+    await logout();
+    navigate('/');
+  };
+
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+
   return (
     <div className={styles.header}>
       <LoginModalPage />
@@ -80,8 +87,7 @@ const HeaderComponent = ({}) => {
             {isLogin && (
               <div
                 onClick={() => {
-                  setMenuOpen(false);
-                  logout();
+                  tryLogout();
                 }}
                 className={styles.options}
               >
@@ -92,7 +98,7 @@ const HeaderComponent = ({}) => {
               <div
                 className={styles.options}
                 onClick={() => {
-                  navigate('/directions');
+                  navigate('/myPage');
                   setMenuOpen(false);
                 }}
               >

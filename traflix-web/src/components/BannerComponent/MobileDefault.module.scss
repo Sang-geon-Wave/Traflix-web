@@ -1,8 +1,12 @@
 @import '../../assets/scsses/config';
 
 .banner {
-  height: 50vw;
+  height: 60vh;
   overflow: hidden;
+}
+
+.mainCarousel {
+  height: 100%;
 }
 
 .imgBox {
@@ -13,4 +17,6 @@
 
 .imageFit {
   width: 100%;
+  height: 60vh;
+  object-fit: cover;
 }

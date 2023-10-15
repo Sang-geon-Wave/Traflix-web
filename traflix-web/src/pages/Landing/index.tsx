@@ -28,7 +28,7 @@ const LandingPage = () => {
       <Row>
         <BannerComponent />
         <div className={styles.searchBarArea}>
-          <img src={bannerstring} />
+          <img src={bannerstring} className={styles.sloganImage} />
           <SearchbarComponent />
         </div>
       </Row>

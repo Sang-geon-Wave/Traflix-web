@@ -2,8 +2,9 @@ import axios from 'axios';
 import HttpStatus from 'http-status-codes';
 import store from '../stores/auth';
 
+// REACT_APP_BASE_URL
 const instance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: `${process.env.REACT_APP_BASE_API_URL}`,
   withCredentials: true,
   headers: { 'Content-type': 'application/json' },
 });
