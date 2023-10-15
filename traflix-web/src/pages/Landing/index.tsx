@@ -34,7 +34,7 @@ const LandingPage = () => {
       </Row>
       <Row>
         <div className={styles.hotSpotContainer}>
-          <h3>가장 HOT 한 방문지</h3>
+          <h2 className="font-bold">가장 HOT🔥한 방문지</h2>
           <CardCarouselComponent cardData={cardData} />
         </div>
       </Row>

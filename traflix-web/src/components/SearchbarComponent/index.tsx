@@ -143,8 +143,8 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
   return (
     <div className={styles.main}>
       <SelectComponent
-        start={stationMap.get(start)}
-        destination={stationMap.get(destination)}
+        start={stationMap.get(start)!}
+        destination={stationMap.get(destination)!}
         startDate={startDate}
         selectCardData={modalData}
       />
