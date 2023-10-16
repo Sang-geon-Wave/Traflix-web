@@ -12,7 +12,6 @@ import imgModalSelectType12 from '../../assets/images/img_modal_select_type12.pn
 import imgModalSelectType14 from '../../assets/images/img_modal_select_type14.png';
 import imgModalSelectType15 from '../../assets/images/img_modal_select_type15.png';
 import imgModalSelectType28 from '../../assets/images/img_modal_select_type28.png';
-import imgModalSelectType32 from '../../assets/images/img_modal_select_type32.png';
 import imgModalSelectType38 from '../../assets/images/img_modal_select_type38.png';
 import imgModalSelectType39 from '../../assets/images/img_modal_select_type39.png';
 
@@ -135,7 +134,6 @@ const SearchbarComponent: React.FunctionComponent = ({}) => {
     { tag: '14', img: imgModalSelectType14 },
     { tag: '15', img: imgModalSelectType15 },
     { tag: '28', img: imgModalSelectType28 },
-    { tag: '32', img: imgModalSelectType32 },
     { tag: '38', img: imgModalSelectType38 },
     { tag: '39', img: imgModalSelectType39 },
   ];

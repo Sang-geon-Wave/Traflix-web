@@ -133,6 +133,7 @@ const SearchPage = () => {
             lat: data.data[i][j].content.mapy as number,
             isTrain: false,
             contentType: data.data[i][j].content.contenttypeid,
+            contentId: data.data[i][j].content.contentid,
           });
 
           eventList.push(tmpData);
