@@ -15,14 +15,19 @@ import markerType28 from '../../assets/images/marker/marker_type28.png';
 import markerType32 from '../../assets/images/marker/marker_type32.png';
 import markerType38 from '../../assets/images/marker/marker_type38.png';
 import markerType39 from '../../assets/images/marker/marker_type39.png';
+import api from '../../api';
+import contentModal from '../../stores/contentModal';
 
 export interface PropsMapComponent {}
 
 const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
-  const { screenClass, places } = useRootData(({ appStore, map }) => ({
-    screenClass: appStore.screenClass.get(),
-    places: toJS(map.places),
-  }));
+  const { screenClass, places, handleContentShow } = useRootData(
+    ({ appStore, map }) => ({
+      screenClass: appStore.screenClass.get(),
+      places: toJS(map.places),
+      handleContentShow: contentModal.handleContentShow,
+    }),
+  );
   useKakaoLoader();
 
   const isDesktop = screenClass === 'xl';
@@ -64,6 +69,15 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
     '39': markerType39,
   };
 
+  const setDetailModal = async (contentid: String, contentTypeId: String) => {
+    const { data } = await api.post('/search/contentDetail', {
+      content_id: contentid,
+      content_type_id: contentTypeId,
+    });
+
+    handleContentShow(data.detail);
+  };
+
   const mapCoordinateType = (mapCoordinate: MapCoordinateDataType) => {
     return (
       <MapMarker
@@ -75,6 +89,15 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
             : markerTrain,
           size: { width: 24, height: 30 },
         }}
+        clickable={true}
+        onClick={() =>
+          mapCoordinate.contentType
+            ? setDetailModal(
+                mapCoordinate.contentId ?? '0',
+                mapCoordinate.contentType,
+              )
+            : {}
+        }
       >
         {/* <div className={styles.markerText}>{mapCoordinate.placeName}</div> */}
       </MapMarker>

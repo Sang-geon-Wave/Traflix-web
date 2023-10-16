@@ -4,4 +4,5 @@ export interface MapCoordinateDataType {
   lng: number;
   isTrain: boolean;
   contentType?: string;
+  contentId?: string;
 }
