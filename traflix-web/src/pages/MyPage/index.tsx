@@ -218,97 +218,95 @@ const DirectionPage = () => {
 
   const contents = () => {
     return (
-      <div>
-        <Suspense fallback={<LoadingComponent />}>
+      <div className="h-100">
+        <div className={styles.main}>
           {isLoading ? <LoadingComponent /> : <></>}
-          <div className={styles.main}>
-            {summaryData.map((Data, i) => (
-              <div className={styles.summaryBox} key={i}>
-                <SummaryComponent
-                  date={new Date(Data.journeyDate)}
-                  summaryData={Data.summaryData}
-                />
-                {detailVisibility[i] ? (
-                  <img src={arrowUp} onClick={() => updateIndex(i)} />
-                ) : (
-                  <img src={arrowDown} onClick={() => updateIndex(i)} />
-                )}
-                {detailVisibility[i] ? (
-                  <div className={styles.detailBox}>
-                    {eventData[i].map(
-                      (
-                        element: TravelCardDataType | TrainCardDataType,
-                        index,
-                      ) => (
-                        <div key={index}>
-                          {element.isTrain ? (
-                            <div>
-                              <img className={styles.icon} src={train} />
-                              <TrainCardComponent
-                                isTrain={true}
-                                trainType={
-                                  (element as TrainCardDataType).trainType
-                                }
-                                trainNumber={
-                                  (element as TrainCardDataType).trainNumber
-                                }
-                                departureStation={
-                                  (element as TrainCardDataType)
-                                    .departureStation
-                                }
-                                arrivalStation={
-                                  (element as TrainCardDataType).arrivalStation
-                                }
-                                departureTime={(
-                                  element as TrainCardDataType
-                                ).departureTime.substring(0, 5)}
-                                arrivalTime={(
-                                  element as TrainCardDataType
-                                ).arrivalTime.substring(0, 5)}
-                              />
-                            </div>
-                          ) : (
-                            <div className={styles.main} key={index}>
-                              {travelTypes.map(
-                                (travelType: any, idx) =>
-                                  travelType[0] ===
-                                    (element as TravelCardDataType)
-                                      .travelType && (
-                                    <img
-                                      className={styles.icon}
-                                      src={travelType[1]}
-                                      key={`${travelType[0]}${idx}`}
-                                    />
-                                  ),
-                              )}
-                              <TravelCardComponent
-                                isTrain={true}
-                                title={(element as TravelCardDataType).title}
-                                subtitle={
-                                  (element as TravelCardDataType).subtitle
-                                }
-                                img={(element as TravelCardDataType).img}
-                                load={(element as TravelCardDataType).load}
-                                moreInfo={
-                                  (element as TravelCardDataType).moreInfo
-                                }
-                                travelType={
-                                  (element as TravelCardDataType).travelType
-                                }
-                              />
-                            </div>
-                          )}
-                        </div>
-                      ),
-                    )}
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            ))}
-          </div>
-        </Suspense>
+          {summaryData.map((Data, i) => (
+            <div className={styles.summaryBox} key={i}>
+              <SummaryComponent
+                date={new Date(Data.journeyDate)}
+                summaryData={Data.summaryData}
+              />
+              {detailVisibility[i] ? (
+                <img src={arrowUp} onClick={() => updateIndex(i)} />
+              ) : (
+                <img src={arrowDown} onClick={() => updateIndex(i)} />
+              )}
+              {detailVisibility[i] ? (
+                <div className={styles.detailBox}>
+                  {eventData[i].map(
+                    (
+                      element: TravelCardDataType | TrainCardDataType,
+                      index,
+                    ) => (
+                      <div key={index}>
+                        {element.isTrain ? (
+                          <div>
+                            <img className={styles.icon} src={train} />
+                            <TrainCardComponent
+                              isTrain={true}
+                              trainType={
+                                (element as TrainCardDataType).trainType
+                              }
+                              trainNumber={
+                                (element as TrainCardDataType).trainNumber
+                              }
+                              departureStation={
+                                (element as TrainCardDataType).departureStation
+                              }
+                              arrivalStation={
+                                (element as TrainCardDataType).arrivalStation
+                              }
+                              departureTime={(
+                                element as TrainCardDataType
+                              ).departureTime.substring(0, 5)}
+                              arrivalTime={(
+                                element as TrainCardDataType
+                              ).arrivalTime.substring(0, 5)}
+                            />
+                          </div>
+                        ) : (
+                          <div className={styles.main} key={index}>
+                            {travelTypes.map(
+                              (travelType: any, idx) =>
+                                travelType[0] ===
+                                  (element as TravelCardDataType)
+                                    .travelType && (
+                                  <img
+                                    className={styles.icon}
+                                    src={travelType[1]}
+                                    key={`${travelType[0]}${idx}`}
+                                  />
+                                ),
+                            )}
+                            <TravelCardComponent
+                              isTrain={true}
+                              title={(element as TravelCardDataType).title}
+                              subtitle={
+                                (element as TravelCardDataType).subtitle
+                              }
+                              img={(element as TravelCardDataType).img}
+                              load={(element as TravelCardDataType).load}
+                              moreInfo={
+                                (element as TravelCardDataType).moreInfo
+                              }
+                              travelType={
+                                (element as TravelCardDataType).travelType
+                              }
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ),
+                  )}
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+          ))}
+        </div>
+
         <ContentDetailModalComponent />
       </div>
     );

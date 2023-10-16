@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
@@ -23,11 +23,16 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
     screenClass: appStore.screenClass.get(),
     places: toJS(map.places),
   }));
+  const isDesktop = screenClass === 'xl';
+  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
   useKakaoLoader();
 
-  const isDesktop = screenClass === 'xl';
-
-  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const mapRef = useRef<kakao.maps.Map>(null);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (map) map.relayout();
+  }, [screenClass]);
 
   const pathCoordinates = places;
   const [mapStyle, setMapStyle] = useState({
@@ -110,6 +115,8 @@ const MapComponent: React.FunctionComponent<PropsMapComponent> = ({}) => {
         center={{ lat: centerCoordinate.lat, lng: centerCoordinate.lng }}
         style={mapStyle}
         level={12}
+        draggable={true}
+        ref={mapRef}
       >
         <ZoomControl position={'TOPRIGHT'} />
         {pathCoordinates.map((pathCoordinate, idx) =>
