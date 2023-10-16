@@ -227,134 +227,11 @@ const SearchPage = () => {
     }, [location]);
   }
 
-  if (!isDesktop) {
-    const { sheet, content } = useBottomSheet();
+  const { sheet, content } = useBottomSheet();
 
+  const contents = () => {
     return (
-      <div className={styles.pageContainer}>
-        <div className={styles.navbarContainer}>
-          <HeaderComponent />
-        </div>
-        <motion.div className={styles.bottomSheet} ref={sheet}>
-          <div className={styles.bottomSheetHeader}>
-            <div className={styles.handle} />
-          </div>
-          <div className={styles.bottomSheetContent}>
-            <div ref={content}>
-              <Suspense fallback={<LoadingComponent />}>
-                {isLoading ? <LoadingComponent /> : <></>}
-                <div className={styles.main}>
-                  {summaryData.map((Data, i) => (
-                    <div className={styles.summaryBox} key={i}>
-                      <SummaryComponent
-                        date={new Date(Data.journeyDate)}
-                        summaryData={Data.summaryData}
-                      />
-                      {detailVisibility[i] ? (
-                        <img src={arrowUp} onClick={() => updateIndex(i)} />
-                      ) : (
-                        <img src={arrowDown} onClick={() => updateIndex(i)} />
-                      )}
-                      {detailVisibility[i] ? (
-                        <div className={styles.detailBox}>
-                          {eventData[i].map(
-                            (
-                              element: TravelCardDataType | TrainCardDataType,
-                              index,
-                            ) => (
-                              <div key={index}>
-                                {element.isTrain ? (
-                                  <div>
-                                    <img className={styles.icon} src={train} />
-                                    <TrainCardComponent
-                                      isTrain={true}
-                                      trainType={
-                                        (element as TrainCardDataType).trainType
-                                      }
-                                      trainNumber={
-                                        (element as TrainCardDataType)
-                                          .trainNumber
-                                      }
-                                      departureStation={
-                                        (element as TrainCardDataType)
-                                          .departureStation
-                                      }
-                                      arrivalStation={
-                                        (element as TrainCardDataType)
-                                          .arrivalStation
-                                      }
-                                      departureTime={(
-                                        element as TrainCardDataType
-                                      ).departureTime.substring(0, 5)}
-                                      arrivalTime={(
-                                        element as TrainCardDataType
-                                      ).arrivalTime.substring(0, 5)}
-                                    />
-                                  </div>
-                                ) : (
-                                  <div className={styles.main} key={index}>
-                                    {travelTypes.map(
-                                      (travelType: any, idx) =>
-                                        travelType[0] ===
-                                          (element as TravelCardDataType)
-                                            .travelType && (
-                                          <img
-                                            className={styles.icon}
-                                            src={travelType[1]}
-                                            key={`${travelType[0]}${idx}`}
-                                          />
-                                        ),
-                                    )}
-                                    <TravelCardComponent
-                                      isTrain={true}
-                                      title={
-                                        (element as TravelCardDataType).title
-                                      }
-                                      subtitle={
-                                        (element as TravelCardDataType).subtitle
-                                      }
-                                      img={(element as TravelCardDataType).img}
-                                      load={
-                                        (element as TravelCardDataType).load
-                                      }
-                                      moreInfo={
-                                        (element as TravelCardDataType).moreInfo
-                                      }
-                                      travelType={
-                                        (element as TravelCardDataType)
-                                          .travelType
-                                      }
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                            ),
-                          )}
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </Suspense>
-              <ContentDetailModalComponent />
-            </div>
-          </div>
-        </motion.div>
-        <div className={styles.mapContainer}>
-          <MapComponent></MapComponent>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className={styles.pageContainer}>
-      <div className={styles.navbarContainer}>
-        <HeaderComponent />
-      </div>
-      <div className={styles.cardItemsContainer}>
+      <div>
         <Suspense fallback={<LoadingComponent />}>
           {isLoading ? <LoadingComponent /> : <></>}
           <div className={styles.main}>
@@ -447,6 +324,30 @@ const SearchPage = () => {
         </Suspense>
         <ContentDetailModalComponent />
       </div>
+    );
+  };
+
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.navbarContainer}>
+        <HeaderComponent />
+      </div>
+      {isDesktop ? (
+        <div className={styles.cardItemsContainer}>
+          {contents()}
+          <div ref={sheet} />
+          <div ref={content} />
+        </div>
+      ) : (
+        <motion.div className={styles.bottomSheet} ref={sheet}>
+          <div className={styles.bottomSheetHeader}>
+            <div className={styles.handle} />
+          </div>
+          <div className={styles.bottomSheetContent}>
+            <div ref={content}>{contents()}</div>
+          </div>
+        </motion.div>
+      )}
       <div className={styles.mapContainer}>
         <MapComponent></MapComponent>
       </div>

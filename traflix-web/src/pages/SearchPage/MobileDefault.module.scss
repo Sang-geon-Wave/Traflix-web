@@ -48,9 +48,9 @@
 }
 
 .bottomSheetContent {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   overflow-y: scroll;
+  //-webkit-overflow-scrolling: touch;
 }
 
 .navbarContainer {
