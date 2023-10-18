@@ -73,7 +73,7 @@ const SelectComponent: React.FunctionComponent<PropsSelectComponent> = ({
         <Modal.Body>
           <div className={styles.title}>선호하는 여행 취향을 골라주세요!</div>
           <div className={styles.subTitle}>
-            총 <span>{selectedOptions.length}</span>/7개 선택됨
+            총 <span>{selectedOptions.length}</span>/6개 선택됨
           </div>
           <div className={styles.cardBox}>
             {selectCardData.map((selectCardData) => (
