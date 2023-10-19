@@ -68,4 +68,9 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     fallback: { fs: false, path: false, os: false },
   },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
 };
