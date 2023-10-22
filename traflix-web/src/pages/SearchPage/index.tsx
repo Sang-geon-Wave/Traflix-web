@@ -34,11 +34,12 @@ import { motion } from 'framer-motion';
 import useBottomSheet from '../../hooks/useBottomSheet';
 
 const SearchPage = () => {
-  const { screenClass, isLogin, handleMappAdd } = useRootData(
+  const { screenClass, isLogin, handleMapAdd, handleMapClear } = useRootData(
     ({ appStore, authStore, map }) => ({
       screenClass: appStore.screenClass.get(),
       isLogin: authStore.isLogin.get(),
-      handleMappAdd: map.handleMapAdd,
+      handleMapAdd: map.handleMapAdd,
+      handleMapClear: map.handleMapClear,
     }),
   );
   const isDesktop = screenClass === 'xl';
@@ -55,6 +56,10 @@ const SearchPage = () => {
     ['38', shopping],
     ['39', restaurant],
   ];
+
+  useEffect(() => {
+    handleMapClear();
+  }, []);
 
   const [detailVisibility, setDetailVisibility] = useState<boolean[]>([]);
   const [eventData, setEventData] = useState<
@@ -153,7 +158,7 @@ const SearchPage = () => {
         ...latlngContent,
       ];
 
-      handleMappAdd(combinedArray);
+      handleMapAdd(combinedArray);
 
       if (dep === '') {
         summaryList.push({
