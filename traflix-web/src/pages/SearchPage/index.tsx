@@ -32,6 +32,7 @@ import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useBottomSheet from '../../hooks/useBottomSheet';
+import { Button } from 'react-bootstrap';
 
 const SearchPage = () => {
   const { screenClass, isLogin, handleMapAdd, handleMapClear } = useRootData(
@@ -198,6 +199,20 @@ const SearchPage = () => {
     setDetailVisibility(update);
   };
 
+  const handleSaveJourney = async (dataIdx: number) => {
+    console.log(eventData[dataIdx]);
+    console.log(summaryData[dataIdx]);
+    const journeyDate = summaryData[dataIdx].journeyDate;
+    if (!isLogin) alert('로그인이 필요한 서비스입니다.');
+    else {
+      // saveJourney
+      const { data } = await api.post('/search/saveJourney', {
+        summaryData: summaryData[dataIdx],
+        cardData: eventData[dataIdx],
+      });
+    }
+  };
+
   const location = useLocation();
   if (location.state) {
     useEffect(() => {
@@ -318,6 +333,14 @@ const SearchPage = () => {
                       </div>
                     ),
                   )}
+                  <div>
+                    <Button
+                      variant="success"
+                      onClick={() => handleSaveJourney(i)}
+                    >
+                      일정 저장
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <></>
