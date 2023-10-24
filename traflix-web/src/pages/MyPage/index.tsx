@@ -87,31 +87,31 @@ const DirectionPage = () => {
 
       for (let j = 0; j < data.data[i].length; j++) {
         if (data.data[i][j].is_train === 1) {
-          const departure = data.data[i][j];
-          const arrival = data.data[i][j + 1];
+          const station = data.data[i][j];
           if (latlngTrain.length === 0) {
             latlngTrain.push({
-              placeName: departure.station_name,
-              lat: departure.station_latitude,
-              lng: departure.station_longitude,
+              placeName: station.departure_station_name,
+              lat: station.departure_station_latitude,
+              lng: station.departure_station_longitude,
               isTrain: true,
             });
           }
+
           latlngTrain.push({
-            placeName: arrival.station_name,
-            lat: arrival.station_latitude,
-            lng: arrival.station_longitude,
+            placeName: station.arrival_station_name,
+            lat: station.arrival_station_latitude,
+            lng: station.arrival_station_longitude,
             isTrain: true,
           });
 
           const tmpData: TrainCardDataType = {
             isTrain: true,
-            trainType: departure.train_type,
-            trainNumber: departure.train_number,
-            departureStation: departure.station_name,
-            arrivalStation: arrival.station_name,
-            departureTime: departure.stop_time,
-            arrivalTime: arrival.stop_time,
+            trainType: station.train_type,
+            trainNumber: station.train_number,
+            departureStation: station.departure_station_name,
+            arrivalStation: station.arrival_station_name,
+            departureTime: station.departure_time,
+            arrivalTime: station.arrival_time,
           };
           eventList.push(tmpData);
 

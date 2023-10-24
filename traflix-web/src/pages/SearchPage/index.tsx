@@ -32,6 +32,7 @@ import { MapCoordinateDataType } from '../../types/MapCoordinateDataType';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useBottomSheet from '../../hooks/useBottomSheet';
+import { Button } from 'react-bootstrap';
 
 const SearchPage = () => {
   const { screenClass, isLogin, handleMapAdd, handleMapClear } = useRootData(
@@ -198,6 +199,21 @@ const SearchPage = () => {
     setDetailVisibility(update);
   };
 
+  const handleSaveJourney = async (dataIdx: number) => {
+    const journeyDate = summaryData[dataIdx].journeyDate;
+    if (!isLogin) alert('로그인이 필요한 서비스입니다.');
+    else {
+      // saveJourney
+      const { data } = await api.post('/search/saveJourney', {
+        summaryData: summaryData[dataIdx],
+        cardData: eventData[dataIdx],
+      });
+
+      if (data.status === 201) alert('저장 완료!');
+      else alert('잠시후에 다시 시도해주세요!!');
+    }
+  };
+
   const location = useLocation();
   if (location.state) {
     useEffect(() => {
@@ -209,7 +225,6 @@ const SearchPage = () => {
       ) => {
         try {
           setIsLoading(true);
-          // 아래 api만 수정하면 이것도 될거임
           const { data } = await api.post('/search/findPath', {
             station_code_dep: start,
             station_code_arr: destination,
@@ -318,6 +333,14 @@ const SearchPage = () => {
                       </div>
                     ),
                   )}
+                  <div>
+                    <Button
+                      variant="success"
+                      onClick={() => handleSaveJourney(i)}
+                    >
+                      일정 저장
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <></>
