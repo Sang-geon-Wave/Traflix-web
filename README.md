@@ -15,5 +15,5 @@ https://github.com/user-attachments/assets/0661cde5-8041-4f78-9cf7-6c0ad9d5a941
 
 ## 프로젝트 서비스 구조
 ![3](https://github.com/user-attachments/assets/0f976eb7-7903-45d1-bc42-2f0827ddb47d)
-
+<a href="https://aws.amazon.com/what-is-cloud-computing"><img src="https://d1.awsstatic.com/logos/aws-logo-lockups/poweredbyaws/PB_AWS_logo_RGB_REV_SQ.8c88ac215fe4e441dc42865dd6962ed4f444a90d.png" alt="Powered by AWS Cloud Computing" width="200px"></a>
 > 본 프로젝트는 교육부의 2023년 대학혁신지원사업의 지원을 받아 수행되었음.
